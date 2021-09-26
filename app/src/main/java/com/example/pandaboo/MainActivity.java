@@ -13,4 +13,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Mich is gonna write some stuff here to test out github so dont mind all this random comments it doesnt matter
+
+    //If you can see this comment in Android Studio then text Mich about it
 }
