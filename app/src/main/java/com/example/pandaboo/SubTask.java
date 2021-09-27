@@ -9,4 +9,5 @@ public class SubTask {
     private String priority;
     private boolean doneStatus;
 
+    //Getters
 }
