@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "927998147719",
+    "project_id": "pandaboodcs",
+    "storage_bucket": "pandaboodcs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927998147719:android:5d8a28c92f5e84b0630c22",
+        "android_client_info": {
+          "package_name": "com.example.pandaboo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927998147719-ngp2ds21k613ac11q2fvq2kg7r1kqg05.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYkew-ipqs1B8mgunB2neAJcUbIwZKIto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927998147719-ngp2ds21k613ac11q2fvq2kg7r1kqg05.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
