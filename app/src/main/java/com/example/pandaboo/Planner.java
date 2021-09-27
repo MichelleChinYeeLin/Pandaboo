@@ -1,6 +1,15 @@
 package com.example.pandaboo;
 
-public class Planner {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Planner extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.planner.xml);
+    }
     //private attributes
     private String eventTitle;
     private String eventDetails;
