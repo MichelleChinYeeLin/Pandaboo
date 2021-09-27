@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    //Mich is gonna write some stuff here to test out github so dont mind all this random comments it doesnt matter
+    //This is CTT speaking here
 
     //If you can see this comment in Android Studio then text Mich about it
 }
