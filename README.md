@@ -1,4 +1,5 @@
 # Pandaboo
 Capstone Project Pandaboo Mobile Application
 
-This branch will contain the main program for the Pandaboo Mobile Application. Before changes are commited to the main branch, they will be reviewed.
+This master branch will have the commits that are requested, they will be reviewed here before merging with the main branch.
+
