@@ -1,8 +1,20 @@
 package com.example.pandaboo;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Date;
 
-public class Event {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Event extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);5
+        setContentView(R.layout.event);
+    }
 
     private String eventTitle;
     private String eventDetails;
