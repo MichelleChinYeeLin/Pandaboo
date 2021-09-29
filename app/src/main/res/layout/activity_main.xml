@@ -1,18 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#69868E">
+
+    <ImageView
+        android:id="@+id/pandabooLogo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/pandatransparent"
+        android:contentDescription="Pandaboo Logo">
+    </ImageView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#FDFBD1"
+        android:text="Pandaboo"
+        android:textSize="50sp"
+        android:layout_below="@+id/pandabooLogo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/pandabooTitle">
+    </TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:text="Login"
+        android:layout_below="@id/pandabooTitle"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/loginText">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:text="Sign in to your account"
+        android:id="@id/signInText"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:layout_below="@id/loginText">
+    </TextView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signInText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/userNameIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/userNameLogo_foreground"
+                android:contentDescription="Username Icon">
+            </ImageView>
+
+            <EditText
+                android:id="@+id/editUserName"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/userNameIcon"
+                android:hint="Username"
+                android:textColor="@color/white"
+                android:inputType="text">
+            </EditText>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="65dp">
+
+            <ImageView
+                android:id="@+id/passwordIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/passwordLogo_foreground"
+                android:contentDescription="Password Icon">
+            </ImageView>
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/passwordIcon"
+                android:hint="Password"
+                android:textColor="@color/white"
+                android:inputType="text">
+            </EditText>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/signInText"
+        android:layout_marginTop="130dp"
+        android:text="Login"
+        android:textStyle="bold"
+        android:backgroundTint="#96DED0"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:id="@+id/loginButton">
+    </Button>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I forgot my password."
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:id="@+id/forgotPasswordText">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/forgotPasswordText"
+            android:text="Click here to reset."
+            android:textColor="@color/white"
+            android:textStyle="bold">
+        </TextView>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/loginButton"
+        android:layout_marginTop="50dp"
+        android:text="Register New Account"
+        android:backgroundTint="#69868E">
+    </Button>
+
+</RelativeLayout>
