@@ -18,4 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Dar was here idk if anyone can see this besides me
 
+    //Pad is watching all this from a corner of a room
+
 }
