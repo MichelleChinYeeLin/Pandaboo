@@ -15,4 +15,7 @@ public class MainActivity extends AppCompatActivity {
     //This is CTT speaking here
 
     //If you can see this comment in Android Studio then text Mich about it
+
+    //Dar was here idk if anyone can see this besides me
+
 }
