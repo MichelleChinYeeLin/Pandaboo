@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Pandaboo</string>
+    <string name="pandaboo_logo">Pandaboo Logo</string>
+    <string name="login_text">Login</string>
+    <string name="sign_in_to_your_account_text">Sign in to your account</string>
+    <string name="username_icon">Username Icon</string>
+    <string name="username_text">Username</string>
+    <string name="password_icon">Password Icon</string>
+    <string name="password_text">Password</string>
+    <string name="i_forgot_my_password_text">I forgot my password.</string>
+    <string name="click_here_to_reset_text">Click here to reset.</string>
+    <string name="register_new_account_text">Register New Account</string>
 </resources>
