@@ -10,4 +10,7 @@
     <string name="i_forgot_my_password_text">I forgot my password.</string>
     <string name="click_here_to_reset_text">Click here to reset.</string>
     <string name="register_new_account_text">Register New Account</string>
+    <string name="start_button">START</string>
+    <string name="music_icon_not_muted">Music Icon(Not Muted)</string>
+    <string name="timer_icon">Timer Icon</string>
 </resources>

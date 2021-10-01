@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#69868E">
+    android:background="@color/airforceblue">
 
     <ImageView
         android:id="@+id/pandabooLogo"
@@ -68,10 +68,11 @@
                 android:id="@+id/userNameIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/username_icon"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/username_icon"
-                android:layout_centerVertical="true">
-            </ImageView>
+                android:src="@drawable/username_icon"
+                app:tint="@color/black"
+                android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:id="@+id/editUserName"
@@ -81,6 +82,7 @@
                 android:layout_toRightOf="@+id/userNameIcon"
                 android:layout_toEndOf="@+id/userNameIcon"
                 android:hint="@string/username_text"
+                android:textColorHint="@color/gray"
                 android:autofillHints="username"
                 android:textColor="@color/black"
                 android:inputType="text">
@@ -98,10 +100,11 @@
                 android:id="@+id/passwordIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/password_icon"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/password_icon"
-                android:layout_centerVertical="true">
-            </ImageView>
+                android:src="@drawable/password_icon"
+                app:tint="@color/black"
+                android:layout_marginLeft="10dp"></ImageView>
 
             <EditText
                 android:id="@+id/editPassword"
@@ -111,6 +114,7 @@
                 android:layout_toRightOf="@+id/passwordIcon"
                 android:layout_toEndOf="@+id/passwordIcon"
                 android:hint="@string/password_text"
+                android:textColorHint="@color/gray"
                 android:autofillHints="password"
                 android:textColor="@color/black"
                 android:inputType="textPassword">
@@ -131,8 +135,7 @@
         app:backgroundTint="#96DED0"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:id="@+id/loginButton"
-        android:onClick="login">
+        android:id="@+id/loginButton">
     </Button>
 
     <RelativeLayout
@@ -169,7 +172,7 @@
         android:layout_below="@id/loginButton"
         android:layout_marginTop="50dp"
         android:text="@string/register_new_account_text"
-        app:backgroundTint="#69868E">
+        app:backgroundTint="@color/airforceblue">
     </Button>
 
 </RelativeLayout>
