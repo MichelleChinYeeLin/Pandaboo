@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/olivegreen">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/music_icon"
+            android:layout_centerVertical="true">
+        </ImageView>
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="#EEEDCE">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/timer_icon"
+                android:id="@+id/timerIcon"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/timerIcon"
+                android:layout_toEndOf="@+id/timerIcon"
+                android:id="@+id/timerCountdown"
+                android:textSize="40sp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:backgroundTint="#D03535"
+        android:text="START"
+        android:textSize="20sp"
+        android:id="@+id/startButton">
+    </Button>
 
 </RelativeLayout>
