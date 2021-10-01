@@ -12,7 +12,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
 
     private Button startButton;
     private TextView timerCountdown;
-    //public int counter = 3000;
+    public int counter = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,11 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.startButton:
-                //startTimer();
+                startTimer();
         }
     }
 
-    /*public void startTimer(){
+    public void startTimer(){
 
         timerCountdown = findViewById(R.id.timerCountdown);
 
@@ -45,5 +45,5 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
                 timerCountdown.setText("Done!");
             }
         }.start();
-    }*/
+    }
 }

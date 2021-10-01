@@ -14,7 +14,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/music_icon"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/music_icon_not_muted">
         </ImageView>
 
         <RelativeLayout
@@ -29,7 +30,9 @@
                 android:src="@drawable/timer_icon"
                 android:id="@+id/timerIcon"
                 android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp">
+                android:layout_marginLeft="15dp"
+                app:tint="@color/black"
+                android:contentDescription="@string/timer_icon">
             </ImageView>
 
             <TextView
@@ -54,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:backgroundTint="#D03535"
-        android:text="START"
+        android:text="@string/start_button"
         android:textSize="20sp"
         android:id="@+id/startButton">
     </Button>
