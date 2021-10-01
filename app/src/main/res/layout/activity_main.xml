@@ -66,10 +66,11 @@
 
             <ImageView
                 android:id="@+id/userNameIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/userNameLogo_foreground"
-                android:contentDescription="@string/username_icon">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/username_icon"
+                android:contentDescription="@string/username_icon"
+                android:layout_centerVertical="true">
             </ImageView>
 
             <EditText
@@ -81,7 +82,7 @@
                 android:layout_toEndOf="@+id/userNameIcon"
                 android:hint="@string/username_text"
                 android:autofillHints="username"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:inputType="text">
             </EditText>
 
@@ -95,10 +96,11 @@
 
             <ImageView
                 android:id="@+id/passwordIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/passwordLogo_foreground"
-                android:contentDescription="@string/password_icon">
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/password_icon"
+                android:contentDescription="@string/password_icon"
+                android:layout_centerVertical="true">
             </ImageView>
 
             <EditText
@@ -110,7 +112,7 @@
                 android:layout_toEndOf="@+id/passwordIcon"
                 android:hint="@string/password_text"
                 android:autofillHints="password"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:inputType="textPassword">
             </EditText>
 
@@ -129,7 +131,8 @@
         app:backgroundTint="#96DED0"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:id="@+id/loginButton">
+        android:id="@+id/loginButton"
+        android:onClick="login">
     </Button>
 
     <RelativeLayout

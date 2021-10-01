@@ -3,6 +3,7 @@ package com.example.pandaboo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,12 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    //This is CTT speaking here
+    public void login(View view) {
 
-    //If you can see this comment in Android Studio then text Mich about it
-
-    //Have i made it to the branch (Dar)
-
-    //Pad is watching all this from a corner of a room
-
+    }
 }
