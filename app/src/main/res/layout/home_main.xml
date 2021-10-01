@@ -13,9 +13,10 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/music_icon"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/music_icon_not_muted">
+            android:contentDescription="@string/music_icon_not_muted"
+            android:src="@drawable/music_icon"
+            app:tint="@color/black">
         </ImageView>
 
         <RelativeLayout
@@ -56,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:backgroundTint="#D03535"
+        app:backgroundTint=""
         android:text="@string/start_button"
         android:textSize="20sp"
         android:id="@+id/startButton">
