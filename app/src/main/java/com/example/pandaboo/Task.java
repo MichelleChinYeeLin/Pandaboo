@@ -1,14 +1,24 @@
 package com.example.pandaboo;
 
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Date;
 
-public class Task {
+public class Task extends AppCompatActivity {
 
     private String mainTitle;
     private Date dueDate;
     private String priority;
     private boolean doneStatus;
     private SubTask subTask[];
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.task);
+    }
 
     //Default Constructor (No subTask added)
     public Task(){
