@@ -13,5 +13,4 @@
     <string name="start_button">START</string>
     <string name="music_icon_not_muted">Music Icon(Not Muted)</string>
     <string name="timer_icon">Timer Icon</string>
-    <string name="set_timer_text">Set Timer</string>
 </resources>
