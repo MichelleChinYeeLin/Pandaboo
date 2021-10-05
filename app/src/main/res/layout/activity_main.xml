@@ -79,14 +79,13 @@
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:layout_toRightOf="@+id/userNameIcon"
                 android:layout_toEndOf="@+id/userNameIcon"
-                android:hint="@string/username_text"
-                android:textColorHint="@color/gray"
+                android:layout_toRightOf="@+id/userNameIcon"
                 android:autofillHints="username"
+                android:hint="@string/username_text"
+                android:inputType="text"
                 android:textColor="@color/black"
-                android:inputType="text">
-            </EditText>
+                android:textColorHint="@color/gray"></EditText>
 
         </RelativeLayout>
 
@@ -125,18 +124,17 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/loginButton"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/signInText"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:text="@string/login_text"
-        android:textStyle="bold"
-        app:backgroundTint="#96DED0"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:id="@+id/loginButton">
-    </Button>
+        android:textStyle="bold"
+        app:backgroundTint="#96DED0"></Button>
 
     <RelativeLayout
         android:layout_width="wrap_content"
