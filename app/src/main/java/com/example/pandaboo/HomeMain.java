@@ -17,6 +17,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
     private Button eventButton;
     private Button tasksButton;
     private Button settingsButton;
+    private Button viewSuccess;
     private TextView timerCountdown;
     public int counter = 30;
 
@@ -42,6 +43,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
 
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(this);
+
+        viewSuccess = findViewById(R.id.viewSuccess);
+        viewSuccess.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +73,10 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener 
             case R.id.settingsButton:
                 Intent toSettings = new Intent(this, Settings.class);
                 startActivity(toSettings);
+                break;
+            case R.id.viewSuccess:
+                Intent toSuccess = new Intent(this, Success.class);
+                startActivity(toSuccess);
                 break;
         }
     }

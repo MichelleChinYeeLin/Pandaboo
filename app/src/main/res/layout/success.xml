@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BDDBE8">
+    android:background="#BDDBE8"
+    tools:context=".Success">
 
     <ImageView
         android:id="@+id/Confetti"
@@ -47,7 +48,7 @@
         android:layout_marginEnd="96dp"
         android:layout_marginRight="96dp"
         android:layout_marginBottom="612dp"
-        android:text="@string/textview1"
+        android:text="@string/goodjob"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         android:textSize="48sp"
@@ -67,14 +68,13 @@
         android:layout_marginEnd="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginBottom="258dp"
-        android:text="@string/textview2"
+        android:text="Study Minutes : "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Study Minutes : " />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/studyMin"
@@ -86,14 +86,13 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:layout_marginBottom="258dp"
-        android:text="@string/textview3"
+        android:text="00"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/pauseMin"
@@ -105,14 +104,13 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:layout_marginBottom="217dp"
-        android:text="@string/textview4"
+        android:text="00"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/earnedBamboo"
@@ -124,14 +122,13 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:layout_marginBottom="177dp"
-        android:text="@string/textview5"
+        android:text="00"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/pauseMinutes"
@@ -143,14 +140,13 @@
         android:layout_marginEnd="149dp"
         android:layout_marginRight="149dp"
         android:layout_marginBottom="217dp"
-        android:text="@string/textview6"
+        android:text="Pause Minutes: "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Pause Minutes: " />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/totalEarned"
@@ -162,14 +158,13 @@
         android:layout_marginEnd="151dp"
         android:layout_marginRight="151dp"
         android:layout_marginBottom="177dp"
-        android:text="@string/textview7"
+        android:text="Total Earned    : "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Total Earned    : " />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/redoTimer"
@@ -181,14 +176,13 @@
         android:layout_marginEnd="218dp"
         android:layout_marginRight="218dp"
         android:layout_marginBottom="37dp"
-        android:text="@string/textview8"
+        android:text="Redo Timer"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Redo Timer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Home"
@@ -200,14 +194,13 @@
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
         android:layout_marginBottom="37dp"
-        android:text="@string/textview9"
+        android:text="Home"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Home" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bambooImage"
@@ -239,13 +232,13 @@
         android:layout_marginBottom="67dp"
         android:clickable="true"
         android:contentDescription="@string/home_button"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home"
-        tools:ignore="RedundantDescriptionCheck"
-        android:focusable="true" />
+        tools:ignore="RedundantDescriptionCheck" />
 
     <ImageView
         android:id="@+id/redoButton"
@@ -259,13 +252,13 @@
         android:layout_marginBottom="67dp"
         android:clickable="true"
         android:contentDescription="@string/redo_button"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/redo"
-        tools:ignore="RedundantDescriptionCheck"
-        android:focusable="true" />
+        tools:ignore="RedundantDescriptionCheck" />
 
     <ImageView
         android:id="@+id/bambooCurrency"
@@ -295,13 +288,12 @@
         android:layout_marginEnd="218dp"
         android:layout_marginRight="218dp"
         android:layout_marginBottom="560dp"
-        android:text="@string/textview10"
+        android:text="00"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
