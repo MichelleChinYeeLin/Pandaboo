@@ -40,4 +40,18 @@
     <string name="backhome">backHome</string>
     <string name="pandaimage">pandaImage</string>
     <string name="bamboogrowing">bambooGrowing</string>
+    <string name="backToHome">Back</string>
+    <string name="back">Back</string>
+    <string name="bamboocurrencyimage">bambooCurrencyImage</string>
+    <string name="_00">00</string>
+    <string name="pandashoppbg">pandaShoppBg</string>
+    <string name="pandashopword">pandaShopWord</string>
+    <string name="roomskintitle">roomSkinTitle</string>
+    <string name="defaultskin">defaultSkin</string>
+    <string name="skin1">skin1</string>
+    <string name="skin2">skin2</string>
+    <string name="skin3">skin3</string>
+    <string name="skin4">skin4</string>
+    <string name="skin5">skin5</string>
+    <string name="coming_soon">Coming Soon...</string>
 </resources>

@@ -84,7 +84,7 @@
             android:id="@+id/pandaButton"
             android:layout_width="76dp"
             android:layout_height="match_parent"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/panda"
             android:textAllCaps="false"
             android:textColor="#212121"></Button>
@@ -97,11 +97,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="251dp"
             android:layout_marginRight="251dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/shop"
             android:textAllCaps="false"
             android:textColor="#000000"
-            tools:ignore="TextContrastCheck"></Button>
+            tools:ignore="TextContrastCheck" />
 
         <Button
             android:id="@+id/eventButton"
@@ -111,7 +111,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="168dp"
             android:layout_marginRight="168dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/planner"
             android:textAllCaps="false"
             android:textColor="#212121"></Button>
@@ -124,7 +124,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="84dp"
             android:layout_marginRight="84dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/tasks"
             android:textAllCaps="false"
             android:textColor="#212121"></Button>
@@ -137,7 +137,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/settings"
             android:textAllCaps="false"
             android:textColor="#212121"></Button>
