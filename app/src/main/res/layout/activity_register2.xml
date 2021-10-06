@@ -8,7 +8,7 @@
     tools:context=".Register">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/Pandaboologo"
         android:layout_width="305dp"
         android:layout_height="274dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/Panda" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Pandabooname"
         android:layout_width="248dp"
         android:layout_height="109dp"
         android:layout_marginBottom="16dp"
@@ -32,11 +32,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.601" />
+        app:layout_constraintTop_toTopOf="@+id/Pandaboologo"
+        app:layout_constraintVertical_bias="0.689" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
@@ -48,10 +48,10 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.882" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
@@ -61,28 +61,30 @@
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/Login"
         app:layout_constraintVertical_bias="0.36" />
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="318dp"
+        android:layout_width="311dp"
         android:layout_height="48dp"
         android:background="#C3EAEAEA"
         android:ems="10"
+        android:fontFamily="@font/roboto"
         android:inputType="textPersonName"
+        android:lineSpacingExtra="8sp"
         android:text="              Username"
         android:textColor="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.313" />
+        app:layout_constraintTop_toBottomOf="@+id/Pandaboologo"
+        app:layout_constraintVertical_bias="0.315" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="318dp"
+        android:id="@+id/Password"
+        android:layout_width="311dp"
         android:layout_height="48dp"
         android:background="#C3EAEAEA"
         android:ems="10"
@@ -91,14 +93,14 @@
         android:textColor="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.065" />
+        app:layout_constraintVertical_bias="0.064" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
-        android:layout_width="318dp"
+        android:id="@+id/Email"
+        android:layout_width="311dp"
         android:layout_height="48dp"
         android:background="#C3EAEAEA"
         android:ems="10"
@@ -107,19 +109,64 @@
         android:textColor="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintTop_toTopOf="@+id/Password"
+        app:layout_constraintVertical_bias="0.288" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="52dp"
-        android:layout_height="43dp"
+        android:layout_width="45dp"
+        android:layout_height="39dp"
+        app:layout_constraintBottom_toBottomOf="@+id/username"
         app:layout_constraintEnd_toEndOf="@+id/username"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="@+id/username"
-        app:srcCompat="@drawable/Human"
-        tools:layout_editor_absoluteY="438dp" />
+        app:layout_constraintTop_toTopOf="@+id/username"
+        app:srcCompat="@drawable/Human" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="56dp"
+        android:layout_height="47dp"
+        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Password"
+        app:layout_constraintTop_toTopOf="@+id/Password"
+        app:srcCompat="@drawable/Padlock" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="48dp"
+        android:layout_height="31dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Email"
+        app:layout_constraintEnd_toEndOf="@+id/Email"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="@+id/Email"
+        app:layout_constraintTop_toTopOf="@+id/Email"
+        app:srcCompat="@drawable/Email" />
+
+    <TextView
+        android:id="@+id/exsitingacc"
+        android:layout_width="208dp"
+        android:layout_height="22dp"
+        android:fontFamily="@font/roboto"
+        android:text="I have an account. Click here to sign in"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="584dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="311dp"
+        android:layout_height="48dp"
+        android:background="#96DED0"
+        android:text="Sign Up"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="629dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
