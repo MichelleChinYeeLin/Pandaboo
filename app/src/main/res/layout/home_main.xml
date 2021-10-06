@@ -1,90 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeMain"
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/olivegreen">
-
+        android:background="@color/olivegreen"
+        android:padding="3dp">
+      
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/music_icon_not_muted"
             android:src="@drawable/music_icon"
-<<<<<<<<< Temporary merge branch 1
+            android:contentDescription="@string/music_icon_not_muted"
             app:tint="@color/black">
         </ImageView>
-=========
-            tools:ignore="ImageContrastCheck"></ImageView>
->>>>>>>>> Temporary merge branch 2
 
         <RelativeLayout
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
-            android:background="#EEEDCE">
+            android:background="@color/paleyellow"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <ImageView
                 android:id="@+id/timerIcon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:contentDescription="@string/timer_icon"
                 android:src="@drawable/timer_icon"
-                app:tint="@color/black"></ImageView>
+                app:tint="@color/black"
+                android:contentDescription="@string/timer_icon">
+            </ImageView>
 
             <TextView
-                android:id="@+id/timerCountdown"
+                android:id="@+id/timerCountdownHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/timerIcon"
                 android:layout_toRightOf="@+id/timerIcon"
                 android:textColor="@color/black"
-                android:textSize="40sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/timerCountdownSeparator1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/timerCountdownHours"
+                android:layout_toRightOf="@+id/timerCountdownHours"
+                android:textColor="@color/black"
+                android:text="@string/timer_countdown_separator"
+                android:textSize="30sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/timerCountdownMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/timerCountdownSeparator1"
+                android:layout_toRightOf="@+id/timerCountdownSeparator1"
+                android:textColor="@color/black"
+                android:textSize="30sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/timerCountdownSeparator2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/timerCountdownMinutes"
+                android:layout_toRightOf="@+id/timerCountdownMinutes"
+                android:textColor="@color/black"
+                android:text="@string/timer_countdown_separator"
+                android:textSize="30sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/timerCountdownSeconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/timerCountdownSeparator2"
+                android:layout_toRightOf="@+id/timerCountdownSeparator2"
+                android:textColor="@color/black"
+                android:textSize="30sp">
+            </TextView>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/currencyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/airforceblue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100">
+            </TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/currencyImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/currencyText"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ImageView>
+        </RelativeLayout>
+
+        <!--
+        <ImageView
+            android:id="@+id/bambooCurrencyImage"
+            android:layout_width="69dp"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:contentDescription="@string/bamboo_currency"
+            app:srcCompat="@drawable/untitled"
+            tools:ignore="ImageContrastCheck" />
+           -->
+
 
     </RelativeLayout>
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-<<<<<<<<< Temporary merge branch 1
-        app:backgroundTint=""
-=========
->>>>>>>>> Temporary merge branch 2
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="153dp"
+        android:layout_marginLeft="153dp"
+        android:layout_marginTop="441dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
+        android:layout_marginBottom="373dp"
         android:text="@string/start_button"
         android:textSize="20sp"
-        app:backgroundTint="#D03535"></Button>
+        app:backgroundTint="#D03535">
+    </Button>
 
+    <FrameLayout
+        android:id="@+id/homeFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:layout_above="@+id/bottomNavigation">
+
+    </FrameLayout>
+
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-1dp"
         android:background="@color/olivegreen">
-
-        <Button
-            android:id="@+id/pandaButton"
-            android:layout_width="76dp"
-            android:layout_height="match_parent"
-            android:background="@color/olivegreen"
-            android:text="@string/panda"
-            android:textAllCaps="false"
-            android:textColor="#212121" />
 
         <Button
             android:id="@+id/shopButton"
@@ -94,11 +185,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="251dp"
             android:layout_marginRight="251dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/shop"
             android:textAllCaps="false"
             android:textColor="#000000"
-            tools:ignore="TextContrastCheck" />
+            tools:ignore="TextContrastCheck">
+        </Button>
 
         <Button
             android:id="@+id/eventButton"
@@ -108,10 +200,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="168dp"
             android:layout_marginRight="168dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/planner"
             android:textAllCaps="false"
-            android:textColor="#212121" />
+            android:textColor="#212121">
+        </Button>
 
         <Button
             android:id="@+id/tasksButton"
@@ -121,10 +214,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="84dp"
             android:layout_marginRight="84dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/tasks"
             android:textAllCaps="false"
-            android:textColor="#212121" />
+            android:textColor="#212121">
+        </Button>
 
         <Button
             android:id="@+id/settingsButton"
@@ -134,11 +228,123 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
-            android:background="@color/olivegreen"
+            android:backgroundTint="@color/olivegreen"
             android:text="@string/settings"
             android:textAllCaps="false"
-            android:textColor="#212121" />
+            android:textColor="#212121">
+        </Button>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/viewSuccess"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="194dp"
+        android:background="@color/purple_700"
+        android:text="@string/view_success"
+        android:textAllCaps="false" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="424dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="67dp"
+        android:contentDescription="@string/bamboogrowing"
+        app:srcCompat="@drawable/background"
+        tools:ignore="ImageContrastCheck">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="383dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="53dp"
+        android:contentDescription="@string/pandaimage"
+        app:srcCompat="@drawable/background2"
+        tools:ignore="ImageContrastCheck">
+    </ImageView>
+    -->
+
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/olivegreen">
+
+        <Button
+            android:id="@+id/pandaButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:backgroundTint="@color/olivegreen"
+            android:text="@string/panda"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/username_icon"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+
+        <Button
+            android:id="@+id/shopButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:backgroundTint="@color/olivegreen"
+            android:text="@string/shop"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/username_icon"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+
+        <Button
+            android:id="@+id/plannerButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:backgroundTint="@color/olivegreen"
+            android:text="@string/planner"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/username_icon"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+
+        <Button
+            android:id="@+id/tasksButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:backgroundTint="@color/olivegreen"
+            android:text="@string/tasks"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/username_icon"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:backgroundTint="@color/olivegreen"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:drawableTop="@drawable/username_icon"
+            style="?android:attr/buttonBarButtonStyle">
+        </Button>
+
+    </LinearLayout>
 
 </RelativeLayout>

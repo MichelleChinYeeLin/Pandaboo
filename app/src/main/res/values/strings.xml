@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Pandaboo</string>
     <string name="pandaboo_logo">Pandaboo Logo</string>
     <string name="login_text">Login</string>
@@ -15,7 +15,6 @@
     <string name="timer_icon">Timer Icon</string>
     <string name="goodjob">GoodJobtext</string>
     <string name="set_timer_text">Set Timer</string>
-    <string name="textview1">TextView</string>
     <string name="confetti">confetti</string>
     <string name="panda_celebrating">panda celebrating</string>
     <string name="studyMinutes">studyMinutes</string>
@@ -46,7 +45,7 @@
     <string name="back">Back</string>
     <string name="bamboocurrencyimage">bambooCurrencyImage</string>
     <string name="_00">00</string>
-    <string name="pandashoppbg">pandaShoppBg</string>
+    <string name="panda_shop_bg">pandaShopBg</string>
     <string name="pandashopword">pandaShopWord</string>
     <string name="roomskintitle">roomSkinTitle</string>
     <string name="defaultskin">defaultSkin</string>
