@@ -6,6 +6,7 @@
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/olivegreen"
@@ -42,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/timerIcon"
                 android:layout_toRightOf="@+id/timerIcon"
                 android:textColor="@color/black"
@@ -98,11 +99,34 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/currencyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/airforceblue"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100">
+            </TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/currencyImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/currencyText"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ImageView>
+        </RelativeLayout>
+
         <!--
-        Mich:
-        You aren't supposed to put a picture of the bamboo currency
-        You need to create another relative layout for the bamboo currency number(text),
-        and another relative layout to put the currency image
         <ImageView
             android:id="@+id/bambooCurrencyImage"
             android:layout_width="69dp"
@@ -116,7 +140,8 @@
             android:contentDescription="@string/bamboo_currency"
             app:srcCompat="@drawable/untitled"
             tools:ignore="ImageContrastCheck" />
-        -->
+           -->
+
 
     </RelativeLayout>
 
@@ -135,6 +160,15 @@
         android:textSize="20sp"
         app:backgroundTint="#D03535">
     </Button>
+
+    <FrameLayout
+        android:id="@+id/homeFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:layout_above="@+id/bottomNavigation">
+
+    </FrameLayout>
 
     <!--
     <RelativeLayout
@@ -240,6 +274,7 @@
     -->
 
     <LinearLayout
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"

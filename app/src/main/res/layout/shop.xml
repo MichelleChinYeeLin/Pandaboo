@@ -68,7 +68,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="75dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/pandashoppbg"
+        android:contentDescription="@string/panda_shop_bg"
         app:srcCompat="@drawable/_panda" />
 
     <ImageView
