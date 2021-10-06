@@ -15,6 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeMain extends AppCompatActivity{
 
     private Button startButton;
+    private Button pandaButton;
+    private Button shopButton;
+    private Button eventButton;
+    private Button tasksButton;
+    private Button settingsButton;
+    private Button viewSuccess;
+    private TextView timerCountdown;
+    public int counter = 30;
     private Button startTimerButton;
     private TextView timerCountdownHours;
     private TextView timerCountdownMinutes;
@@ -44,10 +52,46 @@ public class HomeMain extends AppCompatActivity{
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
         timerCountdownMinutes = findViewById(R.id.timerCountdownMinutes);
         timerCountdownSeconds = findViewById(R.id.timerCountdownSeconds);
+      
+        settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(this);
+
+        viewSuccess = findViewById(R.id.viewSuccess);
+        viewSuccess.setOnClickListener(this);
 
         timerCountdownHours.setText("00");
         timerCountdownMinutes.setText("30");
         timerCountdownSeconds.setText("00");
+    }
+  
+  @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.pandaButton:
+                Intent toPanda = new Intent(this, Panda.class);
+                startActivity(toPanda);
+                break;
+            case R.id.shopButton:
+                Intent toShop = new Intent(this, Shop.class);
+                startActivity(toShop);
+                break;
+            case R.id.eventButton:
+                Intent toEvent = new Intent(this, Event.class);
+                startActivity(toEvent);
+                break;
+            case R.id.tasksButton:
+                Intent toTasks = new Intent(this, Task.class);
+                startActivity(toTasks);
+                break;
+            case R.id.settingsButton:
+                Intent toSettings = new Intent(this, Settings.class);
+                startActivity(toSettings);
+                break;
+            case R.id.viewSuccess:
+                Intent toSuccess = new Intent(this, Success.class);
+                startActivity(toSuccess);
+                break;
+        }
     }
 
     public void startTimer(){
@@ -65,7 +109,7 @@ public class HomeMain extends AppCompatActivity{
                 String hoursText = "";
                 String minutesText = "";
                 String secondsText = "";
-
+        
                 if (seconds < 0 && minutes > 1){
                     seconds = 59;
                     minutes--;
