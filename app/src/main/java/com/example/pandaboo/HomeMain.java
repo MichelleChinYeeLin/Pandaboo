@@ -31,10 +31,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     private TextView timerCountdownMinutes;
     private TextView timerCountdownSeconds;
 
-    //Initialization for the alert dialog builder
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-
     //Initialization for the timer countdown duration
     private int hours = 0, minutes = 0, seconds = 0;
     public int timerValue = 0;
@@ -115,58 +111,12 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     }
 
     /**
-     * Start the timer countdown and display the timer duration
-     */
-    public void startTimer(){
-
-        //Assign the timer duration to minutes variable
-        minutes = timerValue;
-
-        //Calculate the number of hours in the timer duration
-        while (minutes >= 60){
-            hours++;
-            minutes -= 60;
-        }
-
-        //Start the timer countdown
-        new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
-
-            //After every countdown interval
-            public void onTick(long milisUntilFinished){
-
-                seconds--;
-
-                //If minutes and seconds < 0, convert an hour to minutes and seconds
-                if (seconds < 0 && minutes <= 0 && hours > 0){
-                    minutes = MINUTES_MAX;
-                    seconds = SECONDS_MAX;
-                    hours--;
-                }
-
-                //If seconds < 0, convert a minute to seconds
-                if (seconds < 0 && minutes > 0){
-                    seconds = SECONDS_MAX;
-                    minutes--;
-                }
-
-                //Display the timer duration
-                timerCountdownHours.setText(timerCountdownFormat(hours));
-                timerCountdownMinutes.setText(timerCountdownFormat(minutes));
-                timerCountdownSeconds.setText(timerCountdownFormat(seconds));
-            }
-
-            public void onFinish(){
-                Toast.makeText(HomeMain.this, "Timer is completed", Toast.LENGTH_LONG).show();
-            }
-        }.start();
-    }
-
-    /**
      * Create and displays the alert dialog to allow users to set the timer duration
      */
     public void setTimer(){
-        //Create the alert dialog
-        dialogBuilder = new AlertDialog.Builder(this);
+        //Initialization for the alert dialog builder
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         dialogBuilder.setView(inflater.inflate(R.layout.set_timer, null));
         dialog = dialogBuilder.create();
@@ -218,6 +168,53 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 dialog.dismiss();
             }
         });
+    }
+
+    /**
+     * Start the timer countdown and display the timer duration
+     */
+    public void startTimer(){
+
+        //Assign the timer duration to minutes variable
+        minutes = timerValue;
+
+        //Calculate the number of hours in the timer duration
+        while (minutes >= 60){
+            hours++;
+            minutes -= 60;
+        }
+
+        //Start the timer countdown
+        new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
+
+            //After every countdown interval
+            public void onTick(long milisUntilFinished){
+
+                seconds--;
+
+                //If minutes and seconds < 0, convert an hour to minutes and seconds
+                if (seconds < 0 && minutes <= 0 && hours > 0){
+                    minutes = MINUTES_MAX;
+                    seconds = SECONDS_MAX;
+                    hours--;
+                }
+
+                //If seconds < 0, convert a minute to seconds
+                if (seconds < 0 && minutes > 0){
+                    seconds = SECONDS_MAX;
+                    minutes--;
+                }
+
+                //Display the timer duration
+                timerCountdownHours.setText(timerCountdownFormat(hours));
+                timerCountdownMinutes.setText(timerCountdownFormat(minutes));
+                timerCountdownSeconds.setText(timerCountdownFormat(seconds));
+            }
+
+            public void onFinish(){
+                Toast.makeText(HomeMain.this, "Timer is completed", Toast.LENGTH_LONG).show();
+            }
+        }.start();
     }
 
     /**
