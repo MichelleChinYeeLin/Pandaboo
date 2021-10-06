@@ -15,51 +15,54 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
-    private Button startButton;
+    //Initialization of default timer countdown values
+    final int DEFAULT_COUNTDOWN_HOURS = 0;
+    final int DEFAULT_COUNTDOWN_MINUTES = 30;
+    final int DEFAULT_COUNTDOWN_SECONDS = 0;
+    final int DEFAULT_SEEKBAR_PROGRESS = 30;
 
+    //Initialization of constant variables to control the timer countdown
+    final int MINUTES_TO_MILLISECONDS = 60000;
+    final int MINUTES_MAX = 59;
+    final int SECONDS_MAX = 59;
 
-    private Button pandaButton;
-    private Button shopButton;
-    private Button plannerButton;
-    private Button tasksButton;
-    private Button settingsButton;
-    //private Button viewSuccess = findViewById(R.id.viewSuccess);
-
-    private Button startTimerButton;
+    //Initialization of the TextView for the timer countdown in home_main.xml
     private TextView timerCountdownHours;
     private TextView timerCountdownMinutes;
     private TextView timerCountdownSeconds;
-    private TextView timerProgress;
-    public int timerValue = 0;
-    final int MINUTES_TO_MILLISECONDS = 60000;
 
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-    private SeekBar timerSeekBar;
-
+    //Initialization for the timer countdown duration
     private int hours = 0, minutes = 0, seconds = 0;
+    public int timerValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
 
-        startButton = findViewById(R.id.startButton);
+        //Link the start button to the button in the home_main.xml file
+        Button startButton = findViewById(R.id.startButton);
+
+        //Open the set timer dialog box when the start button is clicked
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setTimer();
             }
         });
+
+        //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
         timerCountdownMinutes = findViewById(R.id.timerCountdownMinutes);
         timerCountdownSeconds = findViewById(R.id.timerCountdownSeconds);
 
-        pandaButton = findViewById(R.id.pandaButton);
-        shopButton = findViewById(R.id.shopButton);
-        plannerButton = findViewById(R.id.plannerButton);
-        tasksButton = findViewById(R.id.tasksButton);
-        settingsButton = findViewById(R.id.settingsButton);
+        //Initialization and assignment of the Button variables to the buttons in the bottom navigation menu of home_main.xml
+        Button pandaButton = findViewById(R.id.pandaButton);
+        Button shopButton = findViewById(R.id.shopButton);
+        Button plannerButton = findViewById(R.id.plannerButton);
+        Button tasksButton = findViewById(R.id.tasksButton);
+        Button settingsButton = findViewById(R.id.settingsButton);
+        //Button viewSuccess = findViewById(R.id.viewSuccess);
 
         pandaButton.setOnClickListener(this);
         shopButton.setOnClickListener(this);
@@ -68,13 +71,16 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         settingsButton.setOnClickListener(this);
         //viewSuccess.setOnClickListener(this);
 
-
-        timerCountdownHours.setText("00");
-        timerCountdownMinutes.setText("30");
-        timerCountdownSeconds.setText("00");
+        //Set default timer text for the timer countdown
+        timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
+        timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
+        timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
     }
 
-
+    /**
+     * Changes the activity based on the button clicked
+     * @param view the view of the layout
+     */
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.pandaButton:
@@ -104,86 +110,40 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    public void startTimer(){
-
-        minutes = timerValue;
-
-        while (minutes >= 60){
-            hours++;
-            minutes -= 60;
-        }
-
-        new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
-            public void onTick(long milisUntilFinished){
-
-                String hoursText = "";
-                String minutesText = "";
-                String secondsText = "";
-
-                seconds--;
-
-                if (seconds < 0 && minutes <= 0 && hours > 0){
-                    minutes = 59;
-                    seconds = 59;
-                    hours--;
-                }
-
-                if (seconds < 0 && minutes > 0){
-                    seconds = 59;
-                    minutes--;
-                }
-
-                //Formatting the time shown on the countdown
-                if (seconds <= 9){
-                    secondsText += "0";
-                }
-
-                secondsText += String.valueOf(seconds);
-
-                if (minutes <= 9){
-                    minutesText += "0";
-                }
-
-                minutesText += String.valueOf(minutes);
-
-                if (hours <= 9){
-                    hoursText += "0";
-                }
-
-                hoursText += String.valueOf(hours);
-
-                timerCountdownHours.setText(hoursText);
-                timerCountdownMinutes.setText(minutesText);
-                timerCountdownSeconds.setText(secondsText);
-            }
-
-            public void onFinish(){
-                Toast.makeText(HomeMain.this, "Timer is completed", Toast.LENGTH_LONG).show();
-            }
-        }.start();
-    }
-
+    /**
+     * Create and displays the alert dialog to allow users to set the timer duration
+     */
     public void setTimer(){
-        dialogBuilder = new AlertDialog.Builder(this);
-
+        //Initialization for the alert dialog builder
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-
         dialogBuilder.setView(inflater.inflate(R.layout.set_timer, null));
-
         dialog = dialogBuilder.create();
+
+        //Display the alert dialog
         dialog.show();
 
-        timerProgress = dialog.findViewById(R.id.timerProgress);
-        timerSeekBar = dialog.findViewById(R.id.timerSlider);
+        //Initialization of elements in the home_main.xml
+        TextView timerProgress = dialog.findViewById(R.id.timerProgress);
+        SeekBar timerSeekBar = dialog.findViewById(R.id.timerSlider);
+        Button startTimerButton = dialog.findViewById(R.id.startTimerButton);
+
+        //Display the default timer duration
+        timerProgress.setText(setTimerFormat(DEFAULT_SEEKBAR_PROGRESS));
+
+        //Allow users to change the seekbar value and set the timer countdown duration
         timerSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChangedValue = 0;
-            String timeText = "";
 
+            //Change the timer duration display when the seekbar value changes
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChangedValue = progress;
+                //Retrieve the seekbar value (+1 since seekbar value starts at 0)
+                progressChangedValue = progress + 1;
 
-                timerProgress.setText(timeText = setTimerFormat(progressChangedValue));
+                //Display the selected timer duration
+                timerProgress.setText(setTimerFormat(progressChangedValue));
             }
 
             @Override
@@ -197,33 +157,106 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        startTimerButton = dialog.findViewById(R.id.startTimerButton);
+        //When users click the START button
         startTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Start the timer countdown
                 startTimer();
+
+                //Close the alert dialog
                 dialog.dismiss();
             }
         });
     }
 
-    public String setTimerFormat(int minutes){
-        String timeText = "";
-        int hours = 0;
+    /**
+     * Start the timer countdown and display the timer duration
+     */
+    public void startTimer(){
 
+        //Assign the timer duration to minutes variable
+        minutes = timerValue;
+
+        //Calculate the number of hours in the timer duration
         while (minutes >= 60){
             hours++;
             minutes -= 60;
         }
 
+        //Start the timer countdown
+        new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
+
+            //After every countdown interval
+            public void onTick(long milisUntilFinished){
+
+                seconds--;
+
+                //If minutes and seconds < 0, convert an hour to minutes and seconds
+                if (seconds < 0 && minutes <= 0 && hours > 0){
+                    minutes = MINUTES_MAX;
+                    seconds = SECONDS_MAX;
+                    hours--;
+                }
+
+                //If seconds < 0, convert a minute to seconds
+                if (seconds < 0 && minutes > 0){
+                    seconds = SECONDS_MAX;
+                    minutes--;
+                }
+
+                //Display the timer duration
+                timerCountdownHours.setText(timerCountdownFormat(hours));
+                timerCountdownMinutes.setText(timerCountdownFormat(minutes));
+                timerCountdownSeconds.setText(timerCountdownFormat(seconds));
+            }
+
+            public void onFinish(){
+                Toast.makeText(HomeMain.this, "Timer is completed", Toast.LENGTH_LONG).show();
+            }
+        }.start();
+    }
+
+    /**
+     * Formats the seek bar value to a duration (in hours and minutes)
+     * @param minutes the number of minutes as determined by the seek bar
+     * @return a string of the timer duration to be set (in hours and minutes)
+     */
+    public String setTimerFormat(int minutes){
+        String timeText = "";
+        int hours = 0;
+
+        //Calculate the number of hours
+        while (minutes >= 60){
+            hours++;
+            minutes -= 60;
+        }
+
+        //Display the number of hours if hours > 0
         if (hours > 0){
             timeText += hours + " hour ";
         }
 
+        //Display the number of minutes if minutes > 0
         if (minutes > 0){
             timeText += minutes + " minute";
         }
 
         return timeText;
+    }
+
+    /**
+     * Changes the time value to String and formats it to double digits
+     * @param time the time value to be formatted
+     * @return the string value of the time value in double digits
+     */
+    public String timerCountdownFormat(int time){
+
+        //If the time is in single digit, add a '0' to format it to double digits
+        if (time < 9){
+            return "0" + time;
+        }
+
+        return String.valueOf(time);
     }
 }
