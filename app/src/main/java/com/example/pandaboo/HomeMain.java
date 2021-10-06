@@ -17,6 +17,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
     private Button startButton;
 
+
     private Button pandaButton;
     private Button shopButton;
     private Button plannerButton;
@@ -120,9 +121,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 String secondsText = "";
 
                 seconds--;
-                //hours == 1
-                //minutes == 0
-                //seconds == -1
 
                 if (seconds < 0 && minutes <= 0 && hours > 0){
                     minutes = 59;
