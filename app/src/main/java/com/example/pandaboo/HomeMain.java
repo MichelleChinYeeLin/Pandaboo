@@ -1,5 +1,6 @@
 package com.example.pandaboo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -12,17 +13,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomeMain extends AppCompatActivity{
+public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
     private Button startButton;
+
     private Button pandaButton;
     private Button shopButton;
-    private Button eventButton;
+    private Button plannerButton;
     private Button tasksButton;
     private Button settingsButton;
-    private Button viewSuccess;
-    private TextView timerCountdown;
-    public int counter = 30;
+    //private Button viewSuccess = findViewById(R.id.viewSuccess);
+
     private Button startTimerButton;
     private TextView timerCountdownHours;
     private TextView timerCountdownMinutes;
@@ -35,7 +36,7 @@ public class HomeMain extends AppCompatActivity{
     private AlertDialog dialog;
     private SeekBar timerSeekBar;
 
-    private int hours = 0, minutes = 0, seconds = 60;
+    private int hours = 0, minutes = 0, seconds = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +53,27 @@ public class HomeMain extends AppCompatActivity{
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
         timerCountdownMinutes = findViewById(R.id.timerCountdownMinutes);
         timerCountdownSeconds = findViewById(R.id.timerCountdownSeconds);
-      
-        settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(this);
 
-        viewSuccess = findViewById(R.id.viewSuccess);
-        viewSuccess.setOnClickListener(this);
+        pandaButton = findViewById(R.id.pandaButton);
+        shopButton = findViewById(R.id.shopButton);
+        plannerButton = findViewById(R.id.plannerButton);
+        tasksButton = findViewById(R.id.tasksButton);
+        settingsButton = findViewById(R.id.settingsButton);
+
+        pandaButton.setOnClickListener(this);
+        shopButton.setOnClickListener(this);
+        plannerButton.setOnClickListener(this);
+        tasksButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
+        //viewSuccess.setOnClickListener(this);
+
 
         timerCountdownHours.setText("00");
         timerCountdownMinutes.setText("30");
         timerCountdownSeconds.setText("00");
     }
-  
-  @Override
+
+
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.pandaButton:
@@ -75,7 +84,7 @@ public class HomeMain extends AppCompatActivity{
                 Intent toShop = new Intent(this, Shop.class);
                 startActivity(toShop);
                 break;
-            case R.id.eventButton:
+            case R.id.plannerButton:
                 Intent toEvent = new Intent(this, Event.class);
                 startActivity(toEvent);
                 break;
@@ -87,39 +96,46 @@ public class HomeMain extends AppCompatActivity{
                 Intent toSettings = new Intent(this, Settings.class);
                 startActivity(toSettings);
                 break;
-            case R.id.viewSuccess:
+            /*case R.id.viewSuccess:
                 Intent toSuccess = new Intent(this, Success.class);
                 startActivity(toSuccess);
-                break;
+                break;*/
         }
     }
 
     public void startTimer(){
 
         minutes = timerValue;
-        while (timerValue >= 60){
+
+        while (minutes >= 60){
             hours++;
             minutes -= 60;
         }
 
         new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
             public void onTick(long milisUntilFinished){
-                seconds--;
 
                 String hoursText = "";
                 String minutesText = "";
                 String secondsText = "";
-        
-                if (seconds < 0 && minutes > 1){
+
+                seconds--;
+                //hours == 1
+                //minutes == 0
+                //seconds == -1
+
+                if (seconds < 0 && minutes <= 0 && hours > 0){
+                    minutes = 59;
+                    seconds = 59;
+                    hours--;
+                }
+
+                if (seconds < 0 && minutes > 0){
                     seconds = 59;
                     minutes--;
                 }
 
-                if (minutes < 0 && hours > 1){
-                    minutes = 59;
-                    hours--;
-                }
-
+                //Formatting the time shown on the countdown
                 if (seconds <= 9){
                     secondsText += "0";
                 }
