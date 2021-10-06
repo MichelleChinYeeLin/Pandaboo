@@ -14,6 +14,8 @@
     <string name="music_icon_not_muted">Music Icon(Not Muted)</string>
     <string name="timer_icon">Timer Icon</string>
     <string name="goodjob">GoodJobtext</string>
+    <string name="set_timer_text">Set Timer</string>
+    <string name="textview1">TextView</string>
     <string name="confetti">confetti</string>
     <string name="panda_celebrating">panda celebrating</string>
     <string name="studyMinutes">studyMinutes</string>
@@ -54,4 +56,5 @@
     <string name="skin4">skin4</string>
     <string name="skin5">skin5</string>
     <string name="coming_soon">Coming Soon...</string>
+    <string name="timer_countdown_separator">:</string>
 </resources>
