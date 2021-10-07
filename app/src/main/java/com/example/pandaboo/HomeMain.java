@@ -6,9 +6,8 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +22,13 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     final int DEFAULT_COUNTDOWN_MINUTES = 0;
     final int DEFAULT_COUNTDOWN_SECONDS = 0;
 
-    //Initialization of constant variables to control the timer countdown
-    final int MINUTES_TO_MILLISECONDS = 60000;
-    final int MINUTES_TO_SECONDS = 60;
+    //Initialization of constant variables for time values
     final int SECONDS_TO_MILLISECONDS = 1000;
     final int MINUTES_MAX = 59;
     final int SECONDS_MAX = 59;
+
+    //Initialization of constant variables to control the maximum pause duration
+    final double PAUSE_TIMER_DURATION_PERCENTAGE = 0.2;
 
     //Initialization of the TextView for the timer countdown in home_main.xml
     private TextView timerCountdownHours;
@@ -40,8 +40,12 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     private int timerDuration = 0;
     private int totalTimerDuration = 0;
 
-    boolean isCancelled = false;
-    boolean isPaused = false;
+    //Initialization for variable to control the timer (cancel/ pause)
+    private boolean isCancelled = false;
+    private boolean isPaused = false;
+    private int pauseCounter = 0;
+    private int maxPauseDuration = 0;
+    private int pauseDurationRemainder = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +63,32 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button plannerButton = findViewById(R.id.plannerButton);
         Button tasksButton = findViewById(R.id.tasksButton);
         Button settingsButton = findViewById(R.id.settingsButton);
-        //Button viewSuccess = findViewById(R.id.viewSuccess);
 
         pandaButton.setOnClickListener(this);
         shopButton.setOnClickListener(this);
         plannerButton.setOnClickListener(this);
         tasksButton.setOnClickListener(this);
         settingsButton.setOnClickListener(this);
-        //viewSuccess.setOnClickListener(this);
 
         //Set default timer text for the timer countdown
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
         timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
 
-        fragmentToStartTimer();
+        Fragment homeStartTimer = new HomeStartTimer();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.homeFrame, homeStartTimer);
+        fragmentTransaction.commit();
+    }
+
+    public void resetTimerCountdown(){
+        timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
+        timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
+        timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
+        pauseCounter = 0;
+        hours = minutes = seconds = 0;
+        isCancelled = isPaused = false;
     }
 
     /**
@@ -102,22 +117,12 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 Intent toSettings = new Intent(this, Settings.class);
                 startActivity(toSettings);
                 break;
-            /*case R.id.viewSuccess:
-                Intent toSuccess = new Intent(this, Success.class);
-                startActivity(toSuccess);
-                break;*/
         }
     }
 
-    public void cancelTimer(){
-        isCancelled = true;
-    }
-
-    public int pauseTimer(){
-        isPaused = true;
-        return timerDuration;
-    }
-
+    /**
+     * Start the ongoingTimer fragment and replace the current fragment
+     */
     public void fragmentToOngoingTimer(){
         Fragment homeOngoingTimer = new HomeOngoingTimer();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -126,6 +131,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         fragmentTransaction.commit();
     }
 
+    /**
+     * Start the startTimer fragment and replace the current fragment
+     */
     public void fragmentToStartTimer(){
         Fragment homeStartTimer = new HomeStartTimer();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -134,6 +142,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         fragmentTransaction.commit();
     }
 
+    /**
+     * CLose the startTimer fragment
+     */
     public void closeFragmentStartTimer(){
         Fragment homeStartTimer = new HomeStartTimer();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -143,18 +154,273 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     }
 
     /**
+     * Close the ongoingTimer fragment
+     */
+    public void closeFragmentOngoingTimer(){
+        Fragment homeStartTimer = new HomeStartTimer();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(homeStartTimer);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * Closes the startTimer fragment and starts the timer countdown
+     * @param duration duration of the timer countdown set by the user
+     */
+    public void toStartTimer(int duration){
+        closeFragmentStartTimer();
+        startTimer(duration);
+    }
+
+    /**
+     * Changes the time value to String and formats it to double digits
+     * @param time the time value to be formatted
+     * @return the string value of the time value in double digits
+     */
+    public String timerCountdownFormat(int time){
+
+        //If the time is in single digit, add a '0' to format it to double digits
+        if (time <= 9){
+            return "0" + time;
+        }
+
+        return String.valueOf(time);
+    }
+
+    /**
+     * Formats the time in hours, minutes and seconds
+     * @param seconds the duration of time
+     * @return formatted string in hours, minutes and seconds
+     */
+    public String formatTimeDuration(int seconds){
+        int minutes = 0;
+        int hours = 0;
+        String textFormat = "";
+
+        if (seconds <= 0){
+            return "0 seconds";
+        }
+
+        //Calculates the total minutes
+        while (seconds >= 60){
+            minutes++;
+            seconds -= 60;
+        }
+
+        //Calculates the total hours
+        while (minutes >= 60){
+            hours++;
+            minutes -= 60;
+        }
+
+        //Formats the hours
+        if (hours > 0){
+
+            if (hours == 1){
+                textFormat += hours + " hour ";
+            }
+
+            else {
+                textFormat += hours + " hour ";
+            }
+        }
+
+        //Formats the minutes
+        if (minutes > 0){
+
+            if (minutes == 1){
+                textFormat += minutes + " minute ";
+            }
+
+            else {
+                textFormat += minutes + " minutes ";
+            }
+        }
+
+        //Formats the seconds
+        if (seconds > 0){
+
+            if (seconds == 1){
+                textFormat += seconds + " second";
+            }
+
+            else {
+                textFormat += seconds + " seconds";
+            }
+        }
+
+        return textFormat;
+    }
+
+    /**
+     * Changes the value of isCancelled(boolean) to true
+     */
+    public void cancelTimer(){
+        isCancelled = true;
+    }
+
+    /**
+     * Changes the value of isPaused(boolean) to true
+     * @return the remaining time left on the timer countdown
+     */
+    public int pauseTimer(){
+        isPaused = true;
+        pauseCounter++;
+        return timerDuration;
+    }
+
+    /**
+     * Calculate the duration that users are allowed to pause
+     * @return the duration that users can pause
+     */
+    public int calcMaxPauseDuration(){
+
+        //If the user paused the timer for the first time
+        if (pauseCounter <= 1){
+            maxPauseDuration = (int) (totalTimerDuration * PAUSE_TIMER_DURATION_PERCENTAGE);
+            return maxPauseDuration;
+        }
+
+        //If the user has paused the timer before
+        else {
+            return pauseDurationRemainder;
+        }
+    }
+
+    /**
+     * Sets the remaining duration of the pause timer
+     * @param remainder the remaining duration the user can pause
+     */
+    public void setPauseDurationRemainder(int remainder){
+        pauseDurationRemainder = remainder;
+    }
+
+    //Calculates the bamboo earned by the user
+    public int calcEarnedBamboo (){
+        return totalTimerDuration / 60;
+    }
+
+    /**
+     * Shows a dialog box with details of the timer(succeeded)
+     */
+    public void succeededTimer(){
+
+        //Close the ongoingTimer fragment
+        closeFragmentOngoingTimer();
+
+        //Create the alert dialog box
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        dialogBuilder.setView(inflater.inflate(R.layout.timer_success, null));
+        dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        //Display the alert dialog box
+        dialog.show();
+
+        //Initialization of the elements in timer_success.xml
+        TextView totalStudyMinutes = dialog.findViewById(R.id.totalStudyMinutes);
+        TextView totalPauseMinutes = dialog.findViewById(R.id.totalPauseMinutes);
+        TextView totalBambooEarned = dialog.findViewById(R.id.totalBambooEarned);
+        ImageButton redoTimerButton = dialog.findViewById(R.id.redoTimerIcon);
+        ImageButton homeButton = dialog.findViewById(R.id.homeIcon);
+
+        //Displays the timer details on the alert dialog box
+        totalStudyMinutes.setText(formatTimeDuration(totalTimerDuration - timerDuration));
+        totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
+        totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
+
+        //Reset the timer countdown
+        resetTimerCountdown();
+
+        //Closes the alert dialog box and restarts the timer with the same duration as previously set
+        //When users click the Redo Timer icon
+        redoTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startTimer(totalTimerDuration);
+            }
+        });
+
+        //Closes the alert dialog box and returns to the home page
+        //When users click the Home icon
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                fragmentToStartTimer();
+            }
+        });
+    }
+
+    /**
+     * Shows a dialog box with details of the timer(failed)
+     */
+    public void failedTimer(){
+
+        //Closes the ongoingTimer fragment
+        closeFragmentOngoingTimer();
+
+        //Creates the alert dialog box
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        dialogBuilder.setView(inflater.inflate(R.layout.timer_pause_exceeded, null));
+        dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        //Displays the alert dialog box
+        dialog.show();
+
+        //Initialization of the elements in timer_pause_exceeded.xml
+        TextView totalStudyMinutes = dialog.findViewById(R.id.totalStudyMinutes);
+        TextView totalPauseMinutes = dialog.findViewById(R.id.totalPauseMinutes);
+        ImageButton redoTimerButton = dialog.findViewById(R.id.redoTimerIcon);
+        ImageButton homeButton = dialog.findViewById(R.id.homeIcon);
+
+        //Displays the timer details on the alert dialog box
+        totalStudyMinutes.setText(formatTimeDuration(totalTimerDuration - timerDuration));
+        totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
+
+        //Resets the timer countdown
+        resetTimerCountdown();
+
+        //Closes the alert dialog box and restarts the timer with the same duration as previously set
+        //When users click the Redo Timer icon
+        redoTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseCounter = 0;
+                dialog.dismiss();
+                startTimer(totalTimerDuration);
+            }
+        });
+
+        //Closes the alert dialog box and returns to the home page
+        //When users click the Home icon
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseCounter = 0;
+                dialog.dismiss();
+                fragmentToStartTimer();
+            }
+        });
+    }
+
+    /**
      * Start the countdown timer and display the timer duration
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
 
-        closeFragmentStartTimer();
+        //Start the ongoingTimer fragment
         fragmentToOngoingTimer();
-
-        hours = minutes = seconds = 0;
-
-        isCancelled = false;
-        isPaused = false;
 
         //Assign the timer duration to variables
         seconds = duration;
@@ -167,6 +433,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             minutes++;
         }
 
+        //Calculate the number of minutes in the timer duration
         while (minutes >= 60){
             minutes -= 60;
             hours++;
@@ -180,18 +447,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
                 seconds--;
                 timerDuration--;
-
-                if (isCancelled){
-                    hours = 0;
-                    minutes = 0;
-                    seconds = 0;
-
-                    cancel();
-                }
-
-                if (isPaused){
-                    cancel();
-                }
 
                 //If minutes and seconds < 0, convert an hour to minutes and seconds
                 if (seconds < 0 && minutes <= 0 && hours > 0){
@@ -210,30 +465,28 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 timerCountdownHours.setText(timerCountdownFormat(hours));
                 timerCountdownMinutes.setText(timerCountdownFormat(minutes));
                 timerCountdownSeconds.setText(timerCountdownFormat(seconds));
+
+                //TODO: Prevent users from exiting the application
+                //TODO: Prevent users from opening the Panda and Shop page
+
+                //If the user cancels the timer countdown
+                if (isCancelled){
+                    //Cancel and reset timer
+                    cancel();
+                    resetTimerCountdown();
+                }
+
+                //If the user pauses the timer countdown
+                if (isPaused){
+                    //Cancel the timer
+                    cancel();
+                }
             }
 
+            //When the timer countdown finishes
             public void onFinish(){
-                Toast.makeText(HomeMain.this, "Timer is completed", Toast.LENGTH_LONG).show();
+                succeededTimer();
             }
         }.start();
-    }
-
-    /**
-     * Changes the time value to String and formats it to double digits
-     * @param time the time value to be formatted
-     * @return the string value of the time value in double digits
-     */
-    public String timerCountdownFormat(int time){
-
-        //If the time is in single digit, add a '0' to format it to double digits
-        if (time <= 9){
-            return "0" + time;
-        }
-
-        return String.valueOf(time);
-    }
-
-    public int getTotalTimerDuration(){
-        return totalTimerDuration;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,7 +10,8 @@
         android:layout_height="wrap_content"
         android:background="@color/airforceblue"
         android:padding="15dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Don't pause for too long or else you will receive fewer coins!"
+                android:text="@string/pause_timer_text"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:layout_below="@+id/pauseText">
@@ -44,9 +46,10 @@
                 android:layout_height="125dp"
                 android:layout_below="@+id/pauseDescription"
                 android:layout_centerInParent="true"
-                android:src="@drawable/resume_icon"
-                android:scaleType="fitCenter"
                 android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/resume_icon"
+                android:contentDescription="@string/resume_icon_text"
                 app:tint="@color/black">
             </ImageButton>
 
