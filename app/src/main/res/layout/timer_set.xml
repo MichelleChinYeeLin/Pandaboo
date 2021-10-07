@@ -29,8 +29,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/timerSlider"
-        android:max="119"
-        android:progress="30"
+        android:max="35"
+        android:progress="6"
         android:padding="20dp"
         android:layout_centerInParent="true"
         android:layout_below="@+id/timerProgress">

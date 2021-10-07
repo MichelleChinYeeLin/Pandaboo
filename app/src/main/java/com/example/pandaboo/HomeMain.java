@@ -12,17 +12,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
     //Initialization of default timer countdown values
     final int DEFAULT_COUNTDOWN_HOURS = 0;
-    final int DEFAULT_COUNTDOWN_MINUTES = 30;
+    final int DEFAULT_COUNTDOWN_MINUTES = 0;
     final int DEFAULT_COUNTDOWN_SECONDS = 0;
-    final int DEFAULT_SEEKBAR_PROGRESS = 30;
 
     //Initialization of constant variables to control the timer countdown
     final int MINUTES_TO_MILLISECONDS = 60000;
+    final int MINUTES_TO_SECONDS = 60;
+    final int SECONDS_TO_MILLISECONDS = 1000;
     final int MINUTES_MAX = 59;
     final int SECONDS_MAX = 59;
 
@@ -33,23 +37,16 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
     //Initialization for the timer countdown duration
     private int hours = 0, minutes = 0, seconds = 0;
-    public int timerValue = 0;
+    private int timerDuration = 0;
+    private int totalTimerDuration = 0;
+
+    boolean isCancelled = false;
+    boolean isPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
-
-        //Link the start button to the button in the home_main.xml file
-        Button startButton = findViewById(R.id.startButton);
-
-        //Open the set timer dialog box when the start button is clicked
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setTimer();
-            }
-        });
 
         //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
@@ -75,6 +72,8 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
         timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
+
+        fragmentToStartTimer();
     }
 
     /**
@@ -110,87 +109,89 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    /**
-     * Create and displays the alert dialog to allow users to set the timer duration
-     */
-    public void setTimer(){
-        //Initialization for the alert dialog builder
-        AlertDialog dialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        dialogBuilder.setView(inflater.inflate(R.layout.set_timer, null));
-        dialog = dialogBuilder.create();
+    public void cancelTimer(){
+        isCancelled = true;
+    }
 
-        //Display the alert dialog
-        dialog.show();
+    public int pauseTimer(){
+        isPaused = true;
+        return timerDuration;
+    }
 
-        //Initialization of elements in the home_main.xml
-        TextView timerProgress = dialog.findViewById(R.id.timerProgress);
-        SeekBar timerSeekBar = dialog.findViewById(R.id.timerSlider);
-        Button startTimerButton = dialog.findViewById(R.id.startTimerButton);
+    public void fragmentToOngoingTimer(){
+        Fragment homeOngoingTimer = new HomeOngoingTimer();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.homeFrame, homeOngoingTimer);
+        fragmentTransaction.commit();
+    }
 
-        //Display the default timer duration
-        timerProgress.setText(setTimerFormat(DEFAULT_SEEKBAR_PROGRESS));
+    public void fragmentToStartTimer(){
+        Fragment homeStartTimer = new HomeStartTimer();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.homeFrame, homeStartTimer);
+        fragmentTransaction.commit();
+    }
 
-        //Allow users to change the seekbar value and set the timer countdown duration
-        timerSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChangedValue = 0;
-
-            //Change the timer duration display when the seekbar value changes
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //Retrieve the seekbar value (+1 since seekbar value starts at 0)
-                progressChangedValue = progress + 1;
-
-                //Display the selected timer duration
-                timerProgress.setText(setTimerFormat(progressChangedValue));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                timerValue = progressChangedValue;
-            }
-        });
-
-        //When users click the START button
-        startTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Start the timer countdown
-                startTimer();
-
-                //Close the alert dialog
-                dialog.dismiss();
-            }
-        });
+    public void closeFragmentStartTimer(){
+        Fragment homeStartTimer = new HomeStartTimer();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(homeStartTimer);
+        fragmentTransaction.commit();
     }
 
     /**
-     * Start the timer countdown and display the timer duration
+     * Start the countdown timer and display the timer duration
+     * @param duration the total amount of time
      */
-    public void startTimer(){
+    public void startTimer(int duration){
 
-        //Assign the timer duration to minutes variable
-        minutes = timerValue;
+        closeFragmentStartTimer();
+        fragmentToOngoingTimer();
+
+        hours = minutes = seconds = 0;
+
+        isCancelled = false;
+        isPaused = false;
+
+        //Assign the timer duration to variables
+        seconds = duration;
+        timerDuration = duration;
+        totalTimerDuration = duration;
 
         //Calculate the number of hours in the timer duration
+        while (seconds >= 60){
+            seconds -= 60;
+            minutes++;
+        }
+
         while (minutes >= 60){
-            hours++;
             minutes -= 60;
+            hours++;
         }
 
         //Start the timer countdown
-        new CountDownTimer((long) timerValue * MINUTES_TO_MILLISECONDS, 1000){
+        new CountDownTimer((long) duration * SECONDS_TO_MILLISECONDS, 1000){
 
             //After every countdown interval
             public void onTick(long milisUntilFinished){
 
                 seconds--;
+                timerDuration--;
+
+                if (isCancelled){
+                    hours = 0;
+                    minutes = 0;
+                    seconds = 0;
+
+                    cancel();
+                }
+
+                if (isPaused){
+                    cancel();
+                }
 
                 //If minutes and seconds < 0, convert an hour to minutes and seconds
                 if (seconds < 0 && minutes <= 0 && hours > 0){
@@ -218,34 +219,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     }
 
     /**
-     * Formats the seek bar value to a duration (in hours and minutes)
-     * @param minutes the number of minutes as determined by the seek bar
-     * @return a string of the timer duration to be set (in hours and minutes)
-     */
-    public String setTimerFormat(int minutes){
-        String timeText = "";
-        int hours = 0;
-
-        //Calculate the number of hours
-        while (minutes >= 60){
-            hours++;
-            minutes -= 60;
-        }
-
-        //Display the number of hours if hours > 0
-        if (hours > 0){
-            timeText += hours + " hour ";
-        }
-
-        //Display the number of minutes if minutes > 0
-        if (minutes > 0){
-            timeText += minutes + " minute";
-        }
-
-        return timeText;
-    }
-
-    /**
      * Changes the time value to String and formats it to double digits
      * @param time the time value to be formatted
      * @return the string value of the time value in double digits
@@ -253,10 +226,14 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     public String timerCountdownFormat(int time){
 
         //If the time is in single digit, add a '0' to format it to double digits
-        if (time < 9){
+        if (time <= 9){
             return "0" + time;
         }
 
         return String.valueOf(time);
+    }
+
+    public int getTotalTimerDuration(){
+        return totalTimerDuration;
     }
 }
