@@ -6,24 +6,29 @@
     android:background="@color/white">
 
     <Button
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="@string/cancel_text"
         android:textSize="20sp"
-        app:backgroundTint="@color/red"
+        android:background="@color/red"
         android:layout_centerHorizontal="true"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:textColor="@color/white">
     </Button>
 
     <Button
+        android:id="@+id/pauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pause"
+        android:text="@string/pause_text"
         android:textSize="20sp"
-        app:backgroundTint="@color/ashrose"
+        android:background="@color/ashrose"
         android:layout_centerInParent="true"
         android:drawableRight="@drawable/pause_icon"
-        android:padding="10dp">
+        android:drawableEnd="@drawable/pause_icon"
+        android:padding="10dp"
+        android:textColor="@color/white">
     </Button>
 
 </RelativeLayout>

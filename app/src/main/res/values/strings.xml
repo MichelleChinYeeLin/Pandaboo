@@ -56,4 +56,18 @@
     <string name="skin5">skin5</string>
     <string name="coming_soon">Coming Soon...</string>
     <string name="timer_countdown_separator">:</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="pause_text">Pause</string>
+    <string name="redo_timer_text">Redo Timer</string>
+    <string name="home_text">Home</string>
+    <string name="failed_timer_text">DON\'T GET TOO DISTRACTED NEXT TIME!</string>
+    <string name="failed_timer_image_text">Failed Timer Image</string>
+    <string name="redo_timer_icon_text">Redo Timer Icon</string>
+    <string name="home_icon_text">Home Icon</string>
+    <string name="good_job_text">GOOD JOB!</string>
+    <string name="study_minutes_text">Study Minutes:</string>
+    <string name="pause_minutes_text">Pause Minutes:</string>
+    <string name="total_earned_text">Total Earned:</string>
+    <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
+    <string name="resume_icon_text">Resume Icon</string>
 </resources>
