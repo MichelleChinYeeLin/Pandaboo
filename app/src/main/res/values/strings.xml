@@ -58,4 +58,10 @@
     <string name="timer_countdown_separator">:</string>
     <string name="cancel_text">Cancel</string>
     <string name="pause_text">Pause</string>
+    <string name="good_job">Good Job!</string>
+    <string name="study_minutes">Study Minutes :</string>
+    <string name="pause_minutes">Pause Minutes:</string>
+    <string name="total_earned">Total Earned :</string>
+    <string name="redo_timer">Redo Timer</string>
+    <string name="home">Home</string>
 </resources>
