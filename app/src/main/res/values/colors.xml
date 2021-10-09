@@ -12,4 +12,9 @@
     <color name="olivegreen">#FF88987D</color>
     <color name="red">#FFD03535</color>
     <color name="paleyellow">#FFEEEDCE</color>
+    <color name="ashrose">#FFB77676</color>
+    <color name="aquamarine">#FF96DED0</color>
+    <color name="lightgray">#FFC3C3C3</color>
+    <color name="transparent">#00000000</color>
+    <color name="lightblue">#FFD6E4FA</color>
 </resources>
