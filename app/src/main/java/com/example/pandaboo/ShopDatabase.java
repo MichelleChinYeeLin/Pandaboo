@@ -46,7 +46,7 @@ public class ShopDatabase extends AppCompatActivity {
                     @NonNull
                     @Override
                     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        return null;
+                        return null; //s
                     }
 
                     @Override
