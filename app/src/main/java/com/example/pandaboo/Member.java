@@ -11,7 +11,7 @@ public class Member {
 
     public void setTitle(String title) {
         this.title = title;
-    }//s
+    }
 
     public String getImage() {
         return image;
