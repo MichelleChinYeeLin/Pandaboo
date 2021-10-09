@@ -22,7 +22,6 @@
         <activity android:name=".Settings"></activity>
         <activity android:name=".Event"></activity>
         <activity android:name=".Task"></activity>
-        <activity android:name=".Success"></activity>
     </application>
 
 </manifest>

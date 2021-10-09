@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 public class HomeStartTimer extends Fragment {
 
+    //Initialization of constant values
     final int DEFAULT_SEEKBAR_PROGRESS = 30;
     final int MINUTES_TO_SECONDS = 60;
+
+    //Initialization of variable to set the timer countdown duration
     private int timerValue = DEFAULT_SEEKBAR_PROGRESS;
 
     public void onCreate(Bundle savedInstanceState){
@@ -39,6 +42,9 @@ public class HomeStartTimer extends Fragment {
         return view;
     }
 
+    /**
+     * Shows a dialog box with a seekbar that allows the user to set the timer countdown duration
+     */
     public void setTimer(){
         //Initialization for the alert dialog builder
         AlertDialog dialog;
@@ -84,14 +90,13 @@ public class HomeStartTimer extends Fragment {
             }
         });
 
+        //Closes the alert dialog box and starts the timer countdown
         //When users click the START button
         startTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Close the alert dialog
                 dialog.dismiss();
-
-                ((HomeMain)getActivity()).startTimer(timerValue * MINUTES_TO_SECONDS);
+                ((HomeMain)getActivity()).toStartTimer(timerValue * MINUTES_TO_SECONDS);
             }
         });
     }
@@ -112,7 +117,7 @@ public class HomeStartTimer extends Fragment {
         }
 
         //Display the number of hours if hours > 0
-        if (hours > 0 && hours < 2){
+        if (hours == 1){
             timeText += hours + " hour ";
         }
 
