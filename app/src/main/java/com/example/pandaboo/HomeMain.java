@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -418,6 +419,8 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
+        //Reset the timer
+        resetTimerCountdown();
 
         //Start the ongoingTimer fragment
         fragmentToOngoingTimer();
