@@ -137,7 +137,6 @@ public class HomeOngoingTimer extends Fragment {
                 //If the timer countdown is resumed
                 if (isResumed){
                     dialog.dismiss();
-                    Toast.makeText(getActivity(), "durationRemainder: " + pauseDurationRemainder, Toast.LENGTH_LONG).show();
                     cancel();
                     resumeMainTimer();
                 }
