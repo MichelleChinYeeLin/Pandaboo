@@ -1,4 +1,4 @@
-package com.example.pandaboo;
+/*package com.example.pandaboo;
 
 public class Member {
     String title, image;
@@ -21,3 +21,4 @@ public class Member {
         this.image = image;
     }
 }
+*/

@@ -1,4 +1,4 @@
-package com.example.pandaboo;
+/* package com.example.pandaboo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,3 +77,4 @@ public class ShopDatabase extends AppCompatActivity {
 
 }
 
+*/
