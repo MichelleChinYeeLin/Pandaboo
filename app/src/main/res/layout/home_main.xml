@@ -12,15 +12,14 @@
         android:layout_height="75dp"
         android:background="@color/olivegreen"
         android:padding="3dp">
-      
+
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/music_icon"
             android:contentDescription="@string/music_icon_not_muted"
-            app:tint="@color/black">
-        </ImageView>
+            android:src="@drawable/music_icon"
+            app:tint="@color/black"></ImageView>
 
         <RelativeLayout
             android:id="@+id/timerCountdownArea"
@@ -28,19 +27,18 @@
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:background="@color/paleyellow"
-            android:paddingLeft="5dp"
             android:paddingStart="5dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="5dp">
+            android:paddingLeft="5dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/timerIcon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="@string/timer_icon"
                 android:src="@drawable/timer_icon"
-                app:tint="@color/black"
-                android:contentDescription="@string/timer_icon">
-            </ImageView>
+                app:tint="@color/black"></ImageView>
 
             <TextView
                 android:id="@+id/timerCountdownHours"
@@ -52,8 +50,7 @@
                 android:layout_toEndOf="@+id/timerIcon"
                 android:layout_toRightOf="@+id/timerIcon"
                 android:textColor="@color/black"
-                android:textSize="30sp">
-            </TextView>
+                android:textSize="30sp"></TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeparator1"
@@ -62,10 +59,9 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/timerCountdownHours"
                 android:layout_toRightOf="@+id/timerCountdownHours"
-                android:textColor="@color/black"
                 android:text="@string/timer_countdown_separator"
-                android:textSize="30sp">
-            </TextView>
+                android:textColor="@color/black"
+                android:textSize="30sp"></TextView>
 
             <TextView
                 android:id="@+id/timerCountdownMinutes"
@@ -75,8 +71,7 @@
                 android:layout_toEndOf="@+id/timerCountdownSeparator1"
                 android:layout_toRightOf="@+id/timerCountdownSeparator1"
                 android:textColor="@color/black"
-                android:textSize="30sp">
-            </TextView>
+                android:textSize="30sp"></TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeparator2"
@@ -85,10 +80,9 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/timerCountdownMinutes"
                 android:layout_toRightOf="@+id/timerCountdownMinutes"
-                android:textColor="@color/black"
                 android:text="@string/timer_countdown_separator"
-                android:textSize="30sp">
-            </TextView>
+                android:textColor="@color/black"
+                android:textSize="30sp"></TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeconds"
@@ -98,8 +92,7 @@
                 android:layout_toEndOf="@+id/timerCountdownSeparator2"
                 android:layout_toRightOf="@+id/timerCountdownSeparator2"
                 android:textColor="@color/black"
-                android:textSize="30sp">
-            </TextView>
+                android:textSize="30sp"></TextView>
 
         </RelativeLayout>
 
@@ -107,18 +100,17 @@
             android:id="@+id/currencyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/airforceblue"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/airforceblue">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="100"
-                android:textSize="25sp"
-                android:padding="10dp">
-            </TextView>
+                android:textSize="25sp"></TextView>
 
         </RelativeLayout>
 
@@ -126,16 +118,15 @@
             android:id="@+id/currencyImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/currencyText"
-            android:layout_toEndOf="@+id/currencyText"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/currencyText"
+            android:layout_toRightOf="@+id/currencyText"
             android:background="@color/airforceblue">
 
             <!-- Insert Bamboo Image HERE -->
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
+                android:layout_height="wrap_content"></ImageView>
         </RelativeLayout>
 
         <!--
@@ -159,8 +150,8 @@
         android:id="@+id/homeFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar"
-        android:layout_above="@+id/bottomNavigation">
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_below="@+id/topBar">
 
     </FrameLayout>
 

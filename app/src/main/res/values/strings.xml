@@ -70,4 +70,5 @@
     <string name="total_earned_text">Total Earned:</string>
     <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
     <string name="resume_icon_text">Resume Icon</string>
+    <string name="panda_Celebrating">panda_celebrating</string>
 </resources>
