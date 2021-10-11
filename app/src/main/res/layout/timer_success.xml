@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/lightblue"
-    android:paddingTop="40dp"
+    android:paddingTop="20dp"
     android:paddingHorizontal="15dp"
     android:paddingBottom="20dp">
 
@@ -20,95 +21,126 @@
         android:textSize="25sp">
     </TextView>
 
-    <!-- Insert panda image HERE -->
-    <ImageView
-        android:id="@+id/failedTimerImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/failedTimerText"
+    <RelativeLayout
+        android:id="@+id/ImageHolder"
+        android:layout_width="500dp"
+        android:layout_height="400dp"
+        android:layout_below="@id/failedTimerText"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/failed_timer_image_text">
-    </ImageView>
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/totalStudyMinutesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/failedTimerImage"
-        android:text="@string/study_minutes_text"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp">
-    </TextView>
+        <ImageView
+            android:id="@+id/failedTimerImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/failed_timer_image_text"
+            android:src="@drawable/celebrate">
+        </ImageView>
 
-    <TextView
-        android:id="@+id/totalStudyMinutes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/totalStudyMinutesText"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp">
-    </TextView>
+        <ImageView
+            android:id="@+id/pandaCelebrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/panda_celebrating"
+            android:src="@drawable/panda_celebrate">
+        </ImageView>
 
-    <TextView
-        android:id="@+id/totalPauseMinutesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/totalStudyMinutes"
-        android:text="@string/pause_minutes_text"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp">
-    </TextView>
-
-    <TextView
-        android:id="@+id/totalPauseMinutes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/totalPauseMinutesText"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp">
-    </TextView>
+    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bambooEarnedArea"
+        android:id="@+id/InfoHolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/totalPauseMinutes"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp">
+        android:layout_below="@id/ImageHolder"
+        android:layout_centerHorizontal="true">
 
         <TextView
-            android:id="@+id/totalBambooEarnedText"
+            android:id="@+id/totalStudyMinutesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total_earned_text"
+            android:layout_centerHorizontal="true"
+            android:text="@string/study_minutes_text"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/totalStudyMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalStudyMinutesText"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/totalPauseMinutesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalStudyMinutesText"
+            android:text="@string/pause_minutes_text"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/totalPauseMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/totalPauseMinutesText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
             android:textSize="20sp"
             android:textColor="@color/black">
         </TextView>
 
-        <TextView
-            android:id="@+id/totalBambooEarned"
+        <RelativeLayout
+            android:id="@+id/bambooEarnedArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/totalBambooEarnedText"
-            android:layout_toEndOf="@+id/totalBambooEarnedText"
-            android:textSize="20sp"
-            android:textColor="@color/black">
-        </TextView>
+            android:layout_below="@+id/totalPauseMinutesText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp">
 
-        <!-- Insert bamboo icon HERE -->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/bamboo_icon">
-        </ImageView>
+            <TextView
+                android:id="@+id/totalBambooEarnedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_earned_text"
+                android:textSize="20sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/totalBambooEarned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/totalBambooEarnedText"
+                android:layout_centerHorizontal="true"
+                android:text="100"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/bambooImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toEndOf="@+id/totalBambooEarnedText"
+                android:layout_toRightOf="@+id/totalBambooEarnedText"
+                android:contentDescription="@string/bamboo_icon"
+                android:src="@drawable/bamboo"
+                tools:ignore="ImageContrastCheck">
+            </ImageView>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -116,7 +148,7 @@
         android:id="@+id/buttonArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bambooEarnedArea"
+        android:layout_below="@+id/InfoHolder"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp">
 

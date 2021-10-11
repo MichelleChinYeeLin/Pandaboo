@@ -15,8 +15,6 @@
     <string name="timer_icon">Timer Icon</string>
     <string name="goodjob">GoodJobtext</string>
     <string name="set_timer_text">Set Timer</string>
-    <string name="confetti">confetti</string>
-    <string name="panda_celebrating">panda celebrating</string>
     <string name="studyMinutes">studyMinutes</string>
     <string name="studyMin">studyMin</string>
     <string name="pauseMin">pauseMin</string>
@@ -65,9 +63,10 @@
     <string name="redo_timer_icon_text">Redo Timer Icon</string>
     <string name="home_icon_text">Home Icon</string>
     <string name="good_job_text">GOOD JOB!</string>
-    <string name="study_minutes_text">Study Minutes:</string>
-    <string name="pause_minutes_text">Pause Minutes:</string>
-    <string name="total_earned_text">Total Earned:</string>
+    <string name="study_minutes_text"><u>Study Duration</u></string>
+    <string name="pause_minutes_text"><u>Pause Duration</u></string>
+    <string name="total_earned_text"><u>Total Earned</u></string>
     <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
     <string name="resume_icon_text">Resume Icon</string>
+    <string name="panda_celebrating">Panda Celebrating</string>
 </resources>
