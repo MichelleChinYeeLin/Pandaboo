@@ -8,9 +8,10 @@
     tools:context=".Shop">
 
     <RelativeLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/teal_700">
+        android:background="@color/olivegreen">
 
         <Button
             android:id="@+id/backButton"
@@ -18,59 +19,78 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="307dp"
-            android:layout_marginRight="307dp"
-            android:backgroundTint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/paleyellow"
             android:text="@string/back"
-            android:textColor="#000000"
-            tools:ignore="TextContrastCheck"
+            android:textColor="@color/black"
+            tools:ignore="RelativeOverlap,TextContrastCheck"
             tools:targetApi="lollipop" />
 
-        <ImageView
-            android:id="@+id/bambooCurrency"
-            android:layout_width="122dp"
-            android:layout_height="47dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="@string/bamboocurrencyimage"
-            app:srcCompat="@drawable/untitled"
-            tools:ignore="ImageContrastCheck" />
-
-        <TextView
-            android:id="@+id/totalBamboo"
+        <RelativeLayout
+            android:id="@+id/bambooArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bambooCurrency"
-            android:layout_alignEnd="@+id/bambooCurrency"
-            android:layout_alignRight="@+id/bambooCurrency"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="71dp"
-            android:layout_marginRight="71dp"
-            android:text="@string/_00"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@color/blue">
+
+            <RelativeLayout
+                android:id="@+id/bambooCurrencyArea"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/bamboo_currency_border"
+                android:paddingHorizontal="10dp"
+                android:layout_centerVertical="true">
+
+                <!-- TODO: Change text programmatically-->
+                <TextView
+                    android:id="@+id/bambooNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp">
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@+id/bambooCurrencyArea"
+                android:layout_toEndOf="@+id/bambooCurrencyArea"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bamboo_currency_border">
+
+                <ImageView
+                    android:id="@+id/bambooIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/bamboo"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/bamboo_icon">
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/pandaShopBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
+        android:layout_below="@+id/topBar"
         android:adjustViewBounds="true"
         android:contentDescription="@string/panda_shop_bg"
         app:srcCompat="@drawable/_panda" />
 
+    <!-- Remember to change this to actual text view -->
     <ImageView
         android:id="@+id/pandaShopWord"
         android:layout_width="338dp"
@@ -85,12 +105,12 @@
         android:id="@+id/roomSkinTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="224dp"
         android:adjustViewBounds="true"
+        android:layout_below="@+id/pandaShopBg"
         android:contentDescription="@string/roomskintitle"
         app:srcCompat="@drawable/romm_category" />
 
+    <!--
     <ImageView
         android:id="@+id/defaultSkin"
         android:layout_width="130dp"
@@ -189,5 +209,6 @@
         android:text="@string/coming_soon"
         android:textColor="#000000"
         tools:ignore="TextContrastCheck" />
+        -->
 
 </RelativeLayout>
