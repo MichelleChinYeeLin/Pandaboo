@@ -17,4 +17,5 @@
     <color name="lightgray">#FFC3C3C3</color>
     <color name="transparent">#00000000</color>
     <color name="lightblue">#FFD6E4FA</color>
+    <color name="blue">#FF69868E</color>
 </resources>
