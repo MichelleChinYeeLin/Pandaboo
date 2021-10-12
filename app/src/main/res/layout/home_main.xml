@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,7 +32,8 @@
             android:paddingLeft="5dp"
             android:paddingStart="5dp"
             android:paddingRight="10dp"
-            android:paddingEnd="5dp">
+            android:paddingEnd="5dp"
+            tools:ignore="RelativeOverlap">
 
             <ImageView
                 android:id="@+id/timerIcon"
@@ -104,64 +106,67 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/currencyText"
+            android:id="@+id/bambooArea"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/airforceblue"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
-                android:textSize="25sp"
-                android:padding="10dp">
-            </TextView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/currencyImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/currencyText"
-            android:layout_toEndOf="@+id/currencyText"
             android:layout_centerVertical="true"
-            android:background="@color/airforceblue">
+            android:layout_margin="5dp"
+            android:background="@color/blue">
 
-            <!-- Insert Bamboo Image HERE -->
-            <ImageView
+            <RelativeLayout
+                android:id="@+id/bambooCurrencyArea"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
+                android:layout_height="35dp"
+                android:background="@drawable/bamboo_currency_border"
+                android:layout_centerVertical="true"
+                android:paddingHorizontal="10dp">
+
+                <!-- TODO: Change text programmatically-->
+                <TextView
+                    android:id="@+id/bambooNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp">
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@+id/bambooCurrencyArea"
+                android:layout_toEndOf="@+id/bambooCurrencyArea"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bamboo_currency_border">
+
+                <ImageView
+                    android:id="@+id/bambooIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/bamboo"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/bamboo_icon">
+                </ImageView>
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
-        <!--
-        <ImageView
-            android:id="@+id/bambooCurrencyImage"
-            android:layout_width="69dp"
-            android:layout_height="37dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            android:contentDescription="@string/bamboo_currency"
-            app:srcCompat="@drawable/untitled"
-            tools:ignore="ImageContrastCheck" />
-           -->
     </RelativeLayout>
 
+    <!-- TODO: change the background image (programmatically) -->
     <FrameLayout
         android:id="@+id/homeFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
-        android:layout_above="@+id/bottomNavigation">
-
+        android:layout_above="@+id/bottomNavigation"
+        android:background="@color/white">
     </FrameLayout>
 
     <!-- Bottom Navigation -->
