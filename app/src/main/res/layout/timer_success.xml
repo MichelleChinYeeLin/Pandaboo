@@ -18,10 +18,11 @@
         android:text="@string/good_job_text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="25sp"></TextView>
+        android:textSize="25sp">
+    </TextView>
 
     <RelativeLayout
-        android:id="@id/ImageHolder"
+        android:id="@+id/ImageHolder"
         android:layout_width="500dp"
         android:layout_height="400dp"
         android:layout_below="@id/failedTimerText"
@@ -34,15 +35,17 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:contentDescription="@string/failed_timer_image_text"
-            android:src="@drawable/celebrate"></ImageView>
+            android:src="@drawable/celebrate">
+        </ImageView>
 
         <ImageView
-            android:id="@id/pandaCelebrate"
+            android:id="@+id/pandaCelebrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/panda_Celebrating"
-            android:src="@drawable/panda_celebrate"></ImageView>
+            android:contentDescription="@string/panda_celebrating"
+            android:src="@drawable/panda_celebrate">
+        </ImageView>
 
     </RelativeLayout>
 
@@ -57,8 +60,7 @@
             android:id="@+id/totalStudyMinutesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/study_minutes_text"
             android:textColor="@color/black"
             android:textSize="20sp">
@@ -68,10 +70,11 @@
             android:id="@+id/totalStudyMinutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/totalStudyMinutesText"
+            android:layout_below="@+id/totalStudyMinutesText"
+            android:layout_centerHorizontal="true"
             android:textSize="20sp"
             android:textColor="@color/black"
-            android:layout_toEndOf="@+id/totalStudyMinutesText">
+            android:layout_marginTop="5dp">
         </TextView>
 
         <TextView
@@ -79,9 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalStudyMinutesText"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:text="@string/pause_minutes_text"
+            android:layout_centerHorizontal="true"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginTop="20dp">
@@ -91,12 +93,11 @@
             android:id="@+id/totalPauseMinutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/totalPauseMinutesText"
-            android:layout_below="@id/totalStudyMinutes"
-            android:layout_marginTop="20dp"
+            android:layout_below="@id/totalPauseMinutesText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
             android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_toEndOf="@+id/totalPauseMinutesText">
+            android:textColor="@color/black">
         </TextView>
 
         <RelativeLayout
@@ -104,8 +105,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalPauseMinutesText"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp">
 
@@ -122,21 +121,24 @@
                 android:id="@+id/totalBambooEarned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/totalBambooEarnedText"
-                android:layout_toEndOf="@+id/totalBambooEarnedText"
+                android:layout_below="@+id/totalBambooEarnedText"
+                android:layout_centerHorizontal="true"
+                android:text="100"
                 android:textSize="20sp"
-                android:textColor="@color/black">
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp">
             </TextView>
 
             <ImageView
                 android:id="@+id/bambooImage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_toEndOf="@+id/totalBambooEarned"
-                android:layout_toRightOf="@+id/totalBambooEarned"
+                android:layout_toEndOf="@+id/totalBambooEarnedText"
+                android:layout_toRightOf="@+id/totalBambooEarnedText"
                 android:contentDescription="@string/bamboo_icon"
                 android:src="@drawable/bamboo"
-                tools:ignore="ImageContrastCheck"></ImageView>
+                tools:ignore="ImageContrastCheck">
+            </ImageView>
 
         </RelativeLayout>
 
