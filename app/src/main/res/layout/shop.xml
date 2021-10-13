@@ -110,105 +110,16 @@
         android:contentDescription="@string/roomskintitle"
         app:srcCompat="@drawable/romm_category" />
 
-    <!--
-    <ImageView
-        android:id="@+id/defaultSkin"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="340dp"
-        android:contentDescription="@string/defaultskin"
-        app:srcCompat="@drawable/skin1" />
-
-    <ImageView
-        android:id="@+id/skinOne"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin1"
-        app:srcCompat="@drawable/skin2" />
-
-    <ImageView
-        android:id="@+id/skinTwo"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="480dp"
-        android:contentDescription="@string/skin2"
-        app:srcCompat="@drawable/skin3" />
-
-    <ImageView
-        android:id="@+id/skinThree"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin3"
-        app:srcCompat="@drawable/skin4" />
-
-    <ImageView
-        android:id="@+id/skinFour"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="620dp"
-        android:contentDescription="@string/skin4"
-        app:srcCompat="@drawable/skin5" />
-
-    <ImageView
-        android:id="@+id/skinFive"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="620dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin5"
-        app:srcCompat="@drawable/skin6"
-        tools:ignore="ImageContrastCheck" />
-
-    <TextView
-        android:id="@+id/comingSoon"
-        android:layout_width="108dp"
-        android:layout_height="24dp"
-        android:layout_alignStart="@+id/skinFive"
-        android:layout_alignLeft="@+id/skinFive"
-        android:layout_alignTop="@+id/skinFive"
-        android:layout_alignEnd="@+id/skinFive"
-        android:layout_alignRight="@+id/skinFive"
-        android:layout_alignBottom="@+id/skinFive"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="53dp"
-        android:text="@string/coming_soon"
-        android:textColor="#000000"
-        tools:ignore="TextContrastCheck" />
-        -->
+    <GridView
+        android:id="@+id/skinsGridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="20dp"
+        android:numColumns="2"
+        android:layout_below="@+id/roomSkinTitle"
+        android:layout_centerHorizontal="true">
+    </GridView>
 
 </RelativeLayout>

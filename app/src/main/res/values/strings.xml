@@ -69,4 +69,9 @@
     <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
     <string name="resume_icon_text">Resume Icon</string>
     <string name="panda_celebrating">Panda Celebrating</string>
+    <string name="cancel_session_text">Do you want to end the session?</string>
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
+    <string name="purchase_text">Do you want to purchase this item?</string>
+    <string name="equip_text">Do you want to equip this item?</string>
 </resources>

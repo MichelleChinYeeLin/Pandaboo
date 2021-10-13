@@ -165,8 +165,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
-        android:layout_above="@+id/bottomNavigation"
-        android:background="@color/white">
+        android:layout_above="@+id/bottomNavigation">
+
+        <ImageView
+            android:id="@+id/homeFrameImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+
     </FrameLayout>
 
     <!-- Bottom Navigation -->
