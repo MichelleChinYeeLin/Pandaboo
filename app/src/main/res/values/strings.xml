@@ -40,7 +40,6 @@
     <string name="pandaimage">pandaImage</string>
     <string name="bamboogrowing">bambooGrowing</string>
     <string name="backToHome">Back</string>
-    <string name="back">Back</string>
     <string name="bamboocurrencyimage">bambooCurrencyImage</string>
     <string name="_00">00</string>
     <string name="panda_shop_bg">pandaShopBg</string>
@@ -69,4 +68,10 @@
     <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
     <string name="resume_icon_text">Resume Icon</string>
     <string name="panda_celebrating">Panda Celebrating</string>
+    <string name="back">Back</string>
+    <string name="october_2021">October 2021</string>
+    <string name="previous_month">previous Month</string>
+    <string name="next_month">next Month</string>
+    <string name="more_menu">more menu</string>
+    <string name="add_event">add event</string>
 </resources>

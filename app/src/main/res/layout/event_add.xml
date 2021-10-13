@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/airforceblue">
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="top"
+        android:background="@color/olivegreen"
+        android:padding="3dp">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:text="@string/back"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mainInfo_holder"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/topBar"
+        android:background="@color/orange_yellowish">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/details_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mainInfo_holder"
+        android:layout_marginTop="20dp"
+        android:background="@color/orange_yellowish">
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,22 +1,37 @@
 package com.example.pandaboo;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Planner extends AppCompatActivity implements View.OnClickListener{
+public class PlannerMain extends AppCompatActivity {
 
     //CalendarView simpleCalendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.planner);
+        setContentView(R.layout.planner_main);
 
+        ImageButton AddEvent = findViewById(R.id.add_event);
+        AddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PlannerMain.this, EventAdd.class));
+            }
+        });
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PlannerMain.this, HomeMain.class));
+            }
+        });
         /*
         simpleCalendarView = (CalendarView) findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
         simpleCalendarView.setFocusedMonthDateColor(Color.BLACK); // set the black color for the dates of focused month
@@ -33,9 +48,4 @@ public class Planner extends AppCompatActivity implements View.OnClickListener{
          */
     }
 
-    @Override
-    public void onClick(View view) {
-        //next button
-        //previous button
-    }
 }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+public class HomeMain extends AppCompatActivity{
 
     //Initialization of default timer countdown values
     final int DEFAULT_COUNTDOWN_HOURS = 0;
@@ -65,11 +64,36 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button tasksButton = findViewById(R.id.tasksButton);
         Button settingsButton = findViewById(R.id.settingsButton);
 
-        pandaButton.setOnClickListener(this);
-        shopButton.setOnClickListener(this);
-        plannerButton.setOnClickListener(this);
-        tasksButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
+        pandaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Panda.class));
+            }
+        });
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Shop.class));
+            }
+        });
+        plannerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, PlannerMain.class));
+            }
+        });
+        tasksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Task.class));
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Settings.class));
+            }
+        });
 
         //Set default timer text for the timer countdown
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
@@ -96,30 +120,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
      * Changes the activity based on the button clicked
      * @param view the view of the layout
      */
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.pandaButton:
-                Intent toPanda = new Intent(this, Panda.class);
-                startActivity(toPanda);
-                break;
-            case R.id.shopButton:
-                Intent toShop = new Intent(this, Shop.class);
-                startActivity(toShop);
-                break;
-            case R.id.plannerButton:
-                Intent toPlanner = new Intent(this, Planner.class);
-                startActivity(toPlanner);
-                break;
-            case R.id.tasksButton:
-                Intent toTasks = new Intent(this, Task.class);
-                startActivity(toTasks);
-                break;
-            case R.id.settingsButton:
-                Intent toSettings = new Intent(this, Settings.class);
-                startActivity(toSettings);
-                break;
-        }
-    }
 
     /**
      * Start the ongoingTimer fragment and replace the current fragment

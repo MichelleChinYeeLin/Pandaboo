@@ -47,11 +47,10 @@
                 android:layout_below="@+id/pauseDescription"
                 android:layout_centerInParent="true"
                 android:background="@color/transparent"
+                android:contentDescription="@string/resume_icon_text"
                 android:scaleType="fitCenter"
                 android:src="@drawable/resume_icon"
-                android:contentDescription="@string/resume_icon_text"
-                app:tint="@color/black">
-            </ImageButton>
+                app:tint="@color/black"></ImageButton>
 
             <TextView
                 android:id="@+id/pauseTimer"

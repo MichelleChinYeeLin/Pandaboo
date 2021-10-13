@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/black"
-    tools:context=".Planner">
+    android:background="@color/black"
+    tools:context=".PlannerMain">
 
     <RelativeLayout
         android:id="@+id/topBar"
@@ -22,11 +22,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/white"
-            android:text="Back"
-            android:textColor="@color/black" />
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:text="@string/back"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
 
     </RelativeLayout>
 
@@ -40,55 +42,67 @@
             android:id="@+id/monthYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="October 2021"
-            android:textSize="30sp"
-            android:textColor="@color/black"
             android:layout_below="@id/prevButton"
             android:layout_alignParentLeft="true"
             android:layout_marginVertical="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:text="Month Year"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp" />
 
         <ImageButton
             android:id="@+id/prevButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/previous_month_icon"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            app:tint="@color/black"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginVertical="10dp"
-            android:layout_marginLeft="10dp">
-        </ImageButton>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/previous_month"
+            android:scaleType="fitCenter"
+            android:src="@drawable/previous_month_icon"
+            app:tint="@color/black"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:layout_marginStart="10dp"></ImageButton>
 
         <ImageButton
             android:id="@+id/nextButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/next_month_icon"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            app:tint="@color/black"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
             android:layout_marginVertical="10dp"
-            android:layout_marginRight="10dp">
-        </ImageButton>
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/next_month"
+            android:scaleType="fitCenter"
+            android:src="@drawable/next_month_icon"
+            app:tint="@color/black"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:layout_marginEnd="10dp"></ImageButton>
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/more_event_menu"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_below="@id/nextButton"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginVertical="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:clickable="true"
+            android:contentDescription="@string/more_menu"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
             android:src="@drawable/dotmenu_icon"
             app:tint="@color/black"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -103,8 +117,25 @@
         <CalendarView
             android:id="@+id/simpleCalendarView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/add_event"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="100dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:clickable="true"
+            android:contentDescription="@string/add_event"
+            android:src="@drawable/add_action"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:focusable="true"></ImageButton>
 
     </RelativeLayout>
 

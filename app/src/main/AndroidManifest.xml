@@ -22,7 +22,8 @@
         <activity android:name=".Settings"></activity>
         <activity android:name=".Event"></activity>
         <activity android:name=".Task"></activity>
-        <activity android:name=".Planner"></activity>
+        <activity android:name=".PlannerMain"></activity>
+        <activity android:name=".EventAdd"></activity>
     </application>
 
 </manifest>
