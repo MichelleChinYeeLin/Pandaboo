@@ -32,6 +32,8 @@ public class Shop extends AppCompatActivity{
     private Button backButton;
     private GridView skinsGridView;
     private ArrayList<Item> itemArrayList = new ArrayList<Item>();
+    private TextView bambooCurrency;
+    private int bambooNum;
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
 
@@ -49,6 +51,21 @@ public class Shop extends AppCompatActivity{
         });
 
         skinsGridView = findViewById(R.id.skinsGridView);
+        bambooCurrency = findViewById(R.id.bambooNumber);
+
+        DatabaseReference userReference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("User");
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                bambooNum = snapshot.child("Bamboo").getValue(int.class);
+                bambooCurrency.setText(Integer.toString(bambooNum));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("Item");
         reference.addValueEventListener(new ValueEventListener() {
@@ -115,22 +132,21 @@ public class Shop extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
-                        reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
-                        reference.child("Item").child(item.getItemID()).child("IsOwned").setValue(true);
-                    }
+                if (bambooNum >= item.getItemPrice()){
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(Shop.this, "Purchase Failed.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    bambooNum -= item.getItemPrice();
+                    DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+                    reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
+                    reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
+                    reference.child("User").child("Bamboo").setValue(bambooNum);
+                    reference.child("Item").child(item.getItemID()).child("IsOwned").setValue(true);
 
-                dialog.dismiss();
+                    dialog.dismiss();
+                }
+
+                else{
+                    Toast.makeText(Shop.this, "Insufficient bamboo.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -162,19 +178,8 @@ public class Shop extends AppCompatActivity{
             public void onClick(View v) {
 
                 DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
-                        reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(Shop.this, "Purchase Failed.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
+                reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
                 dialog.dismiss();
             }
         });

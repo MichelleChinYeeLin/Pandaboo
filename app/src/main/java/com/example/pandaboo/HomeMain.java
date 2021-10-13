@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    private TextView bambooCurrency;
+    private int bambooNum;
 
     //Initialization of default timer countdown values
     final int DEFAULT_COUNTDOWN_HOURS = 0;
@@ -95,12 +97,15 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         fragmentTransaction.commit();
 
         ImageView homeFrameImage = findViewById(R.id.homeFrameImage);
+        bambooCurrency = findViewById(R.id.bambooNumber);
 
         DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String imageURL = snapshot.child("User").child("EquippedItemTimer").getValue(String.class);
+                bambooNum = snapshot.child("User").child("Bamboo").getValue(int.class);
+                bambooCurrency.setText(Integer.toString(bambooNum));
                 Picasso.get().load(imageURL).into(homeFrameImage);
             }
 
@@ -362,6 +367,10 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
         totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
 
+        bambooNum += calcEarnedBamboo();
+        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+        reference.child("User").child("Bamboo").setValue(bambooNum);
+
         //Reset the timer countdown
         resetTimerCountdown();
 
@@ -447,6 +456,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
+        Toast.makeText(this, "BambooNum: " + bambooNum, Toast.LENGTH_SHORT).show();
         //Reset the timer
         resetTimerCountdown();
 

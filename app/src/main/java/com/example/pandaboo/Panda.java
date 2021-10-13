@@ -30,11 +30,12 @@ public class Panda extends AppCompatActivity {
         Button backButton = findViewById(R.id.backButton);
 
         DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String roomSkinURL = snapshot.child("User").child("EquippedItemRoom").getValue(String.class);
-                Picasso.get().load(roomSkinURL).into(roomSkin);
+                Picasso.get().load(roomSkinURL).noPlaceholder().into(roomSkin);
             }
 
             @Override

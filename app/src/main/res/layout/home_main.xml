@@ -123,12 +123,10 @@
                 android:layout_centerVertical="true"
                 android:paddingHorizontal="10dp">
 
-                <!-- TODO: Change text programmatically-->
                 <TextView
                     android:id="@+id/bambooNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"
                     android:layout_centerVertical="true"
                     android:textSize="15sp">
                 </TextView>
