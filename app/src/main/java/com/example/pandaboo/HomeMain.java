@@ -1,21 +1,36 @@
 package com.example.pandaboo;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class HomeMain extends AppCompatActivity{
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+
+    final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    private TextView bambooCurrency;
+    private int bambooNum;
 
     //Initialization of default timer countdown values
     final int DEFAULT_COUNTDOWN_HOURS = 0;
@@ -64,36 +79,11 @@ public class HomeMain extends AppCompatActivity{
         Button tasksButton = findViewById(R.id.tasksButton);
         Button settingsButton = findViewById(R.id.settingsButton);
 
-        pandaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, Panda.class));
-            }
-        });
-        shopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, Shop.class));
-            }
-        });
-        plannerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, PlannerMain.class));
-            }
-        });
-        tasksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, Task.class));
-            }
-        });
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, Settings.class));
-            }
-        });
+        pandaButton.setOnClickListener(this);
+        shopButton.setOnClickListener(this);
+        plannerButton.setOnClickListener(this);
+        tasksButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
 
         //Set default timer text for the timer countdown
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
@@ -105,6 +95,25 @@ public class HomeMain extends AppCompatActivity{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.homeFrame, homeStartTimer);
         fragmentTransaction.commit();
+
+        ImageView homeFrameImage = findViewById(R.id.homeFrameImage);
+        bambooCurrency = findViewById(R.id.bambooNumber);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String imageURL = snapshot.child("User").child("EquippedItemTimer").getValue(String.class);
+                bambooNum = snapshot.child("User").child("Bamboo").getValue(int.class);
+                bambooCurrency.setText(Integer.toString(bambooNum));
+                Picasso.get().load(imageURL).into(homeFrameImage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void resetTimerCountdown(){
@@ -120,6 +129,30 @@ public class HomeMain extends AppCompatActivity{
      * Changes the activity based on the button clicked
      * @param view the view of the layout
      */
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.pandaButton:
+                Intent toPanda = new Intent(this, Panda.class);
+                startActivity(toPanda);
+                break;
+            case R.id.shopButton:
+                Intent toShop = new Intent(this, Shop.class);
+                startActivity(toShop);
+                break;
+            case R.id.plannerButton:
+                Intent toPlanner = new Intent(this, Planner.class);
+                startActivity(toPlanner);
+                break;
+            case R.id.tasksButton:
+                Intent toTasks = new Intent(this, Task.class);
+                startActivity(toTasks);
+                break;
+            case R.id.settingsButton:
+                Intent toSettings = new Intent(this, Settings.class);
+                startActivity(toSettings);
+                break;
+        }
+    }
 
     /**
      * Start the ongoingTimer fragment and replace the current fragment
@@ -334,6 +367,10 @@ public class HomeMain extends AppCompatActivity{
         totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
         totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
 
+        bambooNum += calcEarnedBamboo();
+        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+        reference.child("User").child("Bamboo").setValue(bambooNum);
+
         //Reset the timer countdown
         resetTimerCountdown();
 
@@ -419,6 +456,7 @@ public class HomeMain extends AppCompatActivity{
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
+        Toast.makeText(this, "BambooNum: " + bambooNum, Toast.LENGTH_SHORT).show();
         //Reset the timer
         resetTimerCountdown();
 
