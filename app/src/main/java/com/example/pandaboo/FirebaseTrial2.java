@@ -76,7 +76,7 @@ import com.squareup.picasso.Picasso;
 
 public class FirebaseTrial2 extends AppCompatActivity {
 
-    //// pulling from database
+    // pulling from database
     // Initializing the ImageView
     ImageView rImage;
 
@@ -96,7 +96,7 @@ public class FirebaseTrial2 extends AppCompatActivity {
 
         // Here "image" is the child node value we are getting
         // child node data in the getImage variable
-        DatabaseReference getImage = databaseReference.child("Basic Room");
+        DatabaseReference getImage = databaseReference.child("1r");
 
         // Adding listener for a single change
         // in the data at this location.
