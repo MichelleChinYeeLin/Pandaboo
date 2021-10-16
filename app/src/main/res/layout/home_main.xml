@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,14 +13,15 @@
         android:layout_height="75dp"
         android:background="@color/olivegreen"
         android:padding="3dp">
-
+      
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/music_icon_not_muted"
             android:src="@drawable/music_icon"
-            app:tint="@color/black"></ImageView>
+            android:contentDescription="@string/music_icon_not_muted"
+            app:tint="@color/black">
+        </ImageView>
 
         <RelativeLayout
             android:id="@+id/timerCountdownArea"
@@ -27,18 +29,20 @@
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:background="@color/paleyellow"
-            android:paddingStart="5dp"
             android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:paddingRight="10dp"
             android:paddingEnd="5dp"
-            android:paddingRight="10dp">
+            tools:ignore="RelativeOverlap">
 
             <ImageView
                 android:id="@+id/timerIcon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:contentDescription="@string/timer_icon"
                 android:src="@drawable/timer_icon"
-                app:tint="@color/black"></ImageView>
+                app:tint="@color/black"
+                android:contentDescription="@string/timer_icon">
+            </ImageView>
 
             <TextView
                 android:id="@+id/timerCountdownHours"
@@ -50,7 +54,8 @@
                 android:layout_toEndOf="@+id/timerIcon"
                 android:layout_toRightOf="@+id/timerIcon"
                 android:textColor="@color/black"
-                android:textSize="30sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeparator1"
@@ -59,9 +64,10 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/timerCountdownHours"
                 android:layout_toRightOf="@+id/timerCountdownHours"
-                android:text="@string/timer_countdown_separator"
                 android:textColor="@color/black"
-                android:textSize="30sp"></TextView>
+                android:text="@string/timer_countdown_separator"
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/timerCountdownMinutes"
@@ -71,7 +77,8 @@
                 android:layout_toEndOf="@+id/timerCountdownSeparator1"
                 android:layout_toRightOf="@+id/timerCountdownSeparator1"
                 android:textColor="@color/black"
-                android:textSize="30sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeparator2"
@@ -80,9 +87,10 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/timerCountdownMinutes"
                 android:layout_toRightOf="@+id/timerCountdownMinutes"
-                android:text="@string/timer_countdown_separator"
                 android:textColor="@color/black"
-                android:textSize="30sp"></TextView>
+                android:text="@string/timer_countdown_separator"
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/timerCountdownSeconds"
@@ -92,66 +100,76 @@
                 android:layout_toEndOf="@+id/timerCountdownSeparator2"
                 android:layout_toRightOf="@+id/timerCountdownSeparator2"
                 android:textColor="@color/black"
-                android:textSize="30sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/currencyText"
+            android:id="@+id/bambooArea"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@color/airforceblue">
+            android:layout_margin="5dp"
+            android:background="@color/blue">
 
-            <TextView
+            <RelativeLayout
+                android:id="@+id/bambooCurrencyArea"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="100"
-                android:textSize="25sp"></TextView>
+                android:layout_height="35dp"
+                android:background="@drawable/bamboo_currency_border"
+                android:layout_centerVertical="true"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/bambooNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp">
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@+id/bambooCurrencyArea"
+                android:layout_toEndOf="@+id/bambooCurrencyArea"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bamboo_currency_border">
+
+                <ImageView
+                    android:id="@+id/bambooIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/bamboo"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/bamboo_icon">
+                </ImageView>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/currencyImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/currencyText"
-            android:layout_toRightOf="@+id/currencyText"
-            android:background="@color/airforceblue">
-
-            <!-- Insert Bamboo Image HERE -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></ImageView>
-        </RelativeLayout>
-
-        <!--
-        <ImageView
-            android:id="@+id/bambooCurrencyImage"
-            android:layout_width="69dp"
-            android:layout_height="37dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            android:contentDescription="@string/bamboo_currency"
-            app:srcCompat="@drawable/untitled"
-            tools:ignore="ImageContrastCheck" />
-           -->
     </RelativeLayout>
 
+    <!-- TODO: change the background image (programmatically) -->
     <FrameLayout
         android:id="@+id/homeFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomNavigation"
-        android:layout_below="@+id/topBar">
+        android:layout_below="@+id/topBar"
+        android:layout_above="@+id/bottomNavigation">
+
+        <ImageView
+            android:id="@+id/homeFrameImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
 
     </FrameLayout>
 

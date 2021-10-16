@@ -8,9 +8,10 @@
     tools:context=".Shop">
 
     <RelativeLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/teal_700">
+        android:background="@color/olivegreen">
 
         <Button
             android:id="@+id/backButton"
@@ -18,59 +19,76 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="307dp"
-            android:layout_marginRight="307dp"
-            android:backgroundTint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/paleyellow"
             android:text="@string/back"
-            android:textColor="#000000"
-            tools:ignore="TextContrastCheck"
+            android:textColor="@color/black"
+            tools:ignore="RelativeOverlap,TextContrastCheck"
             tools:targetApi="lollipop" />
 
-        <ImageView
-            android:id="@+id/bambooCurrency"
-            android:layout_width="122dp"
-            android:layout_height="47dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:contentDescription="@string/bamboocurrencyimage"
-            app:srcCompat="@drawable/untitled"
-            tools:ignore="ImageContrastCheck" />
-
-        <TextView
-            android:id="@+id/totalBamboo"
+        <RelativeLayout
+            android:id="@+id/bambooArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bambooCurrency"
-            android:layout_alignEnd="@+id/bambooCurrency"
-            android:layout_alignRight="@+id/bambooCurrency"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="71dp"
-            android:layout_marginRight="71dp"
-            android:text="@string/_00"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@color/blue">
+
+            <RelativeLayout
+                android:id="@+id/bambooCurrencyArea"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/bamboo_currency_border"
+                android:paddingHorizontal="10dp"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/bambooNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp">
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@+id/bambooCurrencyArea"
+                android:layout_toEndOf="@+id/bambooCurrencyArea"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bamboo_currency_border">
+
+                <ImageView
+                    android:id="@+id/bambooIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/bamboo"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/bamboo_icon">
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/pandaShopBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
+        android:layout_below="@+id/topBar"
         android:adjustViewBounds="true"
         android:contentDescription="@string/panda_shop_bg"
         app:srcCompat="@drawable/_panda" />
 
+    <!-- Remember to change this to actual text view -->
     <ImageView
         android:id="@+id/pandaShopWord"
         android:layout_width="338dp"
@@ -85,109 +103,21 @@
         android:id="@+id/roomSkinTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="224dp"
         android:adjustViewBounds="true"
+        android:layout_below="@+id/pandaShopBg"
         android:contentDescription="@string/roomskintitle"
         app:srcCompat="@drawable/romm_category" />
 
-    <ImageView
-        android:id="@+id/defaultSkin"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="340dp"
-        android:contentDescription="@string/defaultskin"
-        app:srcCompat="@drawable/skin1" />
-
-    <ImageView
-        android:id="@+id/skinOne"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin1"
-        app:srcCompat="@drawable/skin2" />
-
-    <ImageView
-        android:id="@+id/skinTwo"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="480dp"
-        android:contentDescription="@string/skin2"
-        app:srcCompat="@drawable/skin3" />
-
-    <ImageView
-        android:id="@+id/skinThree"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin3"
-        app:srcCompat="@drawable/skin4" />
-
-    <ImageView
-        android:id="@+id/skinFour"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="620dp"
-        android:contentDescription="@string/skin4"
-        app:srcCompat="@drawable/skin5" />
-
-    <ImageView
-        android:id="@+id/skinFive"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="620dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:contentDescription="@string/skin5"
-        app:srcCompat="@drawable/skin6"
-        tools:ignore="ImageContrastCheck" />
-
-    <TextView
-        android:id="@+id/comingSoon"
-        android:layout_width="108dp"
-        android:layout_height="24dp"
-        android:layout_alignStart="@+id/skinFive"
-        android:layout_alignLeft="@+id/skinFive"
-        android:layout_alignTop="@+id/skinFive"
-        android:layout_alignEnd="@+id/skinFive"
-        android:layout_alignRight="@+id/skinFive"
-        android:layout_alignBottom="@+id/skinFive"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="53dp"
-        android:text="@string/coming_soon"
-        android:textColor="#000000"
-        tools:ignore="TextContrastCheck" />
+    <GridView
+        android:id="@+id/skinsGridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="20dp"
+        android:numColumns="2"
+        android:layout_below="@+id/roomSkinTitle"
+        android:layout_centerHorizontal="true">
+    </GridView>
 
 </RelativeLayout>
