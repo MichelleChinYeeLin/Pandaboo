@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Register extends AppCompatActivity {
         EditText mUsername,mPassword,mEmail;
-        Button mRegisterBtn;
-        Textview mLoginBtn;
+        Button mSignupBtn;
+        TextView mLoginBtn;
         FirebaseAuth fAuth;
 
     @Override
@@ -19,15 +20,14 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
 
-        /** to connect to XML file cannot be done correctly until XML finish
         mUsername = findViewById(R.id.username);
 
-        mPassword = findViewById(R.id.password);
-        mEmail    = findViewById(R.id.email);
-        mRegisterBtn = findViewById(R.id.register): **/
+        mPassword = findViewById(R.id.editPassword);
+        //mEmail    = findViewById(R.id.email);
+        mSignupBtn = findViewById(R.id.signupButton);
 
 
-        mPassword = findViewById(R.id.passwordArea);
+
 
 
 

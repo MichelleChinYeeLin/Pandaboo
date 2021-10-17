@@ -88,7 +88,7 @@
         android:layout_below="@+id/topBar"
         android:adjustViewBounds="true"
         android:contentDescription="@string/panda_shop_bg"
-        app:srcCompat="@drawable/_panda" />
+        />
 
     <!-- Remember to change this to actual text view -->
     <ImageView
