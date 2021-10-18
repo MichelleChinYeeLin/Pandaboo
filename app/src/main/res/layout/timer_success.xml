@@ -18,8 +18,7 @@
         android:text="@string/good_job_text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="40sp">
-    </TextView>
+        android:textSize="40sp"></TextView>
 
     <RelativeLayout
         android:id="@+id/ImageHolder"

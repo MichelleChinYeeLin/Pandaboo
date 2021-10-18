@@ -18,7 +18,7 @@ public class EventAdd extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EventAdd.this, PlannerMain.class));
+                startActivity(new Intent(EventAdd.this, PlannerView.class));
             }
         });
 

@@ -74,4 +74,10 @@
     <string name="no_text">No</string>
     <string name="purchase_text">Do you want to purchase this item?</string>
     <string name="equip_text">Do you want to equip this item?</string>
+    <string name="month_year">Month Year</string>
+    <string name="previous_button">previous_button</string>
+    <string name="next_button">next_button</string>
+    <string name="more_menu">more_menu</string>
+    <string name="event_add">event_add</string>
+    <string name="sun">Sun</string>
 </resources>
