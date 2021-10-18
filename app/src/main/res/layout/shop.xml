@@ -11,7 +11,8 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/olivegreen">
+        android:background="@color/olivegreen"
+        android:paddingHorizontal="10dp">
 
         <Button
             android:id="@+id/backButton"
@@ -21,11 +22,11 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/paleyellow"
+            android:background="@color/pale_yellow"
             android:text="@string/back"
+            android:textSize="20sp"
             android:textColor="@color/black"
-            tools:ignore="RelativeOverlap,TextContrastCheck"
-            tools:targetApi="lollipop" />
+            tools:ignore="RelativeOverlap,TextContrastCheck" />
 
         <RelativeLayout
             android:id="@+id/bambooArea"
@@ -86,7 +87,7 @@
         android:layout_below="@+id/topBar"
         android:adjustViewBounds="true"
         android:contentDescription="@string/panda_shop_bg"
-        app:srcCompat="@drawable/_panda" />
+        app:srcCompat="@drawable/panda" />
 
     <!-- Remember to change this to actual text view -->
     <ImageView
@@ -97,16 +98,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         android:contentDescription="@string/pandashopword"
-        app:srcCompat="@drawable/pandashop" />
+        app:srcCompat="@drawable/panda_shop" />
 
     <ImageView
         android:id="@+id/roomSkinTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:layout_below="@+id/pandaShopBg"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/roomskintitle"
-        app:srcCompat="@drawable/romm_category" />
+        app:srcCompat="@drawable/room_category" />
 
     <GridView
         android:id="@+id/skinsGridView"

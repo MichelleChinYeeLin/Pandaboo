@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/lightblue"
+    android:background="@color/light_blue"
     android:paddingTop="20dp"
     android:paddingHorizontal="15dp"
     android:paddingBottom="20dp">
@@ -82,12 +82,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalStudyMinutesText"
-            android:text="@string/pause_minutes_text"
             android:layout_centerHorizontal="true"
-            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:text="@string/pause_minutes_text"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp">
-        </TextView>
+            android:textSize="20sp"></TextView>
 
         <TextView
             android:id="@+id/totalPauseMinutes"

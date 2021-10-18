@@ -6,13 +6,7 @@ import java.util.Date;
 
 import android.os.Bundle;
 
-public class Event extends AppCompatActivity{
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.event);
-    }
+public class Event{
 
     private String eventTitle;
     private String eventDetails;

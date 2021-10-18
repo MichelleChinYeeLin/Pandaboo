@@ -1,13 +1,8 @@
 package com.example.pandaboo;
 
-import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -29,52 +24,60 @@ import java.util.ArrayList;
 
 public class Shop extends AppCompatActivity{
 
-    private Button backButton;
-    private GridView skinsGridView;
-    private ArrayList<Item> itemArrayList = new ArrayList<Item>();
-    private TextView bambooCurrency;
-    private int bambooNum;
-
+    //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference();
+
+    //Initialization of variable to store items in arraylist
+    private ArrayList<Item> itemArrayList = new ArrayList<>();
+
+    //Initialization of variable for the number of bamboo (currency)
+    private int bambooNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop);
 
-        backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        //Initialization of elements in the shop page
+        GridView skinsGridView = findViewById(R.id.skinsGridView);
+        TextView bambooCurrency = findViewById(R.id.bambooNumber);
+        Button backButton = findViewById(R.id.backButton);
 
-        skinsGridView = findViewById(R.id.skinsGridView);
-        bambooCurrency = findViewById(R.id.bambooNumber);
+        //Return to home activity
+        backButton.setOnClickListener(v -> finish());
 
-        DatabaseReference userReference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("User");
+        //Retrieve data from Firebase
+        DatabaseReference userReference = reference.child("admin").child("User");
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Retrieve the number of bamboo (currency)
                 bambooNum = snapshot.child("Bamboo").getValue(int.class);
+
+                //Display the number of bamboo (currency)
                 bambooCurrency.setText(Integer.toString(bambooNum));
             }
 
+            //Display database error if any
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Shop.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
             }
         });
 
-        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("Item");
-        reference.addValueEventListener(new ValueEventListener() {
+        //
+        DatabaseReference itemReference = reference.child("admin").child("Item");
+        itemReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                //Clear the item array list
                 itemArrayList.clear();
 
+                //Loop to retrieve all data in Item
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    //Retrieve the data for each item
                     String itemID = dataSnapshot.child("ItemID").getValue(String.class);
                     String itemName = dataSnapshot.child("ItemName").getValue(String.class);
                     int itemPrice = dataSnapshot.child("ItemPrice").getValue(int.class);
@@ -82,113 +85,129 @@ public class Shop extends AppCompatActivity{
                     String itemTimerImage = dataSnapshot.child("ItemTimerImage").getValue(String.class);
                     boolean isOwned = dataSnapshot.child("IsOwned").getValue(boolean.class);
 
+                    //Add the item to the itemArraylist
                     itemArrayList.add(new Item(itemID + "", itemName + "", itemPrice, itemRoomImage, itemTimerImage, isOwned));
                 }
 
+                //Set the gridview for the itemArraylist
                 ItemGVAdapter adapter = new ItemGVAdapter(Shop.this, itemArrayList);
                 skinsGridView.setAdapter(adapter);
-                Toast.makeText(Shop.this, "Success.", Toast.LENGTH_SHORT).show();
             }
 
+            //Display database errors if any
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Shop.this, "Error loading image.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Shop.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
             }
         });
 
-        skinsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Display dialog box when item in gridview is clicked
+        skinsGridView.setOnItemClickListener((parent, view, position, id) -> {
 
-                Item item = itemArrayList.get(position);
+            //Retrieve the item that was clicked
+            Item item = itemArrayList.get(position);
 
-                if (item.getIsOwned() == false){
-                    purchaseSkin(item);
-                }
+            //Allow user to purchase skin if item is not owned
+            if (!item.getIsOwned()){
+                purchaseSkin(item);
+            }
 
-                else{
-                    equipSkin(item);
-                }
+            //Allow user to equip skin if item is owned
+            else{
+                equipSkin(item);
             }
         });
     }
 
+    /**
+     * Allow users to purchase skins
+     * @param item the item to be purchased
+     */
     public void purchaseSkin(Item item){
+        //Create a dialog box
         AlertDialog dialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         dialogBuilder.setView(inflater.inflate(R.layout.shop_purchase, null));
         dialog = dialogBuilder.create();
 
+        //Display the dialog box
         dialog.show();
 
+        //Initialization of elements in the dialog box
         ImageView previewArea = dialog.findViewById(R.id.previewArea);
         Button purchaseYes = dialog.findViewById(R.id.purchaseYes);
         Button purchaseNo = dialog.findViewById(R.id.purchaseNo);
 
+        //Display the skin image
         Picasso.get().load(item.getItemRoomImage()).into(previewArea);
 
-        purchaseYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //Allow users to purchase the item
+        purchaseYes.setOnClickListener(v -> {
 
-                if (bambooNum >= item.getItemPrice()){
+            //Allow user to purchase item if bamboo is sufficient
+            if (bambooNum >= item.getItemPrice()){
 
-                    bambooNum -= item.getItemPrice();
-                    DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
-                    reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
-                    reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
-                    reference.child("User").child("Bamboo").setValue(bambooNum);
-                    reference.child("Item").child(item.getItemID()).child("IsOwned").setValue(true);
+                //Deduct the user's bamboo after purchase
+                bambooNum -= item.getItemPrice();
 
-                    dialog.dismiss();
-                }
+                //Edit the values in the database
+                DatabaseReference userReference = reference.child("admin");
+                userReference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
+                userReference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
+                userReference.child("User").child("Bamboo").setValue(bambooNum);
+                userReference.child("Item").child(item.getItemID()).child("IsOwned").setValue(true);
 
-                else{
-                    Toast.makeText(Shop.this, "Insufficient bamboo.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        purchaseNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                //Close the dialog box
                 dialog.dismiss();
             }
+
+            //Prevent user from purchasing item if bamboo is insufficient
+            else{
+                Toast.makeText(Shop.this, "Insufficient bamboo.", Toast.LENGTH_SHORT).show();
+            }
         });
+
+        //Allow users to close the dialog box if they do not want to purchase the item
+        purchaseNo.setOnClickListener(v -> dialog.dismiss());
     }
 
+    /**
+     * Allow users to equip skin
+     * @param item the item to be equipped
+     */
     public void equipSkin(Item item){
+        //Create a dialog box
         AlertDialog dialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         dialogBuilder.setView(inflater.inflate(R.layout.shop_equip, null));
         dialog = dialogBuilder.create();
 
+        //Display the dialog box
         dialog.show();
 
+        //Initialization of elements in the dialog box
         ImageView previewArea = dialog.findViewById(R.id.previewArea);
         Button equipYes = dialog.findViewById(R.id.equipYes);
         Button equipNo = dialog.findViewById(R.id.equipNo);
 
+        //Display the skin image
         Picasso.get().load(item.getItemRoomImage()).into(previewArea);
 
-        equipYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //Allow users to equip the skin
+        equipYes.setOnClickListener(v -> {
 
-                DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
-                reference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
-                reference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
-                dialog.dismiss();
-            }
+            //Edit the values in the database
+            DatabaseReference userReference = reference.child("admin");
+            userReference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
+            userReference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
+
+            //Close the dialog box
+            dialog.dismiss();
         });
 
-        equipNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        //Allow users to close the dialog box if they do not want to equip the skin
+        equipNo.setOnClickListener(v -> dialog.dismiss());
     }
 }
