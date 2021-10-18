@@ -13,22 +13,25 @@
         android:layout_height="75dp"
         android:background="@color/olivegreen"
         android:padding="3dp">
-      
-        <ImageView
+
+        <ImageButton
+            android:id="@+id/musicButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:background="@color/transparent"
             android:layout_centerVertical="true"
-            android:src="@drawable/music_icon"
-            android:contentDescription="@string/music_icon_not_muted"
+            android:contentDescription="@string/music_icon"
+            android:scaleType="fitCenter"
+            android:src="@drawable/music_icon_off"
             app:tint="@color/black">
-        </ImageView>
+        </ImageButton>
 
         <RelativeLayout
             android:id="@+id/timerCountdownArea"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
-            android:background="@color/paleyellow"
+            android:background="@color/pale_yellow"
             android:paddingLeft="5dp"
             android:paddingStart="5dp"
             android:paddingRight="10dp"
@@ -123,12 +126,10 @@
                 android:layout_centerVertical="true"
                 android:paddingHorizontal="10dp">
 
-                <!-- TODO: Change text programmatically-->
                 <TextView
                     android:id="@+id/bambooNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"
                     android:layout_centerVertical="true"
                     android:textSize="15sp">
                 </TextView>
@@ -165,8 +166,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topBar"
-        android:layout_above="@+id/bottomNavigation"
-        android:background="@color/white">
+        android:layout_above="@+id/bottomNavigation">
+
+        <ImageView
+            android:id="@+id/homeFrameImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+
     </FrameLayout>
 
     <!-- Bottom Navigation -->

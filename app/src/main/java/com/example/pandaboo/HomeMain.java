@@ -1,22 +1,41 @@
 package com.example.pandaboo;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+
 public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+
+    //Constant variable for the URL of the database
+    final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+    //Initialization of variables to display the number of bamboo (currency)
+    private TextView bambooCurrency;
+    private int bambooNum;
 
     //Initialization of default timer countdown values
     final int DEFAULT_COUNTDOWN_HOURS = 0;
@@ -41,12 +60,17 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     private int timerDuration = 0;
     private int totalTimerDuration = 0;
 
-    //Initialization for variable to control the timer (cancel/ pause)
+    //Initialization of variables to control the timer (cancel/ pause)
     private boolean isCancelled = false;
     private boolean isPaused = false;
     private int pauseCounter = 0;
     private int maxPauseDuration = 0;
     private int pauseDurationRemainder = 0;
+
+    //Initialization of variables to play music using the media player
+    private boolean isPlayingMusic = false;
+    private String musicAudio = "";
+    MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +88,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button plannerButton = findViewById(R.id.plannerButton);
         Button tasksButton = findViewById(R.id.tasksButton);
         Button settingsButton = findViewById(R.id.settingsButton);
+        ImageButton musicButton = findViewById(R.id.musicButton);
 
         pandaButton.setOnClickListener(this);
         shopButton.setOnClickListener(this);
@@ -71,18 +96,72 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         tasksButton.setOnClickListener(this);
         settingsButton.setOnClickListener(this);
 
+        mediaPlayer.setVolume(0, 0);
+
+        //Mutes or unmutes the media player when clicked
+        musicButton.setOnClickListener(v -> {
+
+            if (isPlayingMusic){
+                isPlayingMusic = false;
+                mediaPlayer.setVolume(0,0);
+                musicButton.setImageResource(R.drawable.music_icon_off);
+            }
+
+            else {
+                isPlayingMusic = true;
+                mediaPlayer.setVolume(1,1);
+                musicButton.setImageResource(R.drawable.music_icon_on);
+            }
+        });
+
         //Set default timer text for the timer countdown
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
         timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
 
+        //Initialize fragment
         Fragment homeStartTimer = new HomeStartTimer();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.homeFrame, homeStartTimer);
         fragmentTransaction.commit();
+
+        //Initialize elements in the home page
+        ImageView homeFrameImage = findViewById(R.id.homeFrameImage);
+        bambooCurrency = findViewById(R.id.bambooNumber);
+
+        //Retrieve data from Firebase
+        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Retrieve the image for the home page
+                String imageURL = snapshot.child("User").child("EquippedItemTimer").getValue(String.class);
+
+                //Retrieve the number of bamboo (currency)
+                bambooNum = snapshot.child("User").child("Bamboo").getValue(int.class);
+
+                //Retrieve the audio URL
+                musicAudio = snapshot.child("User").child("EquippedMusicAudio").getValue(String.class);
+
+                //Set the text with the number of bamboo
+                bambooCurrency.setText(Integer.toString(bambooNum));
+
+                //Load the image for the home page
+                Picasso.get().load(imageURL).into(homeFrameImage);
+            }
+
+            //Display database error if any
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeMain.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
+    /**
+     * Resets the timer countdown
+     */
     public void resetTimerCountdown(){
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
@@ -223,7 +302,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             }
 
             else {
-                textFormat += hours + " hour ";
+                textFormat += hours + " hours ";
             }
         }
 
@@ -297,7 +376,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         pauseDurationRemainder = remainder;
     }
 
-    //Calculates the bamboo earned by the user
+    /**
+     * Calculates the bamboo earned by the user
+     */
     public int calcEarnedBamboo (){
         return totalTimerDuration / 60;
     }
@@ -334,17 +415,18 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
         totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
 
+        bambooNum += calcEarnedBamboo();
+        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
+        reference.child("User").child("Bamboo").setValue(bambooNum);
+
         //Reset the timer countdown
         resetTimerCountdown();
 
         //Closes the alert dialog box and restarts the timer with the same duration as previously set
         //When users click the Redo Timer icon
-        redoTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                startTimer(totalTimerDuration);
-            }
+        redoTimerButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            startTimer(totalTimerDuration);
         });
 
         //Closes the alert dialog box and returns to the home page
@@ -393,32 +475,27 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
         //Closes the alert dialog box and restarts the timer with the same duration as previously set
         //When users click the Redo Timer icon
-        redoTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseCounter = 0;
-                dialog.dismiss();
-                startTimer(totalTimerDuration);
-            }
+        redoTimerButton.setOnClickListener(v -> {
+            pauseCounter = 0;
+            dialog.dismiss();
+            startTimer(totalTimerDuration);
         });
 
         //Closes the alert dialog box and returns to the home page
         //When users click the Home icon
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseCounter = 0;
-                dialog.dismiss();
-                fragmentToStartTimer();
-            }
+        homeButton.setOnClickListener(v -> {
+            pauseCounter = 0;
+            dialog.dismiss();
+            fragmentToStartTimer();
         });
     }
 
     /**
-     * Start the countdown timer and display the timer duration
+     * Start the countdown timer, display the timer duration and start the media player
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
+        Toast.makeText(this, "BambooNum: " + bambooNum, Toast.LENGTH_SHORT).show();
         //Reset the timer
         resetTimerCountdown();
 
@@ -440,6 +517,21 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         while (minutes >= 60){
             minutes -= 60;
             hours++;
+        }
+
+        try{
+            //Pass the audio URL to the Media Player
+            mediaPlayer.setDataSource(musicAudio);
+            mediaPlayer.setOnPreparedListener(mp -> {
+                //Start playing the audio
+                mp.start();
+
+                //Loop the audio
+                mp.setLooping(true);
+            });
+            mediaPlayer.prepare();
+        } catch (IOException e){
+            e.printStackTrace();
         }
 
         //Start the timer countdown
@@ -477,17 +569,31 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                     //Cancel and reset timer
                     cancel();
                     resetTimerCountdown();
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = new MediaPlayer();
                 }
 
                 //If the user pauses the timer countdown
                 if (isPaused){
                     //Cancel the timer
                     cancel();
+
+                    //Reset the Media Player
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = new MediaPlayer();
                 }
             }
 
             //When the timer countdown finishes
             public void onFinish(){
+                //Reset the Media Player
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = new MediaPlayer();
+
+                //Show success dialog box
                 succeededTimer();
             }
         }.start();

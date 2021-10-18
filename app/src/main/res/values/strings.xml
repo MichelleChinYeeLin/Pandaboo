@@ -11,7 +11,7 @@
     <string name="click_here_to_reset_text">Click here to reset.</string>
     <string name="register_new_account_text">Register New Account</string>
     <string name="start_button">START</string>
-    <string name="music_icon_not_muted">Music Icon(Not Muted)</string>
+    <string name="music_icon">Music Icon(Not Muted)</string>
     <string name="timer_icon">Timer Icon</string>
     <string name="goodjob">GoodJobtext</string>
     <string name="set_timer_text">Set Timer</string>
@@ -69,4 +69,14 @@
     <string name="pause_timer_text">Don\'t pause for too long or else you will receive fewer coins!</string>
     <string name="resume_icon_text">Resume Icon</string>
     <string name="panda_celebrating">Panda Celebrating</string>
+    <string name="cancel_session_text">Do you want to end the session?</string>
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
+    <string name="purchase_text">Do you want to purchase this item?</string>
+    <string name="equip_text">Do you want to equip this item?</string>
+    <string name="play_or_pause_music_text">Play or pause music</string>
+    <string name="music_text">Music</string>
+    <string name="music_description">Series of mixes that loops for your study sessions</string>
+    <string name="music_equipped_text">(Equipped)</string>
+    <string name="shop_skin_owned">Owned</string>
 </resources>
