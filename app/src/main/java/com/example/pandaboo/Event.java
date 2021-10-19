@@ -2,14 +2,18 @@ package com.example.pandaboo;
 
 public class Event{
 
-    String EVENT, TIME, DATE, MONTH, YEAR;
+    String EVENT, DETAILS, TIME, firstDATE, secondDATE, DATE, MONTH, YEAR, NOTIFY;
 
-    public Event(String EVENT, String TIME, String DATE, String MONTH, String YEAR){
+    public Event(String EVENT, String DETAILS, String TIME, String firstDATE, String secondDATE, String DATE, String MONTH, String YEAR, String NOTIFY){
         this.EVENT = EVENT;
+        this.DETAILS = DETAILS;
         this.TIME = TIME;
+        this.firstDATE = firstDATE;
+        this.secondDATE = secondDATE;
         this.DATE = DATE;
         this.MONTH = MONTH;
         this.YEAR = YEAR;
+        this.NOTIFY = NOTIFY;
     }
 
     public String getEVENT() {
@@ -18,6 +22,14 @@ public class Event{
 
     public void setEVENT(String EVENT) {
         this.EVENT = EVENT;
+    }
+
+    public String getDETAILS() {
+        return DETAILS;
+    }
+
+    public void setDETAILS(String DETAILS) {
+        this.DETAILS = DETAILS;
     }
 
     public String getTIME() {
@@ -36,6 +48,22 @@ public class Event{
         this.DATE = DATE;
     }
 
+    public String getFirstDATE() {
+        return firstDATE;
+    }
+
+    public void setFirstDATE(String firstDATE) {
+        this.firstDATE = firstDATE;
+    }
+
+    public String getSecondDATE() {
+        return secondDATE;
+    }
+
+    public void setSecondDATE(String secondDATE) {
+        this.secondDATE = secondDATE;
+    }
+
     public String getMONTH() {
         return MONTH;
     }
@@ -50,6 +78,14 @@ public class Event{
 
     public void setYEAR(String YEAR) {
         this.YEAR = YEAR;
+    }
+
+    public String getNOTIFY() {
+        return NOTIFY;
+    }
+
+    public void setNOTIFY(String NOTIFY) {
+        this.NOTIFY = NOTIFY;
     }
 
     /*

@@ -25,7 +25,6 @@ public class GridAdapter extends ArrayAdapter {
     List<Event> events;
     LayoutInflater inflater;
 
-
     public GridAdapter(@NonNull Context context, List<Date>dates, Calendar currentDate, List<Event> events) {
         super(context, R.layout.calendar_cell);
 
@@ -71,6 +70,8 @@ public class GridAdapter extends ArrayAdapter {
                 EventNumber.setText(arrayList.size()+"Events");
             }
         }
+
+
 
         return view;
     }

@@ -2,23 +2,27 @@ package com.example.pandaboo;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.util.AttributeSet;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,11 +34,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class PlannerView extends LinearLayout{
+public class PlannerView extends AppCompatActivity {
 
     Button backButton;
     ImageButton nextButton;
     ImageButton prevButton;
+    ImageButton addEvent;
     TextView monthYear;
     GridView gridView;
     private static final int MAX_CALENDAR_DAYS = 42;
@@ -49,47 +54,66 @@ public class PlannerView extends LinearLayout{
     AlertDialog alertDialog;
     List<Date> dates = new ArrayList<>();
     List<Event> eventsList = new ArrayList<>();
+    int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute;
 
-    public PlannerView(Context context) {
-        super(context);
-    }
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.planner_view);
 
-    public PlannerView(Context context, @Nullable AttributeSet attributeSet){
-        super(context, attributeSet);
-        this.context = context;
-        IntializeLayout();
+        backButton = findViewById(R.id.backButton);
+        prevButton = findViewById(R.id.prevButton);
+        nextButton = findViewById(R.id.nextButton);
+        gridView = findViewById(R.id.gridView);
+        addEvent = findViewById(R.id.add_event);
+        monthYear = findViewById(R.id.monthYear);
 
-        backButton.setOnClickListener(new OnClickListener() {
+        SetUpCalendar();
+
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
-        prevButton.setOnClickListener(new OnClickListener() {
+        prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calendar.add(Calendar.MONTH,-1);
                 SetUpCalendar();
             }
         });
-        nextButton.setOnClickListener(new OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calendar.add(Calendar.MONTH,1);
                 SetUpCalendar();
             }
         });
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlannerView.this);
                 builder.setCancelable(true);
                 View addView = LayoutInflater.from(adapterView.getContext()).inflate(R.layout.event_add, null);
                 EditText EventTitle = addView.findViewById(R.id.eventTitle);
+                EditText EventDetails = addView.findViewById(R.id.details);
                 TextView EventTime = addView.findViewById(R.id.setTimeText);
+                TextView EventDate1 = addView.findViewById(R.id.setDateText1);
+                TextView EventDate2 = addView.findViewById(R.id.setDateText2);
                 ImageButton SetTime = addView.findViewById(R.id.selectTime);
+                ImageButton SetDate1 = addView.findViewById(R.id.selectDate1);
+                ImageButton SetDate2 = addView.findViewById(R.id.selectDate2);
+                RadioButton SetReminder1 = addView.findViewById(R.id.setReminder1);
+                RadioButton SetReminder2 = addView.findViewById(R.id.setReminder2);
+                Calendar dateCalendar = Calendar.getInstance();
+                dateCalendar.setTime(dates.get(i));
+                alarmYear = dateCalendar.get(Calendar.YEAR);
+                alarmMonth = dateCalendar.get(Calendar.MONTH);
+                alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
+
                 Button AddEvent = addView.findViewById(R.id.saveButton);
-                SetTime.setOnClickListener(new OnClickListener() {
+                SetTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Calendar calendar = Calendar.getInstance();
@@ -99,27 +123,85 @@ public class PlannerView extends LinearLayout{
                             @Override
                             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                                 Calendar c = Calendar.getInstance();
-                                c.set(Calendar.HOUR_OF_DAY, hours);
-                                c.set(Calendar.MINUTE, minutes);
+                                c.set(Calendar.HOUR_OF_DAY, i);
+                                c.set(Calendar.MINUTE, i1);
                                 c.setTimeZone(TimeZone.getDefault());
                                 SimpleDateFormat hformat = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
                                 String event_Time = hformat.format(c.getTime());
                                 EventTime.setText(event_Time);
+
+                                alarmHour = c.get(Calendar.HOUR_OF_DAY);
+                                alarmMinute = c.get(Calendar.MINUTE);
                             }
                         }, hours, minutes, false);
                         timePickerDialog.show();
+                    }
+                });
+                SetDate1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(addView.getContext(), R.style.Theme_AppCompat_DayNight_Dialog, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(Calendar.YEAR, i);
+                                newDate.set(Calendar.MONTH, i1);
+                                newDate.set(Calendar.DAY_OF_MONTH, i2);
+                                SimpleDateFormat d1format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                                String event_Date1 = d1format.format(newDate.getTime());
+                                EventDate1.setText(event_Date1);
+                            }
+                        }, year, month, dayOfMonth);
+                        datePickerDialog.show();
+                    }
+                });
+                SetDate2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar calendar = Calendar.getInstance();
+                        int years = calendar.get(Calendar.YEAR);
+                        int months = calendar.get(Calendar.MONTH);
+                        int dayOfMonths = calendar.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(addView.getContext(), R.style.Theme_AppCompat_DayNight_Dialog, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                Calendar newDates = Calendar.getInstance();
+                                newDates.set(Calendar.YEAR, i);
+                                newDates.set(Calendar.MONTH, i1);
+                                newDates.set(Calendar.DAY_OF_MONTH, i2);
+                                SimpleDateFormat d2format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                                String event_Date2 = d2format.format(newDates.getTime());
+                                EventDate2.setText(event_Date2);
+                            }
+                        }, years, months, dayOfMonths);
+                        datePickerDialog.show();
                     }
                 });
                 final String date = eventDateFormat.format(dates.get(i));
                 final String month = monthFormat.format(dates.get(i));
                 final String year = yearFormat.format(dates.get(i));
 
-                AddEvent.setOnClickListener(new OnClickListener() {
+                AddEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        SaveEvent(EventTitle.getText().toString(),EventTime.getText().toString(),date,month,year);
-                        SetUpCalendar();
-                        alertDialog.dismiss();
+
+                        if(SetReminder1.isChecked()){
+                            SaveEvent(EventTitle.getText().toString(),EventDetails.getText().toString(),EventTime.getText().toString(),EventDate1.getText().toString(),EventDate2.getText().toString(),date,month,year,"7am");
+                            SetUpCalendar();
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
+                            //setAlarm(calendar,EventTitle.getText().toString(),EventTime.getText().toString());
+                            alertDialog.dismiss();
+                        }
+                        else{
+                            SaveEvent(EventTitle.getText().toString(),EventDetails.getText().toString(),EventTime.getText().toString(),EventDate1.getText().toString(),EventDate2.getText().toString(),date,month,year,"120min");
+                            SetUpCalendar();
+                            alertDialog.dismiss();
+                        }
                     }
                 });
                 builder.setView(addView);
@@ -132,7 +214,7 @@ public class PlannerView extends LinearLayout{
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String date = eventDateFormat.format(dates.get(i));
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlannerView.this);
                 builder.setCancelable(true);
                 View showView = LayoutInflater.from(adapterView.getContext()).inflate(R.layout.event_show,null);
                 RecyclerView recyclerView = showView.findViewById(R.id.eventsRV);
@@ -146,6 +228,12 @@ public class PlannerView extends LinearLayout{
                 builder.setView(showView);
                 alertDialog = builder.create();
                 alertDialog.show();
+                alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        SetUpCalendar();
+                    }
+                });
 
                 return true;
             }
@@ -155,31 +243,21 @@ public class PlannerView extends LinearLayout{
     //get events by date from database
     private ArrayList<Event> CollectEventByDate(String date){
         ArrayList<Event> arrayList = new ArrayList<>();
-        //Event events = new Event(event, time, date, month, year);
-        //arrayList.add(events);
 
         return arrayList;
     }
 
-    public PlannerView(Context context, @Nullable AttributeSet attributeSet, int defStyleAttr) {
-        super(context, attributeSet, defStyleAttr);
-    }
     //wut the saveButton does
-    private void SaveEvent(String event, String time, String date, String month, String year){
+    private void SaveEvent(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
+        //ArrayList<Event> arrayList = new ArrayList<>();
+        Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        eventsList.add(events);
         Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
-    }
-
-    private void IntializeLayout(){
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.planner_view,this);
-        nextButton = view.findViewById(R.id.nextButton);
-        prevButton = view.findViewById(R.id.prevButton);
-        monthYear = view.findViewById(R.id.monthYear);
-        gridView = view.findViewById(R.id.gridView);
     }
 
     private void SetUpCalendar(){
         String currentDate = dateFormat.format(calendar.getTime());
+
         monthYear.setText(currentDate);
         dates.clear();
         Calendar monthCalendar = (Calendar) calendar.clone();
@@ -193,13 +271,13 @@ public class PlannerView extends LinearLayout{
             monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        gridAdapter = new GridAdapter(context, dates, calendar, eventsList);
+        gridAdapter = new GridAdapter(PlannerView.this, dates, calendar, eventsList);
         gridView.setAdapter(gridAdapter);
     }
 
     //get events by month from database
-    private void CollectEventsPerMonth(){
-        //Event events = new Event(event, time, date, month, year);
-        //eventsList.add(events);
+    private void CollectEventsPerMonth(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
+        Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        eventsList.add(events);
     }
 }

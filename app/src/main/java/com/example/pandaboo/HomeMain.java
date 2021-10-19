@@ -94,7 +94,7 @@ public class HomeMain extends AppCompatActivity{
         plannerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, PlannerMain.class));
+                startActivity(new Intent(HomeMain.this, PlannerView.class));
             }
         });
         tasksButton.setOnClickListener(new View.OnClickListener() {
