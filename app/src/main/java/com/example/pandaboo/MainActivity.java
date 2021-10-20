@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(task.isSuccessful()){
                             user = auth.getCurrentUser();
                             Intent toHome = new Intent(MainActivity.this, HomeMain.class);
-                            startActivity(toHome); // go to main page
+                            startActivity(toHome); // go to home page
+
                         }else{
                             //display error
                             Toast.makeText(MainActivity.this,
@@ -117,8 +118,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 login();
             }else if(view.getId() == R.id.registerUserBtn){
                 // redirect user to register page
+                Intent toLogin = new Intent(this, Register.class);
+                startActivity(toLogin);
             }
         }
+
 
     }
 }

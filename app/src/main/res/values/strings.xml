@@ -6,7 +6,8 @@
     <string name="username_icon">Username Icon</string>
     <string name="username_text">Username</string>
     <string name="password_icon">Password Icon</string>
-    <string name="password_text">Password</string>
+    <string name="password_text">\t\t\tPassword</string>
+    <string name="password_text1">\t\t\t\t\t\t\t\t\t\t\ Password</string>
     <string name="i_forgot_my_password_text">I forgot my password.</string>
     <string name="click_here_to_reset_text">Click here to reset.</string>
     <string name="register_new_account_text">Register New Account</string>
@@ -79,4 +80,12 @@
     <string name="music_description">Series of mixes that loops for your study sessions</string>
     <string name="music_equipped_text">(Equipped)</string>
     <string name="shop_skin_owned">Owned</string>
+    <string name="signup_text">Sign Up</string>
+    <string name="click_here_to_sign_in">Click here to sign in</string>
+    <string name="i_have_an_account">I have an account</string>
+    <string name="email_text1">\t\t\t\t\t\t\t\t\t\t Email</string>
+    <string name="email_text">\t\t Email</string>
+    <string name="username_text1">\t\t\t\t\t\t\t\t\t\t\t Username</string>
+    <string name="register_text">Login</string>
+    <string name="reset_password">Reset Password</string>
 </resources>
