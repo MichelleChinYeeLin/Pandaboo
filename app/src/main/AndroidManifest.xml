@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pandaboo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
+        android:name=".AppLifeCycle"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,14 +17,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeMain" />
-        <activity android:name=".Panda" />
-        <activity android:name=".Shop" />
-        <activity android:name=".Settings" />
-        <activity android:name=".Event" />
-        <activity android:name=".Task" />
-        <activity android:name=".Planner" />
-        <activity android:name=".Register" />
+        <activity android:name=".HomeMain"></activity>
+        <activity android:name=".Panda"></activity>
+        <activity android:name=".Shop"></activity>
+        <activity android:name=".Settings"></activity>
+        <activity android:name=".Task"></activity>
+        <activity android:name=".PlannerView"></activity>
+        <activity android:name=".EventAdd"></activity>
+
+        <receiver android:name=".AlarmReceiver"
+            android:exported="true"
+            android:enabled="true">
+
+        </receiver>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

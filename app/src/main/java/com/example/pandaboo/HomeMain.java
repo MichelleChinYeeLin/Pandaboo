@@ -1,9 +1,12 @@
 package com.example.pandaboo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,10 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 
-public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+public class HomeMain extends AppCompatActivity{
+
+    private static boolean isOngoingTimer;
+    private static boolean isLeavingApp = false;
+    public static Context currentContext;
 
     //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
@@ -77,6 +84,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
 
+        isOngoingTimer = false;
+        currentContext = this;
+
         //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
         timerCountdownMinutes = findViewById(R.id.timerCountdownMinutes);
@@ -90,11 +100,36 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button settingsButton = findViewById(R.id.settingsButton);
         ImageButton musicButton = findViewById(R.id.musicButton);
 
-        pandaButton.setOnClickListener(this);
-        shopButton.setOnClickListener(this);
-        plannerButton.setOnClickListener(this);
-        tasksButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
+        pandaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Panda.class));
+            }
+        });
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Shop.class));
+            }
+        });
+        plannerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, PlannerView.class));
+            }
+        });
+        tasksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Task.class));
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Settings.class));
+            }
+        });
 
         mediaPlayer.setVolume(0, 0);
 
@@ -170,36 +205,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         hours = minutes = seconds = 0;
         isCancelled = isPaused = false;
     }
-
-    /**
-     * Changes the activity based on the button clicked
-     * @param view the view of the layout
-     */
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.pandaButton:
-                Intent toPanda = new Intent(this, Panda.class);
-                startActivity(toPanda);
-                break;
-            case R.id.shopButton:
-                Intent toShop = new Intent(this, Shop.class);
-                startActivity(toShop);
-                break;
-            case R.id.plannerButton:
-                Intent toPlanner = new Intent(this, Planner.class);
-                startActivity(toPlanner);
-                break;
-            case R.id.tasksButton:
-                Intent toTasks = new Intent(this, Task.class);
-                startActivity(toTasks);
-                break;
-            case R.id.settingsButton:
-                Intent toSettings = new Intent(this, Settings.class);
-                startActivity(toSettings);
-                break;
-        }
-    }
-
     /**
      * Start the ongoingTimer fragment and replace the current fragment
      */
@@ -519,6 +524,8 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             hours++;
         }
 
+        isOngoingTimer = true;
+
         try{
             //Pass the audio URL to the Media Player
             mediaPlayer.setDataSource(musicAudio);
@@ -561,9 +568,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 timerCountdownMinutes.setText(timerCountdownFormat(minutes));
                 timerCountdownSeconds.setText(timerCountdownFormat(seconds));
 
-                //TODO: Prevent users from exiting the application
-                //TODO: Prevent users from opening the Panda and Shop page
-
                 //If the user cancels the timer countdown
                 if (isCancelled){
                     //Cancel and reset timer
@@ -572,6 +576,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = new MediaPlayer();
+                    isOngoingTimer = false;
                 }
 
                 //If the user pauses the timer countdown
@@ -592,10 +597,56 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 mediaPlayer = new MediaPlayer();
+                isOngoingTimer = false;
 
                 //Show success dialog box
                 succeededTimer();
             }
         }.start();
+    }
+
+    public void leavingApp(){
+        //Create the alert dialog box
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(currentContext);
+        LayoutInflater inflater = (LayoutInflater) currentContext.getSystemService(currentContext.LAYOUT_INFLATER_SERVICE);
+        dialogBuilder.setView(inflater.inflate(R.layout.timer_cancel, null));
+        dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        //Display the alert dialog box
+        dialog.show();
+
+        Button cancelYes = dialog.findViewById(R.id.cancelYes);
+        Button cancelNo = dialog.findViewById(R.id.cancelNo);
+
+        cancelYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeMain.this.finish();
+                System.exit(0);
+            }
+        });
+
+        cancelNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isOngoingTimer){
+            leavingApp();
+        }
+
+        else{
+            HomeMain.this.finish();
+            System.exit(0);
+        }
     }
 }
