@@ -64,7 +64,7 @@ public class GridAdapter extends ArrayAdapter {
         Calendar eventCalendar = Calendar.getInstance();
         ArrayList<String> arrayList = new ArrayList<>();
         for (int i = 0; i < events.size(); i++){
-            eventCalendar.setTime(ConvertStringToDate(events.get(i).getDATE()));
+            eventCalendar.setTime(ConvertStringToDate(events.get(i).getDATE())); //getFirstDATE getSecondDATE
             if(DayNo == eventCalendar.get(Calendar.DAY_OF_MONTH)&& displayMonth == eventCalendar.get(Calendar.MONTH)+1 && displayYear == eventCalendar.get(Calendar.YEAR)){
                 arrayList.add(events.get(i).getEVENT());
                 EventNumber.setText(arrayList.size()+"Events");

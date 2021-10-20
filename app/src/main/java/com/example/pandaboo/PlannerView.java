@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +36,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class PlannerView extends AppCompatActivity {
+
+    final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    DatabaseReference reff;
 
     Button backButton;
     ImageButton nextButton;
@@ -55,10 +66,13 @@ public class PlannerView extends AppCompatActivity {
     List<Date> dates = new ArrayList<>();
     List<Event> eventsList = new ArrayList<>();
     int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute;
+    long maxid = 0;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planner_view);
+
+        reff = FirebaseDatabase.getInstance().getReference();
 
         backButton = findViewById(R.id.backButton);
         prevButton = findViewById(R.id.prevButton);
@@ -104,8 +118,8 @@ public class PlannerView extends AppCompatActivity {
                 ImageButton SetTime = addView.findViewById(R.id.selectTime);
                 ImageButton SetDate1 = addView.findViewById(R.id.selectDate1);
                 ImageButton SetDate2 = addView.findViewById(R.id.selectDate2);
-                RadioButton SetReminder1 = addView.findViewById(R.id.setReminder1);
-                RadioButton SetReminder2 = addView.findViewById(R.id.setReminder2);
+                CheckBox SetReminder1 = addView.findViewById(R.id.setReminder1);
+                CheckBox SetReminder2 = addView.findViewById(R.id.setReminder2);
                 Calendar dateCalendar = Calendar.getInstance();
                 dateCalendar.setTime(dates.get(i));
                 alarmYear = dateCalendar.get(Calendar.YEAR);
@@ -113,6 +127,13 @@ public class PlannerView extends AppCompatActivity {
                 alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
 
                 Button AddEvent = addView.findViewById(R.id.saveButton);
+                Button backButton = addView.findViewById(R.id.backButton);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 SetTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -189,18 +210,41 @@ public class PlannerView extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
+                        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
+
+                        reff.child("admin").child("Events").push().setValue("event_title");
+
+                        String eventTitle = EventTitle.getText().toString();
+                        String eventDetails = EventDetails.getText().toString();
+                        String eventTime = EventTime.getText().toString();
+                        String firstDate = EventDate1.getText().toString();
+                        String secondDate = EventDate2.getText().toString();
                         if(SetReminder1.isChecked()){
-                            SaveEvent(EventTitle.getText().toString(),EventDetails.getText().toString(),EventTime.getText().toString(),EventDate1.getText().toString(),EventDate2.getText().toString(),date,month,year,"7am");
-                            SetUpCalendar();
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
+                            Event events = new Event(eventTitle, eventDetails, eventTime, firstDate, secondDate, date, month, year, "7am");
+                            events.setEVENT(eventTitle);
+                            events.setDETAILS(eventDetails);
+                            events.setTIME(eventTime);
+                            events.setFirstDATE(eventDateFormat.format(firstDate));
+                            events.setSecondDATE(eventDateFormat.format(secondDate));
+                            events.setDATE(date);
+                            events.setMONTH(month);
+                            events.setYEAR(year);
+                            events.setNOTIFY("7am");
+
+                            //SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"7am");
+                            //SetUpCalendar();
+                            //Calendar calendar = Calendar.getInstance();
+                            //calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
                             //setAlarm(calendar,EventTitle.getText().toString(),EventTime.getText().toString());
                             alertDialog.dismiss();
                         }
-                        else{
-                            SaveEvent(EventTitle.getText().toString(),EventDetails.getText().toString(),EventTime.getText().toString(),EventDate1.getText().toString(),EventDate2.getText().toString(),date,month,year,"120min");
+                        else if(SetReminder2.isChecked()){
+                            SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"120min");
                             SetUpCalendar();
                             alertDialog.dismiss();
+                        }
+                        else{
+                            Toast.makeText(context, "Please tick a reminder.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -249,9 +293,18 @@ public class PlannerView extends AppCompatActivity {
 
     //wut the saveButton does
     private void SaveEvent(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
-        //ArrayList<Event> arrayList = new ArrayList<>();
+        reff = FirebaseDatabase.getInstance().getReference().child("Event");
         Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
-        eventsList.add(events);
+        events.setEVENT(event);
+        events.setDETAILS(details);
+        events.setTIME(time);
+        events.setFirstDATE(eventDateFormat.format(date1));
+        events.setSecondDATE(eventDateFormat.format(date2));
+        events.setDATE(date);
+        events.setMONTH(month);
+        events.setYEAR(year);
+        events.setNOTIFY(notify);
+        reff.push().setValue(events);
         Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
     }
 
