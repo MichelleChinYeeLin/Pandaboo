@@ -94,12 +94,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="@string/redo_timer_icon_text"
-                android:src="@drawable/redo_icon"
-                android:scaleType="fitCenter"
                 android:background="@color/transparent"
-                app:tint="@color/black">
-            </ImageButton>
+                android:contentDescription="@string/redo_timer_icon_text"
+                android:scaleType="fitCenter"
+                android:src="@drawable/redo_icon"
+                app:tint="@color/black"></ImageButton>
 
             <TextView
                 android:id="@+id/redoTimerText"
@@ -129,12 +128,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/home_icon"
-                android:scaleType="fitCenter"
                 android:background="@color/transparent"
-                app:tint="@color/black"
-                android:contentDescription="@string/home_icon_text">
-            </ImageButton>
+                android:contentDescription="@string/home_icon_text"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_icon"
+                app:tint="@color/black"></ImageButton>
 
             <TextView
                 android:id="@+id/homeText"

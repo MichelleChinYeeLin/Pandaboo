@@ -53,31 +53,29 @@
             android:id="@+id/prevButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/previous_month_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
-            app:tint="@color/black"
-            android:layout_marginTop="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginLeft="10dp">
-        </ImageButton>
+            android:src="@drawable/previous_month_icon"
+            app:tint="@color/black"></ImageButton>
 
         <ImageButton
             android:id="@+id/nextButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/next_month_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/transparent"
             android:scaleType="fitCenter"
-            app:tint="@color/black"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginRight="10dp">
-        </ImageButton>
+            android:src="@drawable/next_month_icon"
+            app:tint="@color/black"></ImageButton>
 
         <ImageView
             android:layout_width="35dp"
@@ -103,8 +101,7 @@
         <CalendarView
             android:id="@+id/simpleCalendarView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 

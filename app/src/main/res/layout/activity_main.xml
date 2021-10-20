@@ -142,11 +142,11 @@
         android:layout_below="@id/inputArea"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@drawable/login_border"
         android:text="@string/login_text"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:textStyle="bold"
-        android:background="@drawable/login_border"></Button>
+        android:textStyle="bold"></Button>
 
     <RelativeLayout
         android:id="@+id/resetPasswordArea"

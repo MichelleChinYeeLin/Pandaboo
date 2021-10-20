@@ -8,9 +8,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@color/airforceblue"
         android:padding="15dp"
-        android:layout_centerHorizontal="true"
         tools:ignore="UselessParent">
 
         <RelativeLayout
@@ -26,8 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="@string/pause_text"
-                android:textSize="50sp">
-            </TextView>
+                android:textSize="50sp"></TextView>
 
             <TextView
                 android:id="@+id/pauseDescription"
@@ -58,8 +57,7 @@
                 android:layout_below="@+id/resumeButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:textSize="60sp">
-            </TextView>
+                android:textSize="60sp"></TextView>
 
             <!-- Insert Panda image HERE
             <ImageView
