@@ -12,11 +12,4 @@ public class User {
     //Setters
     public void setUserName(String userName){this.userName = userName;}
     public void setUserPassword(String userPassword){this.userPassword = userPassword;}
-
-    /*
-    public boolean createAccount(String userName, String userPassword){
-        if ()
-    }*/
-
-
 }

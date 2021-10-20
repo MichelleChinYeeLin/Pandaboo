@@ -19,31 +19,39 @@ import com.squareup.picasso.Picasso;
 
 public class Panda extends AppCompatActivity {
 
+    //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.panda);
 
+        //Initialization of elements in the panda page
         ImageView roomSkin = findViewById(R.id.roomSkin);
         Button backButton = findViewById(R.id.backButton);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
-
-        reference.addValueEventListener(new ValueEventListener() {
+        //Retrieve data from Firebase
+        DatabaseReference userReference = reference.child("admin");
+        userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Retrieve the skin image
                 String roomSkinURL = snapshot.child("User").child("EquippedItemRoom").getValue(String.class);
-                Picasso.get().load(roomSkinURL).noPlaceholder().into(roomSkin);
+
+                //Display the skin image
+                Picasso.get().load(roomSkinURL).into(roomSkin);
             }
 
+            //Display the database error if any
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Panda.this, "Purchase Failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Panda.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
             }
         });
 
+        //Return to home activity
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,7 +4,198 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/olivegreen"
+    android:background="@color/airforceblue"
     tools:context=".Settings">
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:paddingHorizontal="10dp"
+        android:background="@color/olivegreen">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@color/pale_yellow"
+            android:text="@string/back"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/settings"
+            android:textSize="30sp"
+            android:textColor="@color/black">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userInfoArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp">
+
+        <RelativeLayout
+            android:id="@+id/nameArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/settings_information_card"
+                android:gravity="center"
+                android:paddingVertical="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/passwordArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameArea"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/passwordText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Change Password: "
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/userPassword"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:hint="Password"
+                android:textColorHint="@color/black"
+                android:paddingVertical="15dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/settings_information_card">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/userNewPassword"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userPassword"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:hint="Enter New Password"
+                android:textColorHint="@color/black"
+                android:paddingVertical="15dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/settings_information_card">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/userConfirmNewPassword"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userNewPassword"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:hint="Confirm New Password"
+                android:textColorHint="@color/black"
+                android:paddingVertical="15dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/settings_information_card">
+
+            </EditText>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/otherInfoArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userInfoArea"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/chooseMusicButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Choose Music"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="25dp"
+            android:background="@drawable/settings_information_card">
+        </Button>
+
+        <Button
+            android:id="@+id/creditsButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chooseMusicButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/settings_information_card"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="20dp"
+            android:text="Credits"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="15sp">
+        </Button>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -20,12 +20,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:backgroundTint="@color/paleyellow"
             android:text="@string/back"
             android:textColor="@color/black"
@@ -36,8 +31,8 @@
             android:id="@+id/bambooArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_margin="5dp"
             android:background="@color/blue">
@@ -46,34 +41,37 @@
                 android:id="@+id/bambooCurrencyArea"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_centerVertical="true"
                 android:background="@drawable/bamboo_currency_border"
-                android:paddingHorizontal="10dp">
+                android:paddingHorizontal="10dp"
+                android:layout_centerVertical="true">
 
                 <TextView
                     android:id="@+id/bambooNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="15sp"></TextView>
+                    android:textSize="15sp">
+                </TextView>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/bambooCurrencyArea"
                 android:layout_toRightOf="@+id/bambooCurrencyArea"
+                android:layout_toEndOf="@+id/bambooCurrencyArea"
+                android:layout_centerVertical="true"
                 android:background="@drawable/bamboo_currency_border">
 
                 <ImageView
                     android:id="@+id/bambooIcon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_centerInParent="true"
-                    android:contentDescription="@string/bamboo_icon"
-                    android:src="@drawable/bamboo"></ImageView>
+                    android:src="@drawable/bamboo"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/bamboo_icon">
+                </ImageView>
 
             </RelativeLayout>
 
@@ -105,8 +103,8 @@
         android:id="@+id/roomSkinTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pandaShopBg"
         android:adjustViewBounds="true"
+        android:layout_below="@+id/pandaShopBg"
         android:contentDescription="@string/roomskintitle"
         app:srcCompat="@drawable/romm_category" />
 
@@ -114,16 +112,12 @@
         android:id="@+id/skinsGridView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/roomSkinTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_margin="25dp"
         android:horizontalSpacing="15dp"
+        android:verticalSpacing="20dp"
         android:numColumns="2"
-        android:verticalSpacing="20dp"></GridView>
+        android:layout_below="@+id/roomSkinTitle"
+        android:layout_centerHorizontal="true">
+    </GridView>
 
 </RelativeLayout>
