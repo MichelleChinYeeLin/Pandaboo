@@ -18,8 +18,9 @@ public class Item {
         this.isOwned = isOwned;
     }
 
+    //Empty constructor
     public Item(){
-        //Empty constructor
+
     }
 
     //Getters
