@@ -36,7 +36,7 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/paleyellow">
+        android:background="@color/pale_yellow">
 
         <TextView
             android:id="@+id/monthYear"
@@ -67,7 +67,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/previous_month_icon"
             app:tint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"></ImageButton>
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck">
+        </ImageButton>
 
         <ImageButton
             android:id="@+id/nextButton"
@@ -84,7 +85,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/next_month_icon"
             app:tint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"></ImageButton>
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck">
+        </ImageButton>
 
         <ImageButton
             android:id="@+id/more_event_menu"

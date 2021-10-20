@@ -33,8 +33,6 @@ import java.io.IOException;
 
 public class HomeMain extends AppCompatActivity{
 
-public class HomeMain extends AppCompatActivity implements View.OnClickListener{
-
     private static boolean isOngoingTimer;
     private static boolean isLeavingApp = false;
     public static Context currentContext;
