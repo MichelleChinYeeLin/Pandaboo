@@ -4,8 +4,9 @@
     <string name="login_text">Login</string>
     <string name="sign_in_to_your_account_text">Sign in to your account</string>
     <string name="username_icon">Username Icon</string>
-    <string name="username_text">\t\t\t\t\t\t\t\t Username</string>
-    <string name="username_text1">\t\t Username</string>
+    <string name="username_text">\t\t Username</string>
+    <string name="username_text1">\t\t\t\t\t\t\t\t Username</string>
+    <string name="username_text2">\t\t\t\t\t\t\t\t\t\t\t Username</string>
     <string name="password_icon">Password Icon</string>
     <string name="password_text"> \t\t\t\t\t\t\t\t Password</string>
     <string name="password_text1"> \t\t Password</string>
@@ -79,6 +80,10 @@
     <string name="signup_text">Sign Up</string>
     <string name="click_here_to_sign_in">Click here to sign in</string>
     <string name="i_have_an_account">I have an account</string>
-    <string name="email_text"> \t\t\t\t\t\t\t\t Email</string>
+    <string name="email_text"> \t\t Email</string>
+    <string name="email_text1"> \t\t\t\t\t\t\t\t Email</string>
     <string name="reset_password">Reset Password</string>
+    <string name="email_icon">Email</string>
+    <string name="email_text2">\t\t\t\t\t\t\t\t\t\t\t Email</string>
+    <string name="register_text">Login</string>
 </resources>
