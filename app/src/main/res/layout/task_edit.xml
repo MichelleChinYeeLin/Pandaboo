@@ -14,7 +14,7 @@
         android:background="@color/olivegreen">
 
         <Button
-            android:id="@+id/TaskBackButton"
+            android:id="@+id/TaskBackButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -52,14 +52,14 @@
         android:layout_marginLeft="30dp"
         android:background="@color/yellow">
 
-        <TextView
+        <EditText
             android:id="@+id/taskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Task Title"
             android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp"></EditText>
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,50 +72,56 @@
         android:layout_marginLeft="30dp"
         android:background="@color/yellow">
 
-        <TextView
+        <EditText
             android:id="@+id/subTaskTextEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Sub Task"
             android:textColor="@color/black"
-            android:textSize="15sp"></TextView>
+            android:textSize="15sp"></EditText>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/timeAndPriority"
         android:layout_width="150dp"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_below="@id/subTask"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="25dp">
 
-        <TextView
+        <!--
+        <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></DatePicker>
+         -->
+
+        <EditText
             android:id="@+id/dueDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="Due Date: __:__"
             android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
-
-
+            android:textSize="15sp"></EditText>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="170dp"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_below="@id/subTask"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="50dp"
-
-        >
+        android:layout_marginRight="50dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Priority: "
             android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"></TextView>
 
         <RelativeLayout
             android:id="@+id/taskDropDown"
@@ -123,8 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@color/paleyellowtranslucent"
-            >
+            android:background="@color/paleyellowtranslucent">
 
             <Spinner
                 android:id="@+id/dropDownSpinner"
@@ -153,7 +158,6 @@
         android:src="@drawable/cancel"
         app:tint="@color/red"
         ></ImageButton>
-</RelativeLayout>
-
+    </RelativeLayout>
 
 </RelativeLayout>
