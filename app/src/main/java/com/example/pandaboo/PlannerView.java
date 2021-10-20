@@ -32,8 +32,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import com.google.firebase.database.DataSnapshot;
@@ -72,13 +74,13 @@ public class PlannerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planner_view);
 
-        reff = FirebaseDatabase.getInstance().getReference();
+        reff = FirebaseDatabase.getInstance().getReference().child("admin");
 
         backButton = findViewById(R.id.backButton);
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
         gridView = findViewById(R.id.gridView);
-        addEvent = findViewById(R.id.add_event);
+        addEvent = findViewById(R.id.addEvent);
         monthYear = findViewById(R.id.monthYear);
 
         SetUpCalendar();
@@ -210,9 +212,9 @@ public class PlannerView extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
 
-                        reff.child("admin").child("Events").push().setValue("event_title");
+                        //reff.child("Events").push().setValue("event_title");
 
                         String eventTitle = EventTitle.getText().toString();
                         String eventDetails = EventDetails.getText().toString();
@@ -224,14 +226,16 @@ public class PlannerView extends AppCompatActivity {
                             events.setEVENT(eventTitle);
                             events.setDETAILS(eventDetails);
                             events.setTIME(eventTime);
-                            events.setFirstDATE(eventDateFormat.format(firstDate));
-                            events.setSecondDATE(eventDateFormat.format(secondDate));
+                            //events.setFirstDATE(eventDateFormat.format(firstDate));
+                            //events.setSecondDATE(eventDateFormat.format(secondDate));
+                            events.setFirstDATE(firstDate);
+                            events.setSecondDATE(secondDate);
                             events.setDATE(date);
                             events.setMONTH(month);
                             events.setYEAR(year);
                             events.setNOTIFY("7am");
 
-                            //SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"7am");
+                            SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"7am");
                             //SetUpCalendar();
                             //Calendar calendar = Calendar.getInstance();
                             //calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
@@ -244,7 +248,7 @@ public class PlannerView extends AppCompatActivity {
                             alertDialog.dismiss();
                         }
                         else{
-                            Toast.makeText(context, "Please tick a reminder.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PlannerView.this, "Please tick a reminder.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -293,9 +297,10 @@ public class PlannerView extends AppCompatActivity {
 
     //wut the saveButton does
     private void SaveEvent(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
-        reff = FirebaseDatabase.getInstance().getReference().child("Event");
+
         Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
-        events.setEVENT(event);
+
+        /*events.setEVENT(event);
         events.setDETAILS(details);
         events.setTIME(time);
         events.setFirstDATE(eventDateFormat.format(date1));
@@ -303,9 +308,14 @@ public class PlannerView extends AppCompatActivity {
         events.setDATE(date);
         events.setMONTH(month);
         events.setYEAR(year);
-        events.setNOTIFY(notify);
-        reff.push().setValue(events);
-        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
+        events.setNOTIFY(notify);*/
+
+        //reff.child("Events").push().setValue(events);
+        reff.child("Events").push().setValue(events);
+
+        System.out.println("testing");
+
+        //Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
     }
 
     private void SetUpCalendar(){

@@ -217,7 +217,7 @@
         android:layout_marginBottom="10dp">
 
         <ImageButton
-            android:id="@+id/add_event"
+            android:id="@+id/addEvent"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
@@ -231,7 +231,8 @@
             android:focusable="true"
             android:scaleType="fitCenter"
             android:src="@drawable/add_action"
-            tools:ignore="SpeakableTextPresentCheck"></ImageButton>
+            tools:ignore="SpeakableTextPresentCheck">
+        </ImageButton>
 
     </RelativeLayout>
 
