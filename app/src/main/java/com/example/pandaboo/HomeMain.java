@@ -1,9 +1,12 @@
 package com.example.pandaboo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +33,10 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+
+    private static boolean isOngoingTimer;
+    private static boolean isLeavingApp = false;
+    public static Context currentContext;
 
     //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
@@ -76,6 +84,9 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
+
+        isOngoingTimer = false;
+        currentContext = this;
 
         //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
@@ -519,6 +530,8 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             hours++;
         }
 
+        isOngoingTimer = true;
+
         try{
             //Pass the audio URL to the Media Player
             mediaPlayer.setDataSource(musicAudio);
@@ -561,9 +574,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 timerCountdownMinutes.setText(timerCountdownFormat(minutes));
                 timerCountdownSeconds.setText(timerCountdownFormat(seconds));
 
-                //TODO: Prevent users from exiting the application
-                //TODO: Prevent users from opening the Panda and Shop page
-
                 //If the user cancels the timer countdown
                 if (isCancelled){
                     //Cancel and reset timer
@@ -572,6 +582,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = new MediaPlayer();
+                    isOngoingTimer = false;
                 }
 
                 //If the user pauses the timer countdown
@@ -592,10 +603,56 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 mediaPlayer = new MediaPlayer();
+                isOngoingTimer = false;
 
                 //Show success dialog box
                 succeededTimer();
             }
         }.start();
+    }
+
+    public void leavingApp(){
+        //Create the alert dialog box
+        AlertDialog dialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(currentContext);
+        LayoutInflater inflater = (LayoutInflater) currentContext.getSystemService(currentContext.LAYOUT_INFLATER_SERVICE);
+        dialogBuilder.setView(inflater.inflate(R.layout.timer_cancel, null));
+        dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        //Display the alert dialog box
+        dialog.show();
+
+        Button cancelYes = dialog.findViewById(R.id.cancelYes);
+        Button cancelNo = dialog.findViewById(R.id.cancelNo);
+
+        cancelYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeMain.this.finish();
+                System.exit(0);
+            }
+        });
+
+        cancelNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isOngoingTimer){
+            leavingApp();
+        }
+
+        else{
+            HomeMain.this.finish();
+            System.exit(0);
+        }
     }
 }
