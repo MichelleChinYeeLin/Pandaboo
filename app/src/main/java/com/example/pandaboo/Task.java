@@ -62,7 +62,7 @@ public class Task extends AppCompatActivity {
             }
         });*/
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +81,7 @@ public class Task extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newIntent = new Intent(Task.this,Task_Edit.class);
-                Task.this.startActivity(newIntent);
+                startActivity(newIntent);
             }
         });
 

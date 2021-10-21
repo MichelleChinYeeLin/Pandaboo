@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="confettiImage" type="id">confetti_image</item>
-    <item name="pandaCelebrate" type="id">pandaCelebrate</item>
-    <item name="ImageHolder" type="id">pandaImageHolder</item>
-    <item name="imageView" type="id" />
-    <item name="rImage" type="id" />
-</resources>
