@@ -16,6 +16,7 @@
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/password_icon.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/passwordlogo_foreground.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/pause_icon.xml" value="0.23177083333333334" />
+        <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/planner_calendar_cell_event.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/previous_month_icon.xml" value="0.253125" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/redo_icon.xml" value="0.253125" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/resume_icon.xml" value="0.23177083333333334" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/calendar_cell.xml" value="0.2328125" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/cancel_timer.xml" value="0.215625" />
+        <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/card_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event.xml" value="0.2015625" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_add.xml" value="0.2328125" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_show.xml" value="0.2328125" />
@@ -47,6 +49,8 @@
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/settings_music.xml" value="0.234375" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/settings_music_card.xml" value="0.234375" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/shop.xml" value="0.21875" />
+        <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/shop_equip.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/shop_purchase.xml" value="0.23958333333333334" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/success.xml" value="0.221875" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/task.xml" value="0.23697916666666666" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/test.xml" value="0.20520833333333333" />
@@ -56,21 +60,9 @@
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/timer_success.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout-v21/planner_main.xml" value="0.31567028985507245" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/calendar_cell.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event.xml" value="0.22916666666666666" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_add.xml" value="0.25" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_show.xml" value="0.1" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_showrow.xml" value="0.335" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/home_main.xml" value="0.17857142857142858" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/home_ongoing_timer.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner.xml" value="0.23229166666666667" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner_main.xml" value="0.165" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner_view.xml" value="0.1299342105263158" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/shop.xml" value="0.19519927536231885" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/timer_pause.xml" value="0.17857142857142858" />
-        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/timer_success.xml" value="0.375" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21822916666666667" />
       </map>
