@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="5dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp">
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventTitle"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/eventStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/eventToText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/eventStartTime"
+                android:layout_toEndOf="@+id/eventStartTime"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/to_text"
+                android:textSize="15sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/eventEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/eventToText"
+                android:layout_toEndOf="@+id/eventToText"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:textSize="15sp">
+            </TextView>
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/eventEditButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/edit_icon"
+            android:scaleType="fitCenter"
+            android:background="@color/transparent"
+            android:contentDescription="@string/edit_button_text">
+        </ImageButton>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

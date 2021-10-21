@@ -96,144 +96,194 @@
         android:layout_height="match_parent"
         android:layout_below="@id/mainInfo_holder"
         android:layout_marginTop="20dp"
-        android:background="@color/orange_yellowish">
+        android:background="@color/orange_yellowish"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/selectTimeText"
-            android:layout_width="170dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="12dp"
-            android:text="Select Time:"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+        <RelativeLayout
+            android:id="@+id/setTimeArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/selectTime"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/selectTimeText"
-            android:background="@drawable/timeicon"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/selectTimeText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/setTimeText"
-            android:layout_width="130dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="12dp"
-            android:layout_toRightOf="@+id/selectTime"
-            android:text="00:00 AM"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <ImageButton
+                android:id="@+id/selectStartTime"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/selectTimeText"
+                android:background="@drawable/timeicon" />
 
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/selectTimeText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30sp"
-            android:text="Date:"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            tools:ignore="UnknownId" />
+            <TextView
+                android:id="@+id/setStartTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/selectStartTime"
+                android:layout_toRightOf="@+id/selectStartTime"
+                android:text="00:00 AM"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/selectDate1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_below="@+id/selectTime"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20sp"
-            android:background="@drawable/calendar_icon"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/timeToText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/setStartTimeText"
+                android:layout_toRightOf="@+id/setStartTimeText"
+                android:text="@string/to_text"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/setDateText1"
-            android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/selectEndTime"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/selectTimeText"
+                android:layout_toEndOf="@+id/selectTimeText"
+                android:layout_below="@+id/selectStartTime"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/timeicon" />
+
+            <TextView
+                android:id="@+id/setEndTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/selectEndTime"
+                android:layout_toRightOf="@+id/selectEndTime"
+                android:layout_below="@+id/selectStartTime"
+                android:layout_marginTop="10dp"
+                android:text="00:00AM"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/setDateArea"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/setTimeText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40sp"
-            android:layout_toRightOf="@+id/selectDate1"
-            android:text="Date1"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:layout_below="@+id/setTimeArea"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/dateTodateText"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_below="@+id/selectDate1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10sp"
-            android:text="to"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/selectDate2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_below="@+id/dateTodateText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10sp"
-            android:background="@drawable/calendar_icon"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <ImageButton
+                android:id="@+id/selectDate1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@+id/dateText"
+                android:layout_toRightOf="@+id/dateText"
+                android:background="@drawable/calendar_icon" />
 
-        <TextView
-            android:id="@+id/setDateText2"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/setDateText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/selectDate1"
+                android:layout_toRightOf="@+id/selectDate1"
+                android:text="Date1"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dateTodateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/setDateText1"
+                android:layout_toRightOf="@+id/setDateText1"
+                android:text="@string/to_text"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/selectDate2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@+id/dateText"
+                android:layout_toRightOf="@+id/dateText"
+                android:layout_below="@+id/selectDate1"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/calendar_icon" />
+
+            <TextView
+                android:id="@+id/setDateText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/selectDate2"
+                android:layout_below="@+id/selectDate1"
+                android:layout_marginTop="10dp"
+                android:text="Date2"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/setReminderArea"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="200sp"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/selectDate2"
-            android:text="Date2"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:layout_below="@+id/setDateArea"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/reminderText"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/selectDate2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Reminder:"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/reminderText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Reminder:"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
-        <CheckBox
-            android:id="@+id/setReminder1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/selectDate2"
-            android:layout_marginTop="20sp"
-            android:layout_toRightOf="@+id/reminderText"
-            android:text="7:00 AM"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <CheckBox
+                android:id="@+id/setReminder1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/reminderText"
+                android:layout_toEndOf="@+id/reminderText"
+                android:text="7:00 AM"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-        <CheckBox
-            android:id="@+id/setReminder2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/setReminder1"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/reminderText"
-            android:text="120 min earlier"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <CheckBox
+                android:id="@+id/setReminder2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setReminder1"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/reminderText"
+                android:layout_toEndOf="@+id/reminderText"
+                android:text="120 min earlier"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
 
         <Switch
             android:id="@+id/occurDaily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/occurWeekly"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:text="Occur Daily"
             android:textColor="@color/black"
@@ -245,8 +295,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
             android:text="Occur Weekly"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -258,9 +306,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
             android:text="Save" />
 
     </RelativeLayout>

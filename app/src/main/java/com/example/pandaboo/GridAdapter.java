@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ public class GridAdapter extends ArrayAdapter {
     Calendar currentDate;
     ArrayList<Event> events;
     LayoutInflater inflater;
+    private String calendarDate;
+    private int displayMonth, displayYear, DayNo;
 
     public GridAdapter(@NonNull Context context, ArrayList<Date>dates, Calendar currentDate, ArrayList<Event> events) {
         super(context, R.layout.calendar_cell);
@@ -33,7 +36,6 @@ public class GridAdapter extends ArrayAdapter {
         this.currentDate = currentDate;
         this.events = events;
         inflater = LayoutInflater.from(context);
-
     }
 
     @NonNull
@@ -42,9 +44,9 @@ public class GridAdapter extends ArrayAdapter {
         Date monthDate = dates.get(position);
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(monthDate);
-        int DayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
-        int displayMonth = dateCalendar.get(Calendar.MONTH)+1;
-        int displayYear = dateCalendar.get(Calendar.YEAR);
+        DayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
+        displayMonth = dateCalendar.get(Calendar.MONTH)+1;
+        displayYear = dateCalendar.get(Calendar.YEAR);
         int currentMonth = currentDate.get(Calendar.MONTH)+1;
         int currentYear = currentDate.get(Calendar.YEAR);
 
@@ -62,13 +64,13 @@ public class GridAdapter extends ArrayAdapter {
         }
 
         TextView Day_Number = view.findViewById(R.id.calendar_day);
-        LinearLayout calendarCellArea = view.findViewById(R.id.calendarCellArea);
+        RelativeLayout calendarCellArea = view.findViewById(R.id.calendarCellArea);
 
         Day_Number.setText(String.valueOf(DayNo));
         Calendar eventCalendar = Calendar.getInstance();
         ArrayList<String> arrayList = new ArrayList<>();
 
-        String calendarDate = String.valueOf(displayYear) + "-" + String.valueOf(displayMonth) + "-" + String.valueOf(DayNo);
+        calendarDate = String.valueOf(displayYear) + "-" + String.valueOf(displayMonth) + "-" + String.valueOf(DayNo);
 
         /*for (int i = 0; i < events.size(); i++){
             eventCalendar.setTime(ConvertStringToDate(events.get(i).getFirstDATE())); //getFirstDATE getSecondDATE
@@ -115,6 +117,10 @@ public class GridAdapter extends ArrayAdapter {
     @Override
     public int getPosition(@Nullable Object item) {
         return dates.indexOf(item);
+    }
+
+    public String getDay(int position){
+        return dates.get(position).toString();
     }
 
     /*
