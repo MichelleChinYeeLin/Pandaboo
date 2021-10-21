@@ -86,7 +86,7 @@ public class FirebaseTrial2 extends AppCompatActivity {
         setContentView(R.layout.firebasetrial2);
 
         // getting ImageView by its id
-        rImage = findViewById(R.id.rImage);
+        //rImage = findViewById(R.id.rImage);
 
         // we will get the default FirebaseDatabase instance
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -102,7 +102,7 @@ public class FirebaseTrial2 extends AppCompatActivity {
         // in the data at this location.
         // this listener will triggered once
         // with the value of the data at the location
-        getImage.addListenerForSingleValueEvent(new ValueEventListener() {
+        /*getImage.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // getting a DataSnapshot for the location at the specified
@@ -121,6 +121,6 @@ public class FirebaseTrial2 extends AppCompatActivity {
                 // we are showing that error message in toast
                 Toast.makeText(FirebaseTrial2.this, "Error Loading Image", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 }

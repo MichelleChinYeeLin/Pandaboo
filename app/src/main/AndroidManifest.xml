@@ -25,6 +25,7 @@
         <activity android:name=".Settings"></activity>
         <activity android:name=".Task"></activity>
         <activity android:name=".Planner"></activity>
+        <activity android:name=".Task_Edit"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
