@@ -63,8 +63,8 @@ public class PlannerView extends AppCompatActivity {
 
     GridAdapter gridAdapter;
     AlertDialog alertDialog;
-    List<Date> dates = new ArrayList<>();
-    List<Event> eventsList = new ArrayList<>();
+    ArrayList<Date> dates = new ArrayList<>();
+    ArrayList<Event> eventsList = new ArrayList<>();
     int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute;
     long maxid = 0;
 
@@ -210,25 +210,25 @@ public class PlannerView extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
-
-                        reff.child("admin").child("Events").push().setValue("event_title");
+                        Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
 
                         String eventTitle = EventTitle.getText().toString();
                         String eventDetails = EventDetails.getText().toString();
                         String eventTime = EventTime.getText().toString();
                         String firstDate = EventDate1.getText().toString();
                         String secondDate = EventDate2.getText().toString();
+
                         if(SetReminder1.isChecked()){
-                            Event events = new Event(eventTitle, eventDetails, eventTime, firstDate, secondDate, date, month, year, "7am");
+                            //Event events = new Event(eventTitle, eventDetails, eventTime, firstDate, secondDate, date, month, year, "7am");
+                            Event events = new Event(eventTitle, eventDetails, eventTime, firstDate, secondDate, "7am");
                             events.setEVENT(eventTitle);
                             events.setDETAILS(eventDetails);
                             events.setTIME(eventTime);
                             events.setFirstDATE(eventDateFormat.format(firstDate));
                             events.setSecondDATE(eventDateFormat.format(secondDate));
-                            events.setDATE(date);
-                            events.setMONTH(month);
-                            events.setYEAR(year);
+                            //events.setDATE(date);
+                            //events.setMONTH(month);
+                            //events.setYEAR(year);
                             events.setNOTIFY("7am");
 
                             //SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"7am");
@@ -244,7 +244,7 @@ public class PlannerView extends AppCompatActivity {
                             alertDialog.dismiss();
                         }
                         else{
-                            Toast.makeText(context, "Please tick a reminder.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PlannerView.this, "Please tick a reminder.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -293,19 +293,19 @@ public class PlannerView extends AppCompatActivity {
 
     //wut the saveButton does
     private void SaveEvent(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
-        reff = FirebaseDatabase.getInstance().getReference().child("Event");
-        Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+        //Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        Event events = new Event(event, details, time, date1, date2, notify);
+        /*
         events.setEVENT(event);
         events.setDETAILS(details);
         events.setTIME(time);
         events.setFirstDATE(eventDateFormat.format(date1));
         events.setSecondDATE(eventDateFormat.format(date2));
-        events.setDATE(date);
-        events.setMONTH(month);
-        events.setYEAR(year);
-        events.setNOTIFY(notify);
+        events.setNOTIFY(notify);*/
         reff.push().setValue(events);
-        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
+        //System.out.println(events.getFirstDATE());
+        Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
     }
 
     private void SetUpCalendar(){
@@ -324,13 +324,42 @@ public class PlannerView extends AppCompatActivity {
             monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        gridAdapter = new GridAdapter(PlannerView.this, dates, calendar, eventsList);
-        gridView.setAdapter(gridAdapter);
+        reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                eventsList.clear();
+
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    String eventName = dataSnapshot.child("event").getValue(String.class);
+                    String eventDetails = dataSnapshot.child("details").getValue(String.class);
+                    String eventTime = dataSnapshot.child("time").getValue(String.class);
+                    String eventFirstDate = dataSnapshot.child("firstDATE").getValue(String.class);
+                    String eventSecondDate = dataSnapshot.child("secondDATE").getValue(String.class);
+                    String eventNotify = dataSnapshot.child("notify").getValue(String.class);
+
+                    System.out.println(eventName + eventDetails + eventTime + eventFirstDate + eventSecondDate + eventNotify);
+
+                    Event event = new Event (eventName, eventDetails, eventTime, eventFirstDate, eventSecondDate, eventNotify);
+                    eventsList.add(event);
+                }
+
+                gridAdapter = new GridAdapter(PlannerView.this, dates, calendar, eventsList);
+                gridView.setAdapter(gridAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
+    /*
     //get events by month from database
     private void CollectEventsPerMonth(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
-        Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        Event events = new Event(event, details, time, date1, date2, notify);
         eventsList.add(events);
-    }
+    }*/
 }

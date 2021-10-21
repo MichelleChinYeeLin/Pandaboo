@@ -52,7 +52,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
         //change alarm
-        if(isAlarmed(events.getEVENT(),events.getDETAILS(),events.getTIME(),events.getFirstDATE(),events.getSecondDATE(),events.getDATE(),events.getMONTH(),events.getYEAR(),events.getNOTIFY())){
+        if(isAlarmed(events.getEVENT(),events.getDETAILS(),events.getTIME(),events.getFirstDATE(),events.getSecondDATE(),events.getNOTIFY())){
             holder.setAlarm.setImageResource(R.drawable.ic_baseline_notifications_active_24);
             //set alarm
         }
@@ -61,7 +61,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         }
 
         Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTime(ConvertStringToDate(events.getDATE()));
+        dateCalendar.setTime(ConvertStringToDate(events.getFirstDATE()));
         int alarmYear = dateCalendar.get(Calendar.YEAR);
         int alarmMonth = dateCalendar.get(Calendar.MONTH);
         int alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
@@ -73,7 +73,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         holder.setAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isAlarmed(events.getEVENT(),events.getDETAILS(),events.getTIME(),events.getFirstDATE(),events.getSecondDATE(),events.getDATE(),events.getMONTH(),events.getYEAR(),events.getNOTIFY())){
+                if(isAlarmed(events.getEVENT(),events.getDETAILS(),events.getTIME(),events.getFirstDATE(),events.getSecondDATE(),events.getNOTIFY())){
                     holder.setAlarm.setImageResource(R.drawable.ic_baseline_notifications_active_24);
                     //cancel alarm
                     //updateEvent
@@ -136,9 +136,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return date;
     }
 
-    private boolean isAlarmed(String event, String details, String time, String date1, String date2, String date, String month, String year, String notify){
+    private boolean isAlarmed(String event, String details, String time, String date1, String date2, String notify){
         boolean alarmed = false;
-        Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
+        Event events = new Event(event, details, time, date1, date2, notify);
         String Notify = events.getNOTIFY();
         if(Notify.equals("7am")){
             alarmed = true;

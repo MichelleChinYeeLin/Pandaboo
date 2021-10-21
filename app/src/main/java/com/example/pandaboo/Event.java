@@ -2,17 +2,14 @@ package com.example.pandaboo;
 
 public class Event{
 
-    String EVENT, DETAILS, TIME, firstDATE, secondDATE, DATE, MONTH, YEAR, NOTIFY;
+    String EVENT, DETAILS, TIME, firstDATE, secondDATE, NOTIFY;
 
-    public Event(String EVENT, String DETAILS, String TIME, String firstDATE, String secondDATE, String DATE, String MONTH, String YEAR, String NOTIFY){
+    public Event(String EVENT, String DETAILS, String TIME, String firstDATE, String secondDATE, String NOTIFY){
         this.EVENT = EVENT;
         this.DETAILS = DETAILS;
         this.TIME = TIME;
         this.firstDATE = firstDATE;
         this.secondDATE = secondDATE;
-        this.DATE = DATE;
-        this.MONTH = MONTH;
-        this.YEAR = YEAR;
         this.NOTIFY = NOTIFY;
     }
 
@@ -40,14 +37,6 @@ public class Event{
         this.TIME = TIME;
     }
 
-    public String getDATE() {
-        return DATE;
-    }
-
-    public void setDATE(String DATE) {
-        this.DATE = DATE;
-    }
-
     public String getFirstDATE() {
         return firstDATE;
     }
@@ -62,22 +51,6 @@ public class Event{
 
     public void setSecondDATE(String secondDATE) {
         this.secondDATE = secondDATE;
-    }
-
-    public String getMONTH() {
-        return MONTH;
-    }
-
-    public void setMONTH(String MONTH) {
-        this.MONTH = MONTH;
-    }
-
-    public String getYEAR() {
-        return YEAR;
-    }
-
-    public void setYEAR(String YEAR) {
-        this.YEAR = YEAR;
     }
 
     public String getNOTIFY() {
