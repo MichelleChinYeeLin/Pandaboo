@@ -80,4 +80,6 @@
     <string name="more_menu">more_menu</string>
     <string name="event_add">event_add</string>
     <string name="sun">Sun</string>
+    <string name="to_text">to</string>
+    <string name="edit_button_text">Edit Button</string>
 </resources>

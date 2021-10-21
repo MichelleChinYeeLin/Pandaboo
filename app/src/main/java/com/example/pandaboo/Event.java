@@ -2,12 +2,13 @@ package com.example.pandaboo;
 
 public class Event{
 
-    String EVENT, DETAILS, TIME, firstDATE, secondDATE, NOTIFY;
+    String EVENT, DETAILS, startTIME, endTIME, firstDATE, secondDATE, NOTIFY;
 
-    public Event(String EVENT, String DETAILS, String TIME, String firstDATE, String secondDATE, String NOTIFY){
+    public Event(String EVENT, String DETAILS, String startTIME, String endTIME, String firstDATE, String secondDATE, String NOTIFY){
         this.EVENT = EVENT;
         this.DETAILS = DETAILS;
-        this.TIME = TIME;
+        this.startTIME = startTIME;
+        this.endTIME = endTIME;
         this.firstDATE = firstDATE;
         this.secondDATE = secondDATE;
         this.NOTIFY = NOTIFY;
@@ -29,12 +30,20 @@ public class Event{
         this.DETAILS = DETAILS;
     }
 
-    public String getTIME() {
-        return TIME;
+    public String getStartTIME() {
+        return startTIME;
     }
 
-    public void setTIME(String TIME) {
-        this.TIME = TIME;
+    public void setStartTIME(String startTIME) {
+        this.startTIME = startTIME;
+    }
+
+    public String getEndTIME() {
+        return endTIME;
+    }
+
+    public void setEndTIME(String endTIME) {
+        this.endTIME = endTIME;
     }
 
     public String getFirstDATE() {
