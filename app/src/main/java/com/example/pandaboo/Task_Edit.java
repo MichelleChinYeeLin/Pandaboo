@@ -31,23 +31,33 @@ public class Task_Edit extends AppCompatActivity {
     private AlertDialog.Builder spinnerLangauges;
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
 
-    ImageButton taskAddButton = (ImageButton) findViewById(R.id.taskAddButton);
-    taskAddButton.setOnClickListener(new View.OnClickListener()
-    private Object view;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.task_edit);
 
-    {
-        public void onClick (View view){
-        saveTodo();
-        finish();
+        TaskBackButton = findViewById(R.id.TaskBackButton1);
+        TaskBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+            ImageButton taskAddButton = (ImageButton) findViewById(R.id.taskAddButton);
+        });
+
+        //dropdown menu related
+        Spinner spinner = (Spinner) findViewById(R.id.dropDownSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinner.setAdapter(adapter);
     }
-    })
 
     void saveTodo() {
         // first section
         // get the data to save in our firebase db
         EditText mainTask = (EditText) findViewById(R.id.taskTitle);
         EditText subTask = (EditText) findViewById(R.id.subTaskTextEdit);
-        EditText date = (EditText) findViewById(R.id.dueDate);
+        EditText dueDate = (EditText) findViewById(R.id.dueDate);
 
 
         /* //can use datepicker for the date things, need to change dueDate to datepicker in xml
@@ -78,18 +88,5 @@ public class Task_Edit extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.task);
 
-        TaskBackButton = findViewById(R.id.TaskBackButton1);
-        TaskBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
 }

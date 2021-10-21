@@ -2,6 +2,7 @@ package com.example.pandaboo;
 
 import static androidx.recyclerview.widget.RecyclerView.*;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -46,7 +47,7 @@ public class Task extends AppCompatActivity {
     private AlertDialog.Builder spinnerLangauges;
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
     RecycleAdapter adapter;
-    ArrayList<Todo> todoList;
+    ArrayList<Todo> todoList = new ArrayList<>();
 
   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,25 +85,21 @@ public class Task extends AppCompatActivity {
             }
         });
 
-        //dropdown menu related
-        Spinner spinnerLanguages = findViewById(R.id.dropDownSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinnerLangauges.setAdapter(adapter);
+
 
         /*setContentView(R.layout.task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); */
 
 
-        todoList = new ArrayList<>();
-
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
-        adapter = new ArrayAdapter<CharSequence>();
+        adapter = new RecycleAdapter();
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        //listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, planetList);
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
@@ -122,11 +119,17 @@ public class Task extends AppCompatActivity {
                         Log.w("TodoApp", "getUser:onCancelled " + dataSnapshot.toString());
                         Log.w("TodoApp", "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Todo todo = data.getValue(Todo.class);
+                            String taskName = dataSnapshot.child("TaskName").getValue(String.class);
+                            String taskMessage = dataSnapshot.child("TaskMessage").getValue(String.class);
+                            String taskDate = dataSnapshot.child("TaskDate").getValue(String.class);
+                            String taskPriority = dataSnapshot.child("TaskPriority").getValue(String.class);
+
+                            Todo todo = new Todo(taskName, taskMessage, taskDate, taskPriority);
                             todoList.add(todo);
                         }
 
                         adapter.notifyDataSetChanged();
+
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -134,7 +137,6 @@ public class Task extends AppCompatActivity {
                     }
                 });
     }
-
 
     private class RecycleAdapter extends Adapter {
         @Override
@@ -151,7 +153,7 @@ public class Task extends AppCompatActivity {
 
         @NonNull
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
             SimpleItemViewHolder viewHolder = (SimpleItemViewHolder) holder;
             viewHolder.position = position;
             Todo todo = todoList.get(position);
@@ -166,7 +168,6 @@ public class Task extends AppCompatActivity {
                 itemView.setOnClickListener(this);
                 title = (TextView) itemView.findViewById(R.id.recyclerView);
             }
-
             @Override
             public void onClick(View view) {
 

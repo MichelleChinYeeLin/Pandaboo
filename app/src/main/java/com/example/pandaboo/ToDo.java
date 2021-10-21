@@ -5,47 +5,55 @@ import java.util.HashMap;
 
 class Todo implements Serializable {
 
-    private String name;
-    private String message;
-    private String date;
-    private String priority;
+    private String taskName;
+    private String taskMessage;
+    private String taskDate;
+    private String taskPriority;
 
-    public Todo() {
-
+    //Empty constructor
+    public Todo(){
     }
+
+    public Todo(String taskName, String taskMessage, String taskDate, String taskPriority) {
+            this.taskName = taskName;
+            this.taskMessage = taskMessage;
+            this.taskDate = taskDate;
+            this.taskPriority = taskPriority;
+    }
+
     public String getDate() {
-        return date;
+        return taskDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String taskDate) {
+        this.taskDate = taskDate;
     }
 
     public String getName() {
-        return name;
+        return taskName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String taskName) {
+        this.taskName = taskName;
     }
 
     public String getMessage() {
-        return message;
+        return taskMessage;
     }
 
-    public void setMessage(String message) {this.message = message;}
+    public void setMessage(String taskMessage) {this.taskMessage = taskMessage;}
 
-    public String getPriority() {return priority;}
+    public String getPriority() {return taskPriority;}
 
-    public void setPriority(String priority) {this.priority = priority;}
+    public void setPriority(String taskPriority) {this.taskPriority = taskPriority;}
 
 
     public HashMap<String,String> toFirebaseObject() {
         HashMap<String,String> todo =  new HashMap<String,String>();
-        todo.put("name", name);
-        todo.put("message", message);
-        todo.put("date", date);
-        todo.put("priority", priority);
+        todo.put("name", taskName);
+        todo.put("message", taskMessage);
+        todo.put("date", taskDate);
+        todo.put("priority", taskPriority);
 
         return todo;
     }
