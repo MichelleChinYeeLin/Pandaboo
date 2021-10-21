@@ -74,4 +74,11 @@
     <string name="no_text">No</string>
     <string name="purchase_text">Do you want to purchase this item?</string>
     <string name="equip_text">Do you want to equip this item?</string>
+    <string name="drop_down">Priority</string>
+
+    <string-array name="languages">
+        <item>Highest</item>
+        <item>Middle</item>
+        <item>Lowest</item>
+    </string-array>
 </resources>

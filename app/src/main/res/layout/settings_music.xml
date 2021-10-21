@@ -32,10 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/musicDesc"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:verticalSpacing="20dp"
         android:numColumns="1"
-        android:layout_centerHorizontal="true">
-    </GridView>
+        android:verticalSpacing="20dp"></GridView>
 
 </RelativeLayout>

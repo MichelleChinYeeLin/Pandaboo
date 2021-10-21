@@ -171,14 +171,13 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Choose Music"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textAllCaps="false"
-            android:paddingVertical="20dp"
+            android:background="@drawable/settings_information_card"
             android:paddingHorizontal="25dp"
-            android:background="@drawable/settings_information_card">
-        </Button>
+            android:paddingVertical="20dp"
+            android:text="Choose Music"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="15sp"></Button>
 
         <Button
             android:id="@+id/creditsButton"
