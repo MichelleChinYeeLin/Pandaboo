@@ -84,13 +84,9 @@ public class Task extends AppCompatActivity {
                 startActivity(newIntent);
             }
         });
-
-
-
         /*setContentView(R.layout.task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); */
-
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);

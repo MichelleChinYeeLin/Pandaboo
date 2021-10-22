@@ -97,6 +97,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:background="@color/yellow"
+            android:textColor="@color/black"
             android:textSize="15sp"></EditText>
     </RelativeLayout>
 
@@ -135,7 +136,6 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="15sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -173,14 +173,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/displaySpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="15sp"
-                android:textColor="@color/black"/>
 
         </RelativeLayout>
     </RelativeLayout>
@@ -230,7 +222,34 @@
             android:background="@color/transparent"
             android:src="@drawable/ic_baseline_add_circle_24"
             app:tint="@color/olivegreen" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/saveDelArea"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="10dp">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/olivegreen"
+            android:text="Save"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/save"
+            android:text="Delete"
+            android:layout_marginRight="15dp"
+            android:textSize="20sp"
+            android:background="@color/red_translucent"/>
     </RelativeLayout>
 
 </RelativeLayout>

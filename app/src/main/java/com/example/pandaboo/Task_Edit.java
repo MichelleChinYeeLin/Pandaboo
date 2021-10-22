@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Task_Edit extends AppCompatActivity {
+public class Task_Edit extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private View TaskBackButton;
     private AlertDialog.Builder spinnerLangauges;
@@ -82,40 +82,30 @@ public class Task_Edit extends AppCompatActivity {
         });
 
         //dropdown menu related
-        Spinner spinner = (Spinner) findViewById(R.id.dropDownSpinner);
-        //String size = spinner.getSelectedItem().toString();
+        Spinner spinner = findViewById(R.id.dropDownSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+    //dropdown stuff
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
+    }
 
-        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //update text view
-                displaySpinner.setText(spinner.getSelectedItem().toString());
-            }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            } */
-         }
+    }
 
-    void saveTodo() {
+    public void saveTodo() {
         // first section
         // get the data to save in our firebase db
         EditText mainTask = (EditText) findViewById(R.id.taskTitleEdit);
         EditText subTask = (EditText) findViewById(R.id.subTaskTextEdit);
         Button dueDate = (Button) findViewById(R.id.dueDateButton);
-
-
-        /* //can use datepicker for the date things, need to change dueDate to datepicker in xml
-        Date dueDate = new Date();
-        date.setMonth(datePicker.getMonth());
-        date.setYear(datePicker.getYear());
-        date.setDate(datePicker.getDayOfMonth());
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String dateString = format.format(date);*/
-
 
         //firebase db
         FirebaseDatabase database = FirebaseDatabase.getInstance(firebaseURL);

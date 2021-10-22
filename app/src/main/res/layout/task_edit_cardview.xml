@@ -6,14 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:layout_margin="5dp"
-    app:cardCornerRadius="20dp"
     app:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue"
-        ></RelativeLayout>
+        android:background="@color/blue"/>
+
 
     <RelativeLayout
         android:id="@+id/subTaskCard"
@@ -21,35 +20,58 @@
         android:layout_height="25dp"
         android:layout_alignParentLeft="true"
         android:layout_marginVertical="15dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="90dp"
         android:background="@color/yellow">
 
-        <TextView
-            android:id="@+id/subTaskText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Sub Task"
-            android:textColor="@color/black"
-            android:textSize="15sp"></TextView>
+        <EditText
+            android:id="@+id/subTaskTextEdit1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/Time"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/subTaskCard"
-        android:layout_alignParentLeft="true"
-        android:layout_marginVertical="50dp"
-        android:layout_marginLeft="30dp">
+        android:id="@+id/subTaskText1"
+        android:layout_width="65dp"
+        android:layout_height="25dp"
+        android:layout_marginVertical="15dp"
+        android:layout_marginLeft="10dp">
 
         <TextView
-            android:id="@+id/dueDateCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Due Date: __:__"
+            android:text="Sub Task:"
             android:textColor="@color/black"
-            android:textSize="16sp"></TextView>
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/timeAndPriority"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/subTaskText"
+        android:layout_marginVertical="50dp"
+        android:layout_alignParentLeft="true">
+
+        <Button
+            android:id="@+id/dueDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:text="Due Date"
+            android:textColor="@color/black"
+            android:textSize="15sp"></Button>
+
+        <TextView
+            android:id="@+id/selectdDate"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/dueDateButton"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -93,8 +115,9 @@
         android:id="@+id/cancelTaskArea"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="350dp"
         android:layout_marginVertical="5dp">
+
         <ImageButton
             android:id="@+id/cancelTaskIcon"
             android:layout_width="40dp"
@@ -103,4 +126,5 @@
             android:src="@drawable/cancel"
             app:tint="@color/red"></ImageButton>
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
