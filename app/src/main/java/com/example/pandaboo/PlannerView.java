@@ -10,8 +10,10 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,9 +67,9 @@ public class PlannerView extends AppCompatActivity {
     private static final int MAX_CALENDAR_DAYS = 42;
     Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
     Context context;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy",Locale.ENGLISH);
-    SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM",Locale.ENGLISH);
-    SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy",Locale.ENGLISH);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
+    SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.ENGLISH);
+    SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.ENGLISH);
     SimpleDateFormat eventDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     GridAdapter gridAdapter;
@@ -75,14 +77,14 @@ public class PlannerView extends AppCompatActivity {
     ArrayList<Date> dates = new ArrayList<>();
     ArrayList<Event> eventsList = new ArrayList<>();
 
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planner_view);
 
         reff = FirebaseDatabase.getInstance().getReference();
         reminder = FirebaseDatabase.getInstance().getReference();
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("planner_notification", "planner_notification", NotificationManager.IMPORTANCE_HIGH);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
@@ -97,7 +99,6 @@ public class PlannerView extends AppCompatActivity {
         monthYear = findViewById(R.id.monthYear);
 
         SetUpCalendar();
-        getAlarmed();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,14 +109,14 @@ public class PlannerView extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar.add(Calendar.MONTH,-1);
+                calendar.add(Calendar.MONTH, -1);
                 SetUpCalendar();
             }
         });
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar.add(Calendar.MONTH,1);
+                calendar.add(Calendar.MONTH, 1);
                 SetUpCalendar();
             }
         });
@@ -261,16 +262,14 @@ public class PlannerView extends AppCompatActivity {
                         String secondDate = EventDate2.getText().toString();
                         String notify = "";
 
-                        if(SetReminder1.isChecked()){
-                            notify = "7am";
-                        }
-                        else if(SetReminder2.isChecked()){
-                            notify = "120mins";
+                        if (SetReminder1.isChecked()) {
+                            notify = "1day";
+                        } else if (SetReminder2.isChecked()) {
+                            notify = "1hr";
                         }
 
-                        SaveEvent(eventTitle,eventDetails,eventStartTime,eventEndTime,firstDate,secondDate,notify);
+                        SaveEvent(eventTitle, eventDetails, eventStartTime, eventEndTime, firstDate, secondDate, notify);
                         SetUpCalendar();
-                        getAlarmed();
 
                         Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
                         alertDialog.dismiss();
@@ -326,9 +325,9 @@ public class PlannerView extends AppCompatActivity {
 
                 String selectDate = year + "-" + month + "-" + day;
 
-                for (Event event: eventsList){
+                for (Event event : eventsList) {
                     System.out.println("Test1");
-                    if (event.getFirstDATE().equals(selectDate) || event.secondDATE.equals(selectDate)){
+                    if (event.getFirstDATE().equals(selectDate) || event.secondDATE.equals(selectDate)) {
                         eventArrayList.add(event);
                         System.out.println("Test2");
                     }
@@ -341,15 +340,16 @@ public class PlannerView extends AppCompatActivity {
         });
 
     }
+
     //get events by date from database
-    private ArrayList<Event> CollectEventByDate(String date){
+    private ArrayList<Event> CollectEventByDate(String date) {
         ArrayList<Event> arrayList = new ArrayList<>();
 
         return arrayList;
     }
 
     //wut the saveButton does
-    private void SaveEvent(String event, String details, String startTime, String endTime, String date1, String date2, String notify){
+    private void SaveEvent(String event, String details, String startTime, String endTime, String date1, String date2, String notify) {
         reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
         Event events = new Event(event, details, startTime, endTime, date1, date2, notify);
 
@@ -358,7 +358,61 @@ public class PlannerView extends AppCompatActivity {
         Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
     }
 
-    private void getAlarmed(){
+    private void getAlarmed1HR(String eventName, String eventDetails, String eventStartTime, String eventEndTime, String eventFirstDate, String eventSecondDate, String eventNotify) {
+        String currentDate = eventDateFormat.format(calendar.getTime());
+
+        if(currentDate == eventFirstDate){
+            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            //splitting the hour
+            String[] hour = eventStartTime.split(":");
+            String[] minute = hour[1].split(" ");
+            String hour_minute = hour[0] + minute[0];
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0])-1);
+            calendar.set(Calendar.MINUTE, Integer.parseInt(minute[0]));
+
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+
+    }
+
+    private void getAlarmed1DAY(String eventName, String eventDetails, String eventStartTime, String eventEndTime, String eventFirstDate, String eventSecondDate, String eventNotify) {
+        String currentDate = eventDateFormat.format(calendar.getTime());
+
+        //splitting current date
+        String[] ThreeParts = currentDate.split("-");
+        String default_day = ThreeParts[2];
+        int defaultDay = Integer.parseInt(default_day);
+
+        //splitting the date
+        String[] ThreePart = eventFirstDate.split("-");
+        String event_day = ThreePart[2];
+        int eventDay = Integer.parseInt(event_day);
+
+        if(eventDay - defaultDay == 1) {
+            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 00);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 1);
+
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+
+    }
+
+    /*private void getAlarmed(){
         String currentDate = eventDateFormat.format(calendar.getTime());
         reminder = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
         reminder.addValueEventListener(new ValueEventListener() {
@@ -375,7 +429,7 @@ public class PlannerView extends AppCompatActivity {
                 int hours = calendar.get(Calendar.HOUR_OF_DAY);
                 int minutes = calendar.get(Calendar.MINUTE);
                 String string_time = Integer.toString(hours) + Integer.toString(minutes);
-                int int_time = Integer.parseInt(string_time);
+                int default_time = Integer.parseInt(string_time);
 
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     eventName = dataSnapshot.child("event").getValue(String.class);
@@ -386,26 +440,37 @@ public class PlannerView extends AppCompatActivity {
                     eventSecondDate = dataSnapshot.child("secondDATE").getValue(String.class);
                     eventNotify = dataSnapshot.child("notify").getValue(String.class);
 
+                    //splitting the hour
                     String[] hour = eventStartTime.split(":");
                     String[] minute = hour[1].split(" ");
                     String hour_minute = hour[0] + minute[0];
                     int event_Time = Integer.parseInt(hour_minute);
 
-                    if(currentDate == eventFirstDate){
-                        if(eventNotify == "7am"){
-                            if(hours == 7){
-                                NotificationCompat.Builder builder = new NotificationCompat.Builder(PlannerView.this, "planner_notification");
-                                builder.setContentTitle(eventName);
-                                builder.setContentText(eventStartTime + " to " + eventEndTime);
-                                builder.setSmallIcon(R.mipmap.pandatransparent);
-                                builder.setAutoCancel(true);
+                    //splitting the date
+                    String[] ThreePart = eventFirstDate.split("-");
+                    String event_day = ThreePart[2];
+                    int eventDay = Integer.parseInt(event_day);
 
-                                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(PlannerView.this);
-                                managerCompat.notify(1, builder.build());
-                            }
+                    //splitting current date
+                    String[] ThreeParts = currentDate.split("-");
+                    String default_day = ThreeParts[2];
+                    int defaultDay = Integer.parseInt(default_day);
+
+                    if(eventDay - defaultDay == 1) {
+                        if (eventNotify == "1day") {
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(PlannerView.this, "planner_notification");
+                            builder.setContentTitle(eventName);
+                            builder.setContentText(eventStartTime + " to " + eventEndTime);
+                            builder.setSmallIcon(R.mipmap.pandatransparent);
+                            builder.setAutoCancel(true);
+
+                            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(PlannerView.this);
+                            managerCompat.notify(1, builder.build());
                         }
-                        else if(eventNotify == "120min"){
-                            if(event_Time - int_time == 3){
+                    }
+                    else if(currentDate == eventFirstDate){
+                        if(eventNotify == "1hr"){
+                            if(event_Time - default_time == 1){
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(PlannerView.this, "planner_notification");
                                 builder.setContentTitle(eventName);
                                 builder.setContentText(eventStartTime + " to " + eventEndTime);
@@ -425,54 +490,60 @@ public class PlannerView extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
-    private void SetUpCalendar(){
-        String currentDate = dateFormat.format(calendar.getTime());
+        private void SetUpCalendar () {
+            String currentDate = dateFormat.format(calendar.getTime());
 
-        monthYear.setText(currentDate);
-        dates.clear();
-        Calendar monthCalendar = (Calendar) calendar.clone();
-        monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        int FirstDayOfMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) -1;
-        monthCalendar.add(Calendar.DAY_OF_MONTH, -FirstDayOfMonth);
-        //CollectEventsPerMonth();
+            monthYear.setText(currentDate);
+            dates.clear();
+            Calendar monthCalendar = (Calendar) calendar.clone();
+            monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
+            int FirstDayOfMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) - 1;
+            monthCalendar.add(Calendar.DAY_OF_MONTH, -FirstDayOfMonth);
 
-        while(dates.size() < MAX_CALENDAR_DAYS){
-            dates.add(monthCalendar.getTime());
-            monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
+            while (dates.size() < MAX_CALENDAR_DAYS) {
+                dates.add(monthCalendar.getTime());
+                monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
 
-        reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                eventsList.clear();
+                    eventsList.clear();
 
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String eventName = dataSnapshot.child("event").getValue(String.class);
-                    String eventDetails = dataSnapshot.child("details").getValue(String.class);
-                    String eventStartTime = dataSnapshot.child("startTIME").getValue(String.class);
-                    String eventEndTime = dataSnapshot.child("endTIME").getValue(String.class);
-                    String eventFirstDate = dataSnapshot.child("firstDATE").getValue(String.class);
-                    String eventSecondDate = dataSnapshot.child("secondDATE").getValue(String.class);
-                    String eventNotify = dataSnapshot.child("notify").getValue(String.class);
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        String eventName = dataSnapshot.child("event").getValue(String.class);
+                        String eventDetails = dataSnapshot.child("details").getValue(String.class);
+                        String eventStartTime = dataSnapshot.child("startTIME").getValue(String.class);
+                        String eventEndTime = dataSnapshot.child("endTIME").getValue(String.class);
+                        String eventFirstDate = dataSnapshot.child("firstDATE").getValue(String.class);
+                        String eventSecondDate = dataSnapshot.child("secondDATE").getValue(String.class);
+                        String eventNotify = dataSnapshot.child("notify").getValue(String.class);
 
-                    Event event = new Event (eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
-                    eventsList.add(event);
+                        Event event = new Event(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
+                        eventsList.add(event);
+
+                        if (eventNotify == "1day") {
+                            getAlarmed1HR(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
+                        }
+                        else if(eventNotify == "1hr"){
+                            getAlarmed1DAY(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
+                        }
+                    }
+
+                    gridAdapter = new GridAdapter(PlannerView.this, dates, calendar, eventsList);
+                    gridView.setAdapter(gridAdapter);
                 }
 
-                gridAdapter = new GridAdapter(PlannerView.this, dates, calendar, eventsList);
-                gridView.setAdapter(gridAdapter);
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+                }
+            });
+        }
 
     /*
     //get events by month from database
@@ -481,35 +552,47 @@ public class PlannerView extends AppCompatActivity {
         eventsList.add(events);
     }*/
 
-    public String monthValue(String month){
-        String monthValue = "";
+        public String monthValue (String month){
+            String monthValue = "";
 
-        switch(month){
-            case "Jan": monthValue = "1";
-                break;
-            case "Feb": monthValue = "2";
-                break;
-            case "Mar": monthValue = "3";
-                break;
-            case "Apr": monthValue = "4";
-                break;
-            case "May": monthValue = "5";
-                break;
-            case "Jun": monthValue = "6";
-                break;
-            case "Jul": monthValue = "7";
-                break;
-            case "Aug": monthValue = "8";
-                break;
-            case "Sep": monthValue = "9";
-                break;
-            case "Oct": monthValue = "10";
-                break;
-            case "Nov": monthValue = "11";
-                break;
-            case "Dec": monthValue = "12";
+            switch (month) {
+                case "Jan":
+                    monthValue = "1";
+                    break;
+                case "Feb":
+                    monthValue = "2";
+                    break;
+                case "Mar":
+                    monthValue = "3";
+                    break;
+                case "Apr":
+                    monthValue = "4";
+                    break;
+                case "May":
+                    monthValue = "5";
+                    break;
+                case "Jun":
+                    monthValue = "6";
+                    break;
+                case "Jul":
+                    monthValue = "7";
+                    break;
+                case "Aug":
+                    monthValue = "8";
+                    break;
+                case "Sep":
+                    monthValue = "9";
+                    break;
+                case "Oct":
+                    monthValue = "10";
+                    break;
+                case "Nov":
+                    monthValue = "11";
+                    break;
+                case "Dec":
+                    monthValue = "12";
+            }
+
+            return monthValue;
         }
-
-        return monthValue;
     }
-}

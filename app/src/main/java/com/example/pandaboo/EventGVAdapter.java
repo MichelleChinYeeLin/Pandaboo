@@ -112,7 +112,7 @@ public class EventGVAdapter extends ArrayAdapter<Event> {
                 EventDate1.setText(event.getFirstDATE());
                 EventDate2.setText(event.getSecondDATE());
 
-                String Notify = "7am";
+                String Notify = "1day";
                 if(Notify == event.getNOTIFY()){
                     SetReminder1.setChecked(true);
                 }
@@ -256,10 +256,10 @@ public class EventGVAdapter extends ArrayAdapter<Event> {
                         String secondDate = EventDate2.getText().toString();
 
                         if(SetReminder1.isChecked()){
-                            notify = "7am";
+                            notify = "1day";
                         }
                         else if(SetReminder2.isChecked()){
-                            notify = "120mins";
+                            notify = "1hr";
                         }
 
                         ref.addValueEventListener(new ValueEventListener() {

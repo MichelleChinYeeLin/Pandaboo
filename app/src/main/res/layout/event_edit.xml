@@ -261,10 +261,10 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/reminderText"
                 android:layout_toRightOf="@+id/reminderText"
-                android:text="7:00 AM"
+                android:checked="false"
+                android:text="1 Day Earlier"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:checked="false"/>
+                android:textSize="20sp" />
 
             <CheckBox
                 android:id="@+id/setReminder2"
@@ -274,7 +274,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/reminderText"
                 android:layout_toEndOf="@+id/reminderText"
-                android:text="120 min earlier"
+                android:text="1 Hour Earlier"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:checked="false"/>

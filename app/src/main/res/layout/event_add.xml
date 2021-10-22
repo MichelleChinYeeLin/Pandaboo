@@ -259,9 +259,9 @@
                 android:id="@+id/setReminder1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/reminderText"
                 android:layout_toEndOf="@+id/reminderText"
-                android:text="7:00 AM"
+                android:layout_toRightOf="@+id/reminderText"
+                android:text="1 Day Earlier"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -273,7 +273,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/reminderText"
                 android:layout_toRightOf="@+id/reminderText"
-                android:text="120 min earlier"
+                android:text="1 Hour Earlier"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 

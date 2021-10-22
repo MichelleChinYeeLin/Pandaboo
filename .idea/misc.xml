@@ -63,10 +63,12 @@
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/card_item_price_owned.xml" value="0.221875" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/settings_information_card.xml" value="0.221875" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/calendar_cell.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event.xml" value="0.22916666666666666" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_add.xml" value="0.14628623188405798" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_edit.xml" value="0.20153985507246377" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_show.xml" value="0.14628623188405798" />
+        <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/event_showrow.xml" value="0.14356884057971014" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner_card_event.xml" value="0.20153985507246377" />
         <entry key="..\:/Users/taite/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/planner_view.xml" value="0.1947463768115942" />
