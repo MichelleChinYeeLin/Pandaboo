@@ -36,10 +36,7 @@ public class TodoGVAdapter extends ArrayAdapter<Todo> {
         TextView addTaskText = listitemView.findViewById(R.id.addTaskText);
         ImageButton addSubTaskButton = listitemView.findViewById(R.id.addSubTaskButton);
 
-        if(){
-
-        }
-
+        //if(){}
 
         return listitemView;
     }
