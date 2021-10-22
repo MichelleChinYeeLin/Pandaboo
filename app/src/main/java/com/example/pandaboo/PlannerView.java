@@ -81,6 +81,8 @@ public class PlannerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planner_view);
 
+        createNotificationChannel();
+
         reff = FirebaseDatabase.getInstance().getReference();
         reminder = FirebaseDatabase.getInstance().getReference();
 
@@ -150,6 +152,23 @@ public class PlannerView extends AppCompatActivity {
 
                 Button AddEvent = addView.findViewById(R.id.saveButton);
                 Button backButton = addView.findViewById(R.id.backButton);
+                Button notifyButton = addView.findViewById(R.id.notifyButton);
+
+                notifyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(PlannerView.this, "Notification saved", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(PlannerView.this, AlarmReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(PlannerView.this, 0, intent, 0);
+
+                        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        long timeAtButtonClick = System.currentTimeMillis();
+                        long tenSecondsInMillis = 1000 * 10;
+
+                        manager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick+tenSecondsInMillis, pendingIntent);
+                    }
+                });
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -346,6 +365,20 @@ public class PlannerView extends AppCompatActivity {
         ArrayList<Event> arrayList = new ArrayList<>();
 
         return arrayList;
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                CharSequence name = "channel_name";
+                String description = "description";
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+                NotificationChannel channel = new NotificationChannel("notifyMe", name, NotificationManager.IMPORTANCE_HIGH);
+                channel.setDescription(description);
+
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
     }
 
     //wut the saveButton does

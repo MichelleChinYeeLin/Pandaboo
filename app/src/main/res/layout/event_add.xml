@@ -147,22 +147,22 @@
                 android:id="@+id/selectEndTime"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_toRightOf="@+id/selectTimeText"
-                android:layout_toEndOf="@+id/selectTimeText"
                 android:layout_below="@+id/selectStartTime"
                 android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/selectTimeText"
+                android:layout_toRightOf="@+id/selectTimeText"
                 android:background="@drawable/timeicon" />
 
             <TextView
                 android:id="@+id/setEndTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/selectStartTime"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/selectEndTime"
                 android:layout_toRightOf="@+id/selectEndTime"
-                android:layout_below="@+id/selectStartTime"
-                android:layout_marginTop="10dp"
                 android:text="00:00AM"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -220,20 +220,20 @@
                 android:id="@+id/selectDate2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_toEndOf="@+id/dateText"
-                android:layout_toRightOf="@+id/dateText"
                 android:layout_below="@+id/selectDate1"
                 android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/dateText"
+                android:layout_toRightOf="@+id/dateText"
                 android:background="@drawable/calendar_icon" />
 
             <TextView
                 android:id="@+id/setDateText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/selectDate2"
                 android:layout_below="@+id/selectDate1"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/selectDate2"
                 android:text="Date2"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -253,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:text="Reminder:"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <CheckBox
                 android:id="@+id/setReminder1"
@@ -298,6 +298,15 @@
             android:text="Occur Weekly"
             android:textColor="@color/black"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/notifyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/saveButton"
+            android:text="Notify" />
 
         <Button
             android:id="@+id/saveButton"
