@@ -45,13 +45,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
+        <GridView
+            android:id="@+id/gridViewTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginVertical="70dp"
-            android:numColumns="1"></androidx.recyclerview.widget.RecyclerView>
+            android:numColumns="1"></GridView>
 
         <ImageButton
             android:id="@+id/taskAddButton"

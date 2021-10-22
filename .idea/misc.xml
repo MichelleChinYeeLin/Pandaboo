@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/added_task.xml" value="0.536" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/settings_credits.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/settings_music.xml" value="0.18478260869565216" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/task.xml" value="0.264" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/task_edit.xml" value="0.264" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Pandaboo/app/src/main/res/layout/task_edit_cardview.xml" value="0.4" />
         <entry key="..\:/Users/Mich/AndroidStudioProjects/Pandaboo/app/src/main/res/drawable/add_action.xml" value="0.22135416666666666" />

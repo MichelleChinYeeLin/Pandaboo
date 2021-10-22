@@ -22,7 +22,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,30 +48,17 @@ public class Task extends AppCompatActivity {
     private View TaskBackButton;
     private AlertDialog.Builder spinnerLangauges;
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
-    RecycleAdapter adapter;
+    GridView adapter;
     ArrayList<Todo> todoList = new ArrayList<>();
 
-  /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.task);
-
-        TaskBackButton = findViewById(R.id.TaskBackButton);
-        TaskBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
-
-    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task);
 
         TaskBackButton = findViewById(R.id.TaskBackButton);
-        TaskBackButton.setOnClickListener(new View.OnClickListener() {
+        TaskBackButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -77,30 +66,17 @@ public class Task extends AppCompatActivity {
         });
 
         ImageButton taskAddButton = (ImageButton) findViewById(R.id.taskAddButton);
-        taskAddButton.setOnClickListener(new View.OnClickListener() {
+        taskAddButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent newIntent = new Intent(Task.this,Task_Edit.class);
                 startActivity(newIntent);
             }
         });
-        /*setContentView(R.layout.task);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); */
-
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-        adapter = new RecycleAdapter();
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-        //listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, planetList);
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -123,9 +99,6 @@ public class Task extends AppCompatActivity {
                             Todo todo = new Todo(taskName, taskMessage, taskDate, taskPriority);
                             todoList.add(todo);
                         }
-
-                        adapter.notifyDataSetChanged();
-
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -134,42 +107,21 @@ public class Task extends AppCompatActivity {
                 });
     }
 
-    private class RecycleAdapter extends Adapter {
-        @Override
-        public int getItemCount() {
-            return todoList.size();
-        }
 
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_edit, parent, false);
-            SimpleItemViewHolder pvh = new SimpleItemViewHolder(v);
-            return pvh;
-        }
+    public void showSubtext(){
+        //Initialization of variables to create a dialog box
+        androidx.appcompat.app.AlertDialog dialog;
+        androidx.appcompat.app.AlertDialog.Builder dialogBuilder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        dialogBuilder.setView(inflater.inflate(R.layout.add_task, null));
+        dialog = dialogBuilder.create();
 
-        @NonNull
-        @Override
-        public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-            SimpleItemViewHolder viewHolder = (SimpleItemViewHolder) holder;
-            viewHolder.position = position;
-            Todo todo = todoList.get(position);
-            ((SimpleItemViewHolder) holder).title.setText(todo.getName());
-        }
+        //Show the credits dialog box
+        dialog.show();
 
-        public final  class SimpleItemViewHolder extends ViewHolder implements View.OnClickListener {
-            TextView title;
-            public int position;
-            public SimpleItemViewHolder(View itemView) {
-                super(itemView);
-                itemView.setOnClickListener(this);
-                title = (TextView) itemView.findViewById(R.id.recyclerView);
-            }
-            @Override
-            public void onClick(View view) {
-
-            }
-        }
+        GridView gridViewTask = dialog.findViewById(R.id.gridViewTask);
     }
+
 
 }
 

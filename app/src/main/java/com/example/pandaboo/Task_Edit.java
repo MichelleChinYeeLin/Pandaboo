@@ -8,12 +8,15 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -40,7 +43,7 @@ public class Task_Edit extends AppCompatActivity implements AdapterView.OnItemSe
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
     Button selectDate;
     TextView Date;
-    TextView displaySpinner;
+    Button addSubTaskButton;
     DatePickerDialog datePickerDialog;
     int year,month, dayOfMonth;
     Calendar calendar;
@@ -88,6 +91,7 @@ public class Task_Edit extends AppCompatActivity implements AdapterView.OnItemSe
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
     }
+
     //dropdown stuff
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -101,7 +105,6 @@ public class Task_Edit extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     public void saveTodo() {
-        // first section
         // get the data to save in our firebase db
         EditText mainTask = (EditText) findViewById(R.id.taskTitleEdit);
         EditText subTask = (EditText) findViewById(R.id.subTaskTextEdit);
