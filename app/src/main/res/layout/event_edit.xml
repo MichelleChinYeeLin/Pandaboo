@@ -259,11 +259,12 @@
                 android:id="@+id/setReminder1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/reminderText"
                 android:layout_toEndOf="@+id/reminderText"
+                android:layout_toRightOf="@+id/reminderText"
                 android:text="7:00 AM"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:checked="false"/>
 
             <CheckBox
                 android:id="@+id/setReminder2"
@@ -271,11 +272,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/setReminder1"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/reminderText"
                 android:layout_toRightOf="@+id/reminderText"
+                android:layout_toEndOf="@+id/reminderText"
                 android:text="120 min earlier"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:checked="false"/>
 
         </RelativeLayout>
 
@@ -298,6 +300,15 @@
             android:text="Occur Weekly"
             android:textColor="@color/black"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/saveButton"
+            android:layout_marginRight="10dp"
+            android:text="Delete" />
 
         <Button
             android:id="@+id/saveButton"

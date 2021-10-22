@@ -1,11 +1,16 @@
 package com.example.pandaboo;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +30,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +54,7 @@ public class PlannerView extends AppCompatActivity {
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
     DatabaseReference reff;
+    DatabaseReference reminder;
 
     Button backButton;
     ImageButton nextButton;
@@ -66,14 +74,19 @@ public class PlannerView extends AppCompatActivity {
     AlertDialog alertDialog;
     ArrayList<Date> dates = new ArrayList<>();
     ArrayList<Event> eventsList = new ArrayList<>();
-    int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute;
-    long maxid = 0;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planner_view);
 
         reff = FirebaseDatabase.getInstance().getReference();
+        reminder = FirebaseDatabase.getInstance().getReference();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("planner_notification", "planner_notification", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         backButton = findViewById(R.id.backButton);
         prevButton = findViewById(R.id.prevButton);
@@ -84,6 +97,7 @@ public class PlannerView extends AppCompatActivity {
         monthYear = findViewById(R.id.monthYear);
 
         SetUpCalendar();
+        getAlarmed();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,18 +141,18 @@ public class PlannerView extends AppCompatActivity {
 
                 CheckBox SetReminder1 = addView.findViewById(R.id.setReminder1);
                 CheckBox SetReminder2 = addView.findViewById(R.id.setReminder2);
-                Calendar dateCalendar = Calendar.getInstance();
+                //Calendar dateCalendar = Calendar.getInstance();
                 //dateCalendar.setTime(dates.get(i));
-                alarmYear = dateCalendar.get(Calendar.YEAR);
-                alarmMonth = dateCalendar.get(Calendar.MONTH);
-                alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
+                //alarmYear = dateCalendar.get(Calendar.YEAR);
+                //alarmMonth = dateCalendar.get(Calendar.MONTH);
+                //alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
 
                 Button AddEvent = addView.findViewById(R.id.saveButton);
                 Button backButton = addView.findViewById(R.id.backButton);
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        alertDialog.dismiss();
                     }
                 });
                 SetStartTime.setOnClickListener(new View.OnClickListener() {
@@ -154,12 +168,9 @@ public class PlannerView extends AppCompatActivity {
                                 c.set(Calendar.HOUR_OF_DAY, i);
                                 c.set(Calendar.MINUTE, i1);
                                 c.setTimeZone(TimeZone.getDefault());
-                                SimpleDateFormat hformat = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
+                                SimpleDateFormat hformat = new SimpleDateFormat("HH:mm a", Locale.ENGLISH);
                                 String event_Time = hformat.format(c.getTime());
                                 EventStartTime.setText(event_Time);
-
-                                alarmHour = c.get(Calendar.HOUR_OF_DAY);
-                                alarmMinute = c.get(Calendar.MINUTE);
                             }
                         }, hours, minutes, false);
                         timePickerDialog.show();
@@ -182,9 +193,6 @@ public class PlannerView extends AppCompatActivity {
                                 SimpleDateFormat hformat = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
                                 String event_Time = hformat.format(c.getTime());
                                 EventEndTime.setText(event_Time);
-
-                                alarmHour = c.get(Calendar.HOUR_OF_DAY);
-                                alarmMinute = c.get(Calendar.MINUTE);
                             }
                         }, hours, minutes, false);
                         timePickerDialog.show();
@@ -245,8 +253,6 @@ public class PlannerView extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
-
                         String eventTitle = EventTitle.getText().toString();
                         String eventDetails = EventDetails.getText().toString();
                         String eventStartTime = EventStartTime.getText().toString();
@@ -256,27 +262,20 @@ public class PlannerView extends AppCompatActivity {
                         String notify = "";
 
                         if(SetReminder1.isChecked()){
-                            //Event events = new Event(eventTitle, eventDetails, eventTime, firstDate, secondDate, date, month, year, "7am");
-                            Event events = new Event(eventTitle, eventDetails, eventStartTime, eventEndTime, firstDate, secondDate, "7am");
                             notify = "7am";
-
-                            //SaveEvent(eventTitle,eventDetails,eventTime,firstDate,secondDate,date,month,year,"7am");
-                            //SetUpCalendar();
-                            //Calendar calendar = Calendar.getInstance();
-                            //calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinute);
-                            //setAlarm(calendar,EventTitle.getText().toString(),EventTime.getText().toString());
-                            alertDialog.dismiss();
                         }
                         else if(SetReminder2.isChecked()){
                             notify = "120mins";
-                            SetUpCalendar();
-                            alertDialog.dismiss();
                         }
 
-                        SaveEvent(eventTitle, eventDetails, eventStartTime, eventEndTime, firstDate, secondDate, notify);
+                        SaveEvent(eventTitle,eventDetails,eventStartTime,eventEndTime,firstDate,secondDate,notify);
+                        SetUpCalendar();
+                        getAlarmed();
+
+                        Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
                     }
                 });
-
                 builder.setView(addView);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -352,12 +351,80 @@ public class PlannerView extends AppCompatActivity {
     //wut the saveButton does
     private void SaveEvent(String event, String details, String startTime, String endTime, String date1, String date2, String notify){
         reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
-        //Event events = new Event(event, details, time, date1, date2, date, month, year, notify);
         Event events = new Event(event, details, startTime, endTime, date1, date2, notify);
 
         reff.push().setValue(events);
 
         Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getAlarmed(){
+        String currentDate = eventDateFormat.format(calendar.getTime());
+        reminder = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+        reminder.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String eventName = "";
+                String eventDetails = "";
+                String eventStartTime = "";
+                String eventEndTime = "";
+                String eventFirstDate = "";
+                String eventSecondDate = "";
+                String eventNotify = "";
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int minutes = calendar.get(Calendar.MINUTE);
+                String string_time = Integer.toString(hours) + Integer.toString(minutes);
+                int int_time = Integer.parseInt(string_time);
+
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    eventName = dataSnapshot.child("event").getValue(String.class);
+                    eventDetails = dataSnapshot.child("details").getValue(String.class);
+                    eventStartTime = dataSnapshot.child("startTIME").getValue(String.class);
+                    eventEndTime = dataSnapshot.child("endTIME").getValue(String.class);
+                    eventFirstDate = dataSnapshot.child("firstDATE").getValue(String.class);
+                    eventSecondDate = dataSnapshot.child("secondDATE").getValue(String.class);
+                    eventNotify = dataSnapshot.child("notify").getValue(String.class);
+
+                    String[] hour = eventStartTime.split(":");
+                    String[] minute = hour[1].split(" ");
+                    String hour_minute = hour[0] + minute[0];
+                    int event_Time = Integer.parseInt(hour_minute);
+
+                    if(currentDate == eventFirstDate){
+                        if(eventNotify == "7am"){
+                            if(hours == 7){
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(PlannerView.this, "planner_notification");
+                                builder.setContentTitle(eventName);
+                                builder.setContentText(eventStartTime + " to " + eventEndTime);
+                                builder.setSmallIcon(R.mipmap.pandatransparent);
+                                builder.setAutoCancel(true);
+
+                                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(PlannerView.this);
+                                managerCompat.notify(1, builder.build());
+                            }
+                        }
+                        else if(eventNotify == "120min"){
+                            if(event_Time - int_time == 3){
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(PlannerView.this, "planner_notification");
+                                builder.setContentTitle(eventName);
+                                builder.setContentText(eventStartTime + " to " + eventEndTime);
+                                builder.setSmallIcon(R.mipmap.pandatransparent);
+                                builder.setAutoCancel(true);
+
+                                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(PlannerView.this);
+                                managerCompat.notify(1, builder.build());
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void SetUpCalendar(){
