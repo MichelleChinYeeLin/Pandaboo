@@ -73,11 +73,25 @@ public class EventGVAdapter extends ArrayAdapter<Event> {
         TextView eventTitle = listitemView.findViewById(R.id.eventTitle);
         TextView eventStartTime = listitemView.findViewById(R.id.eventStartTime);
         TextView eventEndTime = listitemView.findViewById(R.id.eventEndTime);
+        TextView firstDate = listitemView.findViewById(R.id.firstDate);
+        TextView secondDate = listitemView.findViewById(R.id.secondDate);
         ImageButton eventEditButton = listitemView.findViewById(R.id.eventEditButton);
+
+        //splitting the event first date
+        String eventFirstDate = event.getFirstDATE();
+        String[] ThreePart = eventFirstDate.split("-");
+        String event_first_day = ThreePart[1] + "/" + ThreePart[2];
+
+        //splitting the event second date
+        String eventSecondDate = event.getSecondDATE();
+        String[] ThreePartz = eventSecondDate.split("-");
+        String event_second_day = ThreePartz[1] + "/" + ThreePartz[2];
 
         eventTitle.setText(event.getEVENT());
         eventStartTime.setText(event.getStartTIME());
         eventEndTime.setText(event.getEndTIME());
+        firstDate.setText(event_first_day);
+        secondDate.setText(event_second_day);
 
         eventEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +169,7 @@ public class EventGVAdapter extends ArrayAdapter<Event> {
                                 c.set(Calendar.HOUR_OF_DAY, i);
                                 c.set(Calendar.MINUTE, i1);
                                 c.setTimeZone(TimeZone.getDefault());
-                                SimpleDateFormat hformat = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
+                                SimpleDateFormat hformat = new SimpleDateFormat("HH:mm a", Locale.ENGLISH);
                                 String event_Time = hformat.format(c.getTime());
                                 EventEndTime.setText(event_Time);
                             }

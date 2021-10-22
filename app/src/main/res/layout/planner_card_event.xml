@@ -59,6 +59,48 @@
                 android:textSize="15sp">
             </TextView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comaText"
+                android:text=", "
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@id/eventEndTime"
+                android:layout_toEndOf="@+id/eventEndTime"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/firstDate"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@id/comaText"
+                android:layout_toEndOf="@+id/comaText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateToText"
+                android:text="to"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@id/firstDate"
+                android:layout_toEndOf="@+id/firstDate"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/secondDate"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toRightOf="@id/dateToText"
+                android:layout_toEndOf="@+id/dateToText"/>
+
         </RelativeLayout>
 
         <ImageButton

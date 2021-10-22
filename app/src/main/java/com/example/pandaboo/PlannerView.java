@@ -31,6 +31,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -152,29 +153,14 @@ public class PlannerView extends AppCompatActivity {
 
                 Button AddEvent = addView.findViewById(R.id.saveButton);
                 Button backButton = addView.findViewById(R.id.backButton);
-                Button notifyButton = addView.findViewById(R.id.notifyButton);
 
-                notifyButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(PlannerView.this, "Notification saved", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(PlannerView.this, AlarmReceiver.class);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(PlannerView.this, 0, intent, 0);
-
-                        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                        long timeAtButtonClick = System.currentTimeMillis();
-                        long tenSecondsInMillis = 1000 * 10;
-
-                        manager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick+tenSecondsInMillis, pendingIntent);
-                    }
-                });
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alertDialog.dismiss();
                     }
                 });
+
                 SetStartTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -210,7 +196,7 @@ public class PlannerView extends AppCompatActivity {
                                 c.set(Calendar.HOUR_OF_DAY, i);
                                 c.set(Calendar.MINUTE, i1);
                                 c.setTimeZone(TimeZone.getDefault());
-                                SimpleDateFormat hformat = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
+                                SimpleDateFormat hformat = new SimpleDateFormat("HH:mm a", Locale.ENGLISH);
                                 String event_Time = hformat.format(c.getTime());
                                 EventEndTime.setText(event_Time);
                             }
@@ -373,7 +359,7 @@ public class PlannerView extends AppCompatActivity {
                 String description = "description";
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
-                NotificationChannel channel = new NotificationChannel("notifyMe", name, NotificationManager.IMPORTANCE_HIGH);
+                NotificationChannel channel = new NotificationChannel("notificationReminder", name, importance);
                 channel.setDescription(description);
 
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -391,56 +377,92 @@ public class PlannerView extends AppCompatActivity {
         Toast.makeText(PlannerView.this, "Event Saved", Toast.LENGTH_SHORT).show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getAlarmed1HR(String eventName, String eventDetails, String eventStartTime, String eventEndTime, String eventFirstDate, String eventSecondDate, String eventNotify) {
         String currentDate = eventDateFormat.format(calendar.getTime());
 
-        if(currentDate == eventFirstDate){
-            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+        //splitting the event hour
+        String[] hour = eventStartTime.split(":");
+        String[] minute = hour[1].split(" ");
+        String hour_minute = hour[0] + minute[0];
 
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //splitting the event first date
+        String[] ThreePart = eventFirstDate.split("-");
+        String event_first_day = ThreePart[1] + "/" + ThreePart[2];
 
-            //splitting the hour
-            String[] hour = eventStartTime.split(":");
-            String[] minute = hour[1].split(" ");
-            String hour_minute = hour[0] + minute[0];
+        //splitting the event second date
+        String[] ThreePartz = eventSecondDate.split("-");
+        String event_second_day = ThreePartz[1] + "/" + ThreePartz[2];
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0])-1);
-            calendar.set(Calendar.MINUTE, Integer.parseInt(minute[0]));
+        //Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
 
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        }
+        //AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        Calendar calendar = Calendar.getInstance();
+        //calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0])-1);
+        calendar.set(Calendar.MINUTE, Integer.parseInt(minute[0]));
+
+        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Intent intent = new Intent(PlannerView.this, AlarmReceiver.class);
+        intent.putExtra("event", eventName);
+        intent.putExtra("startTIME", eventStartTime);
+        intent.putExtra("endTIME", eventEndTime);
+        intent.putExtra("firstDATE", event_first_day);
+        intent.putExtra("secondDATE", event_second_day);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(PlannerView.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getAlarmed1DAY(String eventName, String eventDetails, String eventStartTime, String eventEndTime, String eventFirstDate, String eventSecondDate, String eventNotify) {
         String currentDate = eventDateFormat.format(calendar.getTime());
 
         //splitting current date
         String[] ThreeParts = currentDate.split("-");
         String default_day = ThreeParts[2];
+        String default_dayText = ThreeParts[1] + "/" + ThreeParts[2];
         int defaultDay = Integer.parseInt(default_day);
 
-        //splitting the date
+        //splitting the event first date
         String[] ThreePart = eventFirstDate.split("-");
         String event_day = ThreePart[2];
+        String event_first_day = ThreePart[1] + "/" + ThreePart[2];
         int eventDay = Integer.parseInt(event_day);
+
+        //splitting the event second date
+        String[] ThreePartz = eventSecondDate.split("-");
+        String event_second_day = ThreePartz[1] + "/" + ThreePartz[2];
+
+        //splitting the event hour
+        String[] hour = eventStartTime.split(":");
+        String[] minute = hour[1].split(" ");
+        String hour_minute = hour[0] + minute[0];
 
         if(eventDay - defaultDay == 1) {
             Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            alarmIntent.putExtra("event", eventName);
+            alarmIntent.putExtra("startTIME", eventStartTime);
+            alarmIntent.putExtra("endTIME", eventEndTime);
+            alarmIntent.putExtra("firstDATE", event_first_day);
+            alarmIntent.putExtra("secondDATE", event_second_day);
+
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
 
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 00);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 1);
+            //calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0]));
+            calendar.set(Calendar.MINUTE, Integer.parseInt(minute[0]));
 
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            manager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
 
     }
@@ -527,6 +549,7 @@ public class PlannerView extends AppCompatActivity {
 
         private void SetUpCalendar () {
             String currentDate = dateFormat.format(calendar.getTime());
+            String currentDates = eventDateFormat.format(calendar.getTime());
 
             monthYear.setText(currentDate);
             dates.clear();
@@ -542,6 +565,7 @@ public class PlannerView extends AppCompatActivity {
 
             reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
             reff.addValueEventListener(new ValueEventListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -559,10 +583,12 @@ public class PlannerView extends AppCompatActivity {
                         Event event = new Event(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
                         eventsList.add(event);
 
-                        if (eventNotify == "1day") {
-                            getAlarmed1HR(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
+                        if(currentDates.equals(eventFirstDate)){
+                            if(eventNotify.equals("1hr")){
+                                getAlarmed1HR(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
+                            }
                         }
-                        else if(eventNotify == "1hr"){
+                        else {
                             getAlarmed1DAY(eventName, eventDetails, eventStartTime, eventEndTime, eventFirstDate, eventSecondDate, eventNotify);
                         }
                     }
