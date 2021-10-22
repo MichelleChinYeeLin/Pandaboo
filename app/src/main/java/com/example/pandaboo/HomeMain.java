@@ -1,12 +1,9 @@
 package com.example.pandaboo;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,18 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
+public class HomeMain extends AppCompatActivity{
 
-public class HomeMain extends AppCompatActivity implements View.OnClickListener{
-
-    private static boolean isOngoingTimer;
-    private static boolean isLeavingApp = false;
-    public static Context currentContext;
-
-    //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
-
-    //Initialization of variables to display the number of bamboo (currency)
     private TextView bambooCurrency;
     private int bambooNum;
 
@@ -68,25 +55,17 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
     private int timerDuration = 0;
     private int totalTimerDuration = 0;
 
-    //Initialization of variables to control the timer (cancel/ pause)
+    //Initialization for variable to control the timer (cancel/ pause)
     private boolean isCancelled = false;
     private boolean isPaused = false;
     private int pauseCounter = 0;
     private int maxPauseDuration = 0;
     private int pauseDurationRemainder = 0;
 
-    //Initialization of variables to play music using the media player
-    private boolean isPlayingMusic = false;
-    private String musicAudio = "";
-    MediaPlayer mediaPlayer = new MediaPlayer();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
-
-        isOngoingTimer = false;
-        currentContext = this;
 
         //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
@@ -99,29 +78,35 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button plannerButton = findViewById(R.id.plannerButton);
         Button tasksButton = findViewById(R.id.tasksButton);
         Button settingsButton = findViewById(R.id.settingsButton);
-        ImageButton musicButton = findViewById(R.id.musicButton);
 
-        pandaButton.setOnClickListener(this);
-        shopButton.setOnClickListener(this);
-        plannerButton.setOnClickListener(this);
-        tasksButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
-
-        mediaPlayer.setVolume(0, 0);
-
-        //Mutes or unmutes the media player when clicked
-        musicButton.setOnClickListener(v -> {
-
-            if (isPlayingMusic){
-                isPlayingMusic = false;
-                mediaPlayer.setVolume(0,0);
-                musicButton.setImageResource(R.drawable.music_icon_off);
+        pandaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Panda.class));
             }
-
-            else {
-                isPlayingMusic = true;
-                mediaPlayer.setVolume(1,1);
-                musicButton.setImageResource(R.drawable.music_icon_on);
+        });
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Shop.class));
+            }
+        });
+        plannerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, PlannerView.class));
+            }
+        });
+        tasksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Task.class));
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Settings.class));
             }
         });
 
@@ -130,49 +115,32 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
         timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
 
-        //Initialize fragment
         Fragment homeStartTimer = new HomeStartTimer();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.homeFrame, homeStartTimer);
         fragmentTransaction.commit();
 
-        //Initialize elements in the home page
         ImageView homeFrameImage = findViewById(R.id.homeFrameImage);
         bambooCurrency = findViewById(R.id.bambooNumber);
 
-        //Retrieve data from Firebase
         DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Retrieve the image for the home page
                 String imageURL = snapshot.child("User").child("EquippedItemTimer").getValue(String.class);
-
-                //Retrieve the number of bamboo (currency)
                 bambooNum = snapshot.child("User").child("Bamboo").getValue(int.class);
-
-                //Retrieve the audio URL
-                musicAudio = snapshot.child("User").child("EquippedMusicAudio").getValue(String.class);
-
-                //Set the text with the number of bamboo
                 bambooCurrency.setText(Integer.toString(bambooNum));
-
-                //Load the image for the home page
                 Picasso.get().load(imageURL).into(homeFrameImage);
             }
 
-            //Display database error if any
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeMain.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
+
             }
         });
     }
 
-    /**
-     * Resets the timer countdown
-     */
     public void resetTimerCountdown(){
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
@@ -181,36 +149,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         hours = minutes = seconds = 0;
         isCancelled = isPaused = false;
     }
-
-    /**
-     * Changes the activity based on the button clicked
-     * @param view the view of the layout
-     */
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.pandaButton:
-                Intent toPanda = new Intent(this, Panda.class);
-                startActivity(toPanda);
-                break;
-            case R.id.shopButton:
-                Intent toShop = new Intent(this, Shop.class);
-                startActivity(toShop);
-                break;
-            case R.id.plannerButton:
-                Intent toPlanner = new Intent(this, Planner.class);
-                startActivity(toPlanner);
-                break;
-            case R.id.tasksButton:
-                Intent toTasks = new Intent(this, Task.class);
-                startActivity(toTasks);
-                break;
-            case R.id.settingsButton:
-                Intent toSettings = new Intent(this, Settings.class);
-                startActivity(toSettings);
-                break;
-        }
-    }
-
     /**
      * Start the ongoingTimer fragment and replace the current fragment
      */
@@ -313,7 +251,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
             }
 
             else {
-                textFormat += hours + " hours ";
+                textFormat += hours + " hour ";
             }
         }
 
@@ -387,9 +325,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         pauseDurationRemainder = remainder;
     }
 
-    /**
-     * Calculates the bamboo earned by the user
-     */
+    //Calculates the bamboo earned by the user
     public int calcEarnedBamboo (){
         return totalTimerDuration / 60;
     }
@@ -435,9 +371,12 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
         //Closes the alert dialog box and restarts the timer with the same duration as previously set
         //When users click the Redo Timer icon
-        redoTimerButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            startTimer(totalTimerDuration);
+        redoTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startTimer(totalTimerDuration);
+            }
         });
 
         //Closes the alert dialog box and returns to the home page
@@ -486,23 +425,29 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
 
         //Closes the alert dialog box and restarts the timer with the same duration as previously set
         //When users click the Redo Timer icon
-        redoTimerButton.setOnClickListener(v -> {
-            pauseCounter = 0;
-            dialog.dismiss();
-            startTimer(totalTimerDuration);
+        redoTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseCounter = 0;
+                dialog.dismiss();
+                startTimer(totalTimerDuration);
+            }
         });
 
         //Closes the alert dialog box and returns to the home page
         //When users click the Home icon
-        homeButton.setOnClickListener(v -> {
-            pauseCounter = 0;
-            dialog.dismiss();
-            fragmentToStartTimer();
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseCounter = 0;
+                dialog.dismiss();
+                fragmentToStartTimer();
+            }
         });
     }
 
     /**
-     * Start the countdown timer, display the timer duration and start the media player
+     * Start the countdown timer and display the timer duration
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
@@ -528,23 +473,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         while (minutes >= 60){
             minutes -= 60;
             hours++;
-        }
-
-        isOngoingTimer = true;
-
-        try{
-            //Pass the audio URL to the Media Player
-            mediaPlayer.setDataSource(musicAudio);
-            mediaPlayer.setOnPreparedListener(mp -> {
-                //Start playing the audio
-                mp.start();
-
-                //Loop the audio
-                mp.setLooping(true);
-            });
-            mediaPlayer.prepare();
-        } catch (IOException e){
-            e.printStackTrace();
         }
 
         //Start the timer countdown
@@ -574,85 +502,27 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 timerCountdownMinutes.setText(timerCountdownFormat(minutes));
                 timerCountdownSeconds.setText(timerCountdownFormat(seconds));
 
+                //TODO: Prevent users from exiting the application
+                //TODO: Prevent users from opening the Panda and Shop page
+
                 //If the user cancels the timer countdown
                 if (isCancelled){
                     //Cancel and reset timer
                     cancel();
                     resetTimerCountdown();
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer = new MediaPlayer();
-                    isOngoingTimer = false;
                 }
 
                 //If the user pauses the timer countdown
                 if (isPaused){
                     //Cancel the timer
                     cancel();
-
-                    //Reset the Media Player
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer = new MediaPlayer();
                 }
             }
 
             //When the timer countdown finishes
             public void onFinish(){
-                //Reset the Media Player
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = new MediaPlayer();
-                isOngoingTimer = false;
-
-                //Show success dialog box
                 succeededTimer();
             }
         }.start();
-    }
-
-    public void leavingApp(){
-        //Create the alert dialog box
-        AlertDialog dialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(currentContext);
-        LayoutInflater inflater = (LayoutInflater) currentContext.getSystemService(currentContext.LAYOUT_INFLATER_SERVICE);
-        dialogBuilder.setView(inflater.inflate(R.layout.timer_cancel, null));
-        dialog = dialogBuilder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-
-        //Display the alert dialog box
-        dialog.show();
-
-        Button cancelYes = dialog.findViewById(R.id.cancelYes);
-        Button cancelNo = dialog.findViewById(R.id.cancelNo);
-
-        cancelYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HomeMain.this.finish();
-                System.exit(0);
-            }
-        });
-
-        cancelNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if (isOngoingTimer){
-            leavingApp();
-        }
-
-        else{
-            HomeMain.this.finish();
-            System.exit(0);
-        }
     }
 }

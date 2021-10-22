@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_blue"
+    android:background="@color/lightblue"
     android:paddingTop="20dp"
     android:paddingHorizontal="15dp"
     android:paddingBottom="20dp">
@@ -18,13 +18,12 @@
         android:text="@string/good_job_text"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="25sp">
-    </TextView>
+        android:textSize="40sp"></TextView>
 
     <RelativeLayout
         android:id="@+id/ImageHolder"
-        android:layout_width="500dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_below="@id/failedTimerText"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal">
@@ -40,8 +39,8 @@
 
         <ImageView
             android:id="@+id/pandaCelebrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:contentDescription="@string/panda_celebrating"
             android:src="@drawable/panda_celebrate">
@@ -51,7 +50,7 @@
 
     <RelativeLayout
         android:id="@+id/InfoHolder"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ImageHolder"
         android:layout_centerHorizontal="true">
@@ -63,8 +62,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/study_minutes_text"
             android:textColor="@color/black"
-            android:textSize="20sp">
-        </TextView>
+            android:textSize="20sp"></TextView>
 
         <TextView
             android:id="@+id/totalStudyMinutes"
@@ -72,16 +70,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalStudyMinutesText"
             android:layout_centerHorizontal="true"
-            android:textSize="20sp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:layout_marginTop="5dp">
-        </TextView>
+            android:textSize="20sp"></TextView>
 
         <TextView
             android:id="@+id/totalPauseMinutesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/totalStudyMinutesText"
+            android:layout_below="@+id/totalStudyMinutes"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="@string/pause_minutes_text"
@@ -95,15 +92,14 @@
             android:layout_below="@id/totalPauseMinutesText"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textColor="@color/black">
-        </TextView>
+            android:textColor="@color/black"
+            android:textSize="20sp"></TextView>
 
         <RelativeLayout
             android:id="@+id/bambooEarnedArea"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/totalPauseMinutesText"
+            android:layout_below="@+id/totalPauseMinutes"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp">
 
@@ -111,10 +107,10 @@
                 android:id="@+id/totalBambooEarnedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="@string/total_earned_text"
-                android:textSize="20sp"
-                android:textColor="@color/black">
-            </TextView>
+                android:textColor="@color/black"
+                android:textSize="20sp"></TextView>
 
             <TextView
                 android:id="@+id/totalBambooEarned"
@@ -122,21 +118,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/totalBambooEarnedText"
                 android:layout_centerHorizontal="true"
-                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:text="100"
                 android:textColor="@color/black"
-                android:layout_marginTop="5dp">
-            </TextView>
+                android:textSize="20sp"></TextView>
 
             <ImageView
                 android:id="@+id/bambooImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_toEndOf="@+id/totalBambooEarnedText"
                 android:layout_toRightOf="@+id/totalBambooEarnedText"
                 android:contentDescription="@string/bamboo_icon"
                 android:src="@drawable/bamboo"
-                tools:ignore="ImageContrastCheck">
-            </ImageView>
+                tools:ignore="ImageContrastCheck"></ImageView>
 
         </RelativeLayout>
 
@@ -164,8 +159,7 @@
                 android:contentDescription="@string/redo_timer_icon_text"
                 android:scaleType="fitCenter"
                 android:src="@drawable/redo_icon"
-                app:tint="@color/black">
-            </ImageButton>
+                app:tint="@color/black"></ImageButton>
 
             <TextView
                 android:id="@+id/redoTimerText"
@@ -199,8 +193,7 @@
                 android:contentDescription="@string/home_icon_text"
                 android:scaleType="fitCenter"
                 android:src="@drawable/home_icon"
-                app:tint="@color/black">
-            </ImageButton>
+                app:tint="@color/black"></ImageButton>
 
             <TextView
                 android:id="@+id/homeText"
