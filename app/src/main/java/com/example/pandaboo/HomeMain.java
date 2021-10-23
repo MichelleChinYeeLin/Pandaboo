@@ -543,6 +543,14 @@ public class HomeMain extends AppCompatActivity{
 
                 //Loop the audio
                 mp.setLooping(true);
+
+                if (isPlayingMusic){
+                    mp.setVolume(1,1);
+                }
+
+                else {
+                    mp.setVolume(0,0);
+                }
             });
             mediaPlayer.prepare();
         } catch (IOException e){
