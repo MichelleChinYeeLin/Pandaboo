@@ -3,9 +3,12 @@ package com.example.pandaboo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher{
 
     private FirebaseUser user;
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private EditText emailEditText,passwordEditText;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //get the current logged in user information
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        // if user already login redirects to home page
+        // if user already login
         if (user != null) {
-
+            //go to main page
             Intent toHome = new Intent(this, HomeMain.class);
             startActivity(toHome);
         }
@@ -47,15 +51,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Initialize user interface binding for login button
      * login email edittext and login password edittext
+     *
+     * this method is private because it is only callable
+     * within this class
      */
     private void initializeUI(){
 
-        Button loginButton = findViewById(R.id.loginButton);
-
+        loginButton = findViewById(R.id.loginButton);
+        //disable login button click if both email and password field is empty
+        loginButton.setEnabled(false);
+        //set click listener for login button
         loginButton.setOnClickListener(this);
 
+        Button registerBtn = findViewById(R.id.registerUserBtn);
+        registerBtn.setOnClickListener(this);
+
+        TextView clickResetLink = findViewById(R.id.clickResetLink);
+        clickResetLink.setOnClickListener(this);
+
         emailEditText = findViewById(R.id.loginEmail);
+        emailEditText.addTextChangedListener(this);
+
         passwordEditText = findViewById(R.id.loginPassword);
+        passwordEditText.addTextChangedListener(this);
     }
 
 
@@ -66,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * If the task is successful, redirect the user to main page
      * else the error will display at the edit text
-     *
      */
     private void login(){
         String email = emailEditText.getText().toString();
@@ -85,21 +102,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // login user into firebase and redirect to main page
         if(!email.isEmpty() && !password.isEmpty()){
 
-            //start process of sign in
+            //start process of sign in here
             auth.signInWithEmailAndPassword(email,password)
-
+                    //shorthand anonymous function called lambda function in java
+                    //this shorthand function only can be used when the interface
+                    //has only one method in it
                     .addOnCompleteListener(task -> {
 
                         //check is login successful
                         if(task.isSuccessful()){
-                            user = auth.getCurrentUser();
+                            user = auth.getCurrentUser(); //get user info
                             Intent toHome = new Intent(MainActivity.this, HomeMain.class);
-                            startActivity(toHome); // go to home page
-
+                            startActivity(toHome); // go to main page
                         }else{
                             //display error
                             Toast.makeText(MainActivity.this,
-                                    Objects.requireNonNull(task.getException()).toString(),
+                                    Objects.requireNonNull(task.getException()).getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
@@ -108,21 +126,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Allows the user to switch to different activities
-     * @param view  view a view or button that is triggered with user click
+     * @param view a view or button that is triggered with user click
      */
     @Override
     public void onClick(View view){
 
-        if(view instanceof Button){
-            if (view.getId() == R.id.loginButton) {
-                login();
-            }else if(view.getId() == R.id.registerUserBtn){
-                // redirect user to register page
-                Intent toLogin = new Intent(this, Register.class);
-                startActivity(toLogin);
-            }
+
+        if (view.getId() == R.id.loginButton) {
+            login(); //run the login logic above
+        }else if(view.getId() == R.id.registerUserBtn){
+            // redirect user to register page
+            Intent toRegister = new Intent(this, Register.class);
+            startActivity(toRegister);
+        }else if(view.getId() == R.id.clickResetLink){
+            // redirect user to reset page
+            Intent toReset = new Intent(this, Reset.class);
+            startActivity(toReset);
         }
 
+    }
 
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //if the text field is empty
+        //disable the login button
+        if(s.length()==0){
+            loginButton.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+
+        //enable the login button if both text field are not empty
+        loginButton.setEnabled(!email.isEmpty() && !password.isEmpty());
     }
 }

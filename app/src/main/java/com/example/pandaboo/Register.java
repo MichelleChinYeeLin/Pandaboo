@@ -1,24 +1,27 @@
 package com.example.pandaboo;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
-public class Register extends AppCompatActivity implements View.OnClickListener {
-    EditText mUsername,mPassword,mEmail;
+public class Register extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+    EditText mPassword,mEmail;
     Button mSignupBtn;
+    TextView mSignInBtn;
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
     FirebaseUser user;
 
@@ -53,12 +56,19 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
      */
     private void initializeUI(){
 
-        mUsername = findViewById(R.id.registerUsername);
+
         mPassword = findViewById(R.id.registerPassword);
+        mPassword.addTextChangedListener(this);
+
         mEmail = findViewById(R.id.registerEmail);
+        mEmail.addTextChangedListener(this);
 
-        mSignupBtn = findViewById(R.id.signupButton);
+        mSignupBtn = findViewById(R.id.SignupButton);
+        mSignupBtn.setEnabled(false);
+        mSignupBtn.setOnClickListener(this);
 
+        mSignInBtn = findViewById(R.id.clickSignIn);
+        mSignInBtn.setOnClickListener(this);
     }
 
     /**
@@ -71,18 +81,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void signUp(){
 
         //get all the input from the user
-        String username = mUsername.getText().toString();
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
         //display error if the edit text field is empty
-        mUsername.setError(username.isEmpty()? "Please input your username":null);
         mPassword.setError(password.isEmpty()? "Please input your password":null);
         mEmail.setError(email.isEmpty()? "Please input your email":null);
 
         //if the username, password and email is not empty
         //register the user by email and password
-        if(!username.isEmpty() && !password.isEmpty() && !email.isEmpty()){
+        if(!password.isEmpty() && !email.isEmpty()){
 
             // register the user with email and password
             fAuth.createUserWithEmailAndPassword(email,password)
@@ -90,17 +98,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if(task.isSuccessful()){
                             user = fAuth.getCurrentUser();
 
-                            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(username).build();
-                            user.updateProfile(request);
-
-                            //go to login page
-                            Intent toLogin = new Intent(this, MainActivity.class);
-                            startActivity(toLogin);
+                            //go to home page
+                            Intent toHome = new Intent(this, HomeMain.class);
+                            startActivity(toHome);
                         }else{
 
                             Toast.makeText(Register.this,
-                                    Objects.requireNonNull(task.getException()).toString(),
+                                    Objects.requireNonNull(task.getException()).getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
@@ -110,13 +114,33 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if(v instanceof Button){
-            if(v.getId()==R.id.signupButton){
-                signUp();
-            }else if(v.getId()==R.id.clickSignIn){
-                Intent toLogin = new Intent(this, MainActivity.class);
-                startActivity(toLogin);
-            }
+        if(v.getId()==R.id.SignupButton) {
+            signUp();
+        }else if(v.getId()==R.id.clickSignIn){
+            Intent toLogin = new Intent(this, MainActivity.class);
+            startActivity(toLogin);
         }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //if the text field is empty, disable sign up button
+        if(s.length()==0){
+            mSignupBtn.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
+
+        //if both text field is not empty, enable signup button
+        mSignupBtn.setEnabled(!email.isEmpty() && !password.isEmpty());
     }
 }

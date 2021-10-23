@@ -1,16 +1,17 @@
 package com.example.pandaboo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +37,10 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.settings);
 
         //Initialization of elements in settings
-        TextView userNameText = findViewById(R.id.userName);
         Button backButton = findViewById(R.id.backButton);
         Button chooseMusicButton = findViewById(R.id.chooseMusicButton);
         Button creditsButton = findViewById(R.id.creditsButton);
+        Button logoutButton = findViewById(R.id.logoutButton);
 
         //Return to the home activity
         backButton.setOnClickListener(v -> finish());
@@ -50,16 +51,16 @@ public class Settings extends AppCompatActivity {
         //Display the credits
         creditsButton.setOnClickListener(v -> showCredits());
 
+        //logout user
+        logoutButton.setOnClickListener(v -> logout());
+
         //Retrieve data from Firebase
         DatabaseReference userReference = reference.child("admin");
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Retrieve the user name
-                userName = snapshot.child("User").child("UserName").getValue(String.class);
 
-                //Display the user name
-                userNameText.setText(userName);
+
             }
 
             //Display database error if any
@@ -68,6 +69,15 @@ public class Settings extends AppCompatActivity {
                 Toast.makeText(Settings.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /**
+     * Logout user and redirect user to login page
+     */
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        Intent toLogin = new Intent(this,MainActivity.class);
+        startActivity(toLogin);
     }
 
     /**

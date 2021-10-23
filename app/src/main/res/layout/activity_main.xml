@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/pandabooLogo"
-        android:layout_width="260dp"
-        android:layout_height="220dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/pandaboo_logo"
         android:src="@mipmap/pandaboo_transparent"/>
@@ -88,7 +88,7 @@
                 android:layout_toEndOf="@+id/userNameIcon"
                 android:layout_toRightOf="@+id/userNameIcon"
                 android:autofillHints="username"
-                android:hint="@string/email_text"
+                android:hint="@string/email"
                 android:inputType="text|textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray" />
@@ -167,13 +167,15 @@
             tools:ignore="TextContrastCheck" />
 
         <TextView
+            android:id="@+id/clickResetLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/forgotPasswordText"
             android:layout_toRightOf="@+id/forgotPasswordText"
             android:text="@string/click_here_to_reset_text"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </RelativeLayout>
 

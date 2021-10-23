@@ -24,6 +24,8 @@
         <activity android:name=".Task"></activity>
         <activity android:name=".PlannerView"></activity>
         <activity android:name=".EventAdd"></activity>
+        <activity android:name=".Register"></activity>
+        <activity android:name=".Reset"></activity>
 
         <receiver android:name=".AlarmReceiver"
             android:exported="true"
