@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_below="@+id/topBar"
-        android:background="@color/orangeyellowish">
+        android:background="@color/orange_yellowish">
 
         <TextView
             android:id="@+id/eventTitleText"
@@ -96,7 +96,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/mainInfo_holder"
         android:layout_marginTop="20dp"
-        android:background="@color/orangeyellowish"
+        android:background="@color/orange_yellowish"
         android:padding="20dp">
 
         <RelativeLayout

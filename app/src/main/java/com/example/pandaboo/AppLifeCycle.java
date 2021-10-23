@@ -46,11 +46,11 @@ public class AppLifeCycle extends Application implements Application.ActivityLif
     public void onActivityStopped(@NonNull Activity activity) {
         activityReferences--;
 
-        /*
-        if (activityReferences == 0 && isOngoingTimer){
-            System.out.println("Killing the app, timer ongoing.");
 
-        }*/
+        if (activityReferences == 0){
+            int pid = android.os.Process.myPid();
+            android.os.Process.killProcess(pid);
+        }
     }
 
     @Override

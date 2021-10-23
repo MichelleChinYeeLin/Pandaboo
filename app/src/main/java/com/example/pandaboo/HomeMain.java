@@ -122,7 +122,7 @@ public class HomeMain extends AppCompatActivity{
         tasksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeMain.this, Task.class));
+                startActivity(new Intent(HomeMain.this, TaskView.class));
             }
         });
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -256,6 +256,7 @@ public class HomeMain extends AppCompatActivity{
      */
     public void toStartTimer(int duration){
         closeFragmentStartTimer();
+        totalTimerDuration = duration;
         startTimer(duration);
     }
 
@@ -417,8 +418,8 @@ public class HomeMain extends AppCompatActivity{
         ImageButton homeButton = dialog.findViewById(R.id.homeIcon);
 
         //Displays the timer details on the alert dialog box
-        totalStudyMinutes.setText(formatTimeDuration(totalTimerDuration - timerDuration));
-        totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration));
+        totalStudyMinutes.setText(formatTimeDuration(totalTimerDuration));
+        totalPauseMinutes.setText(formatTimeDuration(maxPauseDuration - pauseDurationRemainder));
         totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
 
         bambooNum += calcEarnedBamboo();
@@ -501,7 +502,7 @@ public class HomeMain extends AppCompatActivity{
      * @param duration the total amount of time
      */
     public void startTimer(int duration){
-        Toast.makeText(this, "BambooNum: " + bambooNum, Toast.LENGTH_SHORT).show();
+
         //Reset the timer
         resetTimerCountdown();
 

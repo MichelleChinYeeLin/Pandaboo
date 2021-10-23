@@ -8,7 +8,7 @@
     </size>
 
     <solid
-        android:color="@color/paleyellow">
+        android:color="@color/pale_yellow">
     </solid>
 
 </shape>

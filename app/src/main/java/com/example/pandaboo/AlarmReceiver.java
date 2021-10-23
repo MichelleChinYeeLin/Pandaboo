@@ -24,7 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String second_date = intent.getStringExtra("secondDATE");
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notificationReminder")
-                .setSmallIcon(R.mipmap.pandatransparent)
+                .setSmallIcon(R.mipmap.pandaboo_transparent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentTitle(event)
                 .setContentText(start_time + " to " + end_time + ", " + first_date + " to " + second_date)
