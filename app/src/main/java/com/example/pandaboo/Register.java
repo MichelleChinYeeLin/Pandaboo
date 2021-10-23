@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -24,6 +26,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
     TextView mSignInBtn;
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
     FirebaseUser user;
+
+    final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+    DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +105,38 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                             user = fAuth.getCurrentUser();
 
                             Toast.makeText(Register.this,user.getUid(),Toast.LENGTH_SHORT).show();
+                            String userID = user.getUid();
+
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("IsOwned").setValue(false);
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemID").setValue("BambooRoom");
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemName").setValue("Bamboo Room");
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemPrice").setValue(1000);
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/bamboo fortress 2 .png");
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/bamboo fortress 1 .png");
+
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("IsOwned").setValue(true);
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemID").setValue("BasicRoom");
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemName").setValue("Basic Room");
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemPrice").setValue(1000);
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/basic room 2 .png");
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/basic room 1 .png");
+
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("IsOwned").setValue(false);
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemID").setValue("JapanRoom");
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemName").setValue("Japan Room");
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemPrice").setValue(1000);
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/jap inn 2 .png");
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/jap inn 1 .png");
+
+                            reference.child(user.getUid()).child("User").child("Bamboo").setValue(0);
+                            reference.child(user.getUid()).child("User").child("EquippedItemRoom").setValue("gs://pandaboodcs.appspot.com/basic room 2 .png");
+                            reference.child(user.getUid()).child("User").child("EquippedItemTimer").setValue("gs://pandaboodcs.appspot.com/basic room 1 .png");
+                            reference.child(user.getUid()).child("User").child("EquippedMusicAudio").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/John-Bartmann-A-Kwela-Fella.mp3?alt=media&token=037d39e4-0c47-4245-b755-c1263f5038b0");
+                            reference.child(user.getUid()).child("User").child("EquippedMusicID").setValue("Jazz1");
 
                             //go to home page
                             Intent toHome = new Intent(this, HomeMain.class);
+                            toHome.putExtra("userID", user.getUid());
                             startActivity(toHome);
                         }else{
 
