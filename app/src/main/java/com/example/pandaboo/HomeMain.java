@@ -201,7 +201,7 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
                 startActivity(toPlanner);
                 break;
             case R.id.tasksButton:
-                Intent toTasks = new Intent(this, Task.class);
+                Intent toTasks = new Intent(this, TaskView.class);
                 startActivity(toTasks);
                 break;
             case R.id.settingsButton:
