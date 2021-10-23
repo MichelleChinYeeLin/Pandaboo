@@ -98,6 +98,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                         if(task.isSuccessful()){
                             user = fAuth.getCurrentUser();
 
+                            Toast.makeText(Register.this,user.getUid(),Toast.LENGTH_SHORT).show();
+
                             //go to home page
                             Intent toHome = new Intent(this, HomeMain.class);
                             startActivity(toHome);

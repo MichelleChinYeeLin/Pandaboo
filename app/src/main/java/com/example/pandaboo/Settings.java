@@ -51,7 +51,7 @@ public class Settings extends AppCompatActivity {
         //Display the credits
         creditsButton.setOnClickListener(v -> showCredits());
 
-        //logout user
+        //Logout user
         logoutButton.setOnClickListener(v -> logout());
 
         //Retrieve data from Firebase
