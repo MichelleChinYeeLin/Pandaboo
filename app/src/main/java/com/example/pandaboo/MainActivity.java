@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (user != null) {
             //go to main page
             Intent toHome = new Intent(this, HomeMain.class);
+            toHome.putExtra("userID", user.getUid());
             startActivity(toHome);
         }
     }
@@ -112,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //check is login successful
                         if(task.isSuccessful()){
                             user = auth.getCurrentUser(); //get user info
+                            System.out.println(user.getUid());
                             Intent toHome = new Intent(MainActivity.this, HomeMain.class);
+                            toHome.putExtra("userID", user.getUid());
                             startActivity(toHome); // go to main page
                         }else{
                             //display error

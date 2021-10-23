@@ -21,7 +21,7 @@ public class Panda extends AppCompatActivity {
 
     //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
-    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference();
+    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(HomeMain.userID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class Panda extends AppCompatActivity {
         Button backButton = findViewById(R.id.backButton);
 
         //Retrieve data from Firebase
-        DatabaseReference userReference = reference.child("admin");
+        DatabaseReference userReference = reference;
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

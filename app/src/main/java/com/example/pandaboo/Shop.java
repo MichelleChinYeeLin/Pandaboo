@@ -26,7 +26,7 @@ public class Shop extends AppCompatActivity{
 
     //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
-    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference();
+    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(HomeMain.userID);
 
     //Initialization of variable to store items in arraylist
     private ArrayList<Item> itemArrayList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Shop extends AppCompatActivity{
         backButton.setOnClickListener(v -> finish());
 
         //Retrieve data from Firebase
-        DatabaseReference userReference = reference.child("admin").child("User");
+        DatabaseReference userReference = reference.child("User");
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,7 +67,7 @@ public class Shop extends AppCompatActivity{
         });
 
         //
-        DatabaseReference itemReference = reference.child("admin").child("Item");
+        DatabaseReference itemReference = reference.child("Item");
         itemReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -152,7 +152,7 @@ public class Shop extends AppCompatActivity{
                 bambooNum -= item.getItemPrice();
 
                 //Edit the values in the database
-                DatabaseReference userReference = reference.child("admin");
+                DatabaseReference userReference = reference;
                 userReference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
                 userReference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
                 userReference.child("User").child("Bamboo").setValue(bambooNum);
@@ -199,7 +199,7 @@ public class Shop extends AppCompatActivity{
         equipYes.setOnClickListener(v -> {
 
             //Edit the values in the database
-            DatabaseReference userReference = reference.child("admin");
+            DatabaseReference userReference = reference;
             userReference.child("User").child("EquippedItemRoom").setValue(item.getItemRoomImage());
             userReference.child("User").child("EquippedItemTimer").setValue(item.getItemTimerImage());
 

@@ -57,7 +57,7 @@ public class PlannerView extends AppCompatActivity {
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
     DatabaseReference reff;
-    DatabaseReference reminder;
+    //DatabaseReference reminder;
 
     Button backButton;
     ImageButton nextButton;
@@ -84,8 +84,8 @@ public class PlannerView extends AppCompatActivity {
 
         createNotificationChannel();
 
-        reff = FirebaseDatabase.getInstance().getReference();
-        reminder = FirebaseDatabase.getInstance().getReference();
+        reff = FirebaseDatabase.getInstance().getReference().child(HomeMain.userID).child("Event");
+        //reminder = FirebaseDatabase.getInstance().getReference();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("planner_notification", "planner_notification", NotificationManager.IMPORTANCE_HIGH);
@@ -369,7 +369,7 @@ public class PlannerView extends AppCompatActivity {
 
     //wut the saveButton does
     private void SaveEvent(String event, String details, String startTime, String endTime, String date1, String date2, String notify) {
-        reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+        //reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
         Event events = new Event(event, details, startTime, endTime, date1, date2, notify);
 
         reff.push().setValue(events);
@@ -563,7 +563,7 @@ public class PlannerView extends AppCompatActivity {
                 monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
+            //reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
             reff.addValueEventListener(new ValueEventListener() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 @Override

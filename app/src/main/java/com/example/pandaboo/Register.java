@@ -111,28 +111,29 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                             reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemID").setValue("BambooRoom");
                             reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemName").setValue("Bamboo Room");
                             reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemPrice").setValue(1000);
-                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/bamboo fortress 2 .png");
-                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/bamboo fortress 1 .png");
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemRoomImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/bamboo%20fortress%202%20.png?alt=media&token=5cf10b2c-dc0b-4d5e-aabb-eabb7129bb28");
+                            reference.child(user.getUid()).child("Item").child("BambooRoom").child("ItemTimerImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/bamboo%20fortress%201%20.png?alt=media&token=73719eee-cf53-4469-ac32-e85730ee8225");
 
                             reference.child(user.getUid()).child("Item").child("BasicRoom").child("IsOwned").setValue(true);
                             reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemID").setValue("BasicRoom");
                             reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemName").setValue("Basic Room");
                             reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemPrice").setValue(1000);
-                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/basic room 2 .png");
-                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/basic room 1 .png");
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemRoomImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/basic%20room%202%20.png?alt=media&token=67aa1416-67a4-49e8-bc5f-840a8a301648");
+                            reference.child(user.getUid()).child("Item").child("BasicRoom").child("ItemTimerImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/basic%20room%201%20.png?alt=media&token=79e17f36-5c6e-492c-a9a1-8316e2ed2cfb");
 
                             reference.child(user.getUid()).child("Item").child("JapanRoom").child("IsOwned").setValue(false);
                             reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemID").setValue("JapanRoom");
                             reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemName").setValue("Japan Room");
                             reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemPrice").setValue(1000);
-                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemRoomImage").setValue("gs://pandaboodcs.appspot.com/jap inn 2 .png");
-                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemTimerImage").setValue("gs://pandaboodcs.appspot.com/jap inn 1 .png");
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemRoomImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/jap%20inn%202%20.png?alt=media&token=ca7e2d8d-b1a9-46b5-9cb4-9ad2f30d5acc");
+                            reference.child(user.getUid()).child("Item").child("JapanRoom").child("ItemTimerImage").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/jap%20inn%201%20.png?alt=media&token=84806082-d901-4c13-809b-536d443990ac");
 
                             reference.child(user.getUid()).child("User").child("Bamboo").setValue(0);
-                            reference.child(user.getUid()).child("User").child("EquippedItemRoom").setValue("gs://pandaboodcs.appspot.com/basic room 2 .png");
-                            reference.child(user.getUid()).child("User").child("EquippedItemTimer").setValue("gs://pandaboodcs.appspot.com/basic room 1 .png");
+                            reference.child(user.getUid()).child("User").child("EquippedItemRoom").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/basic%20room%202%20.png?alt=media&token=67aa1416-67a4-49e8-bc5f-840a8a301648");
+                            reference.child(user.getUid()).child("User").child("EquippedItemTimer").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/basic%20room%201%20.png?alt=media&token=79e17f36-5c6e-492c-a9a1-8316e2ed2cfb");
                             reference.child(user.getUid()).child("User").child("EquippedMusicAudio").setValue("https://firebasestorage.googleapis.com/v0/b/pandaboodcs.appspot.com/o/John-Bartmann-A-Kwela-Fella.mp3?alt=media&token=037d39e4-0c47-4245-b755-c1263f5038b0");
                             reference.child(user.getUid()).child("User").child("EquippedMusicID").setValue("Jazz1");
+                            reference.child(user.getUid()).child("User").child("UserID").setValue(user.getUid());
 
                             //go to home page
                             Intent toHome = new Intent(this, HomeMain.class);

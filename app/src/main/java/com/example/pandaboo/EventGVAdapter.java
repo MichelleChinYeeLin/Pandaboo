@@ -52,9 +52,9 @@ public class EventGVAdapter extends ArrayAdapter<Event> {
     private String notify;
     AlertDialog alertDialog;
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app/";
-    DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("admin").child("Event");
-    DatabaseReference userReference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("Event");
+    DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child(HomeMain.userID).child("Event");
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(HomeMain.userID).child("Event");
+    DatabaseReference userReference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(HomeMain.userID).child("Event");
 
     public EventGVAdapter(@NonNull Context context, ArrayList<Event> eventArrayList){
         super(context, 0, eventArrayList);

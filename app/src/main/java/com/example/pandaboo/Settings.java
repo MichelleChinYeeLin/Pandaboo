@@ -55,7 +55,7 @@ public class Settings extends AppCompatActivity {
         logoutButton.setOnClickListener(v -> logout());
 
         //Retrieve data from Firebase
-        DatabaseReference userReference = reference.child("admin");
+        /*DatabaseReference userReference = reference.child(HomeMain.userID);
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,7 +68,7 @@ public class Settings extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(Settings.this, "Unable to connected to database. Please try again. Error: " + error, Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
     }
 
     /**
@@ -99,7 +99,7 @@ public class Settings extends AppCompatActivity {
         GridView musicGridView = dialog.findViewById(R.id.musicGridView);
 
         //Retrieve data from Firebase
-        DatabaseReference userReference = reference.child("admin").child("User");
+        DatabaseReference userReference = reference.child(HomeMain.userID).child("User");
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

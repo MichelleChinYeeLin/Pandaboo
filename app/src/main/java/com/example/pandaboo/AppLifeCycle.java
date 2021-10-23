@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 public class AppLifeCycle extends Application implements Application.ActivityLifecycleCallbacks {
 
     private int activityReferences = 0;
-    //private boolean isActivityChangingConfigurations = false;
 
     @Override
     public void onCreate(){

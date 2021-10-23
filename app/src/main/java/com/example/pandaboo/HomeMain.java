@@ -38,8 +38,11 @@ public class HomeMain extends AppCompatActivity{
     private static boolean isLeavingApp = false;
     public static Context currentContext;
 
+    public static String userID = "";
+
     //Constant variable for the URL of the database
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
+    DatabaseReference reference;
 
     //Initialization of variables to display the number of bamboo (currency)
     private TextView bambooCurrency;
@@ -84,6 +87,11 @@ public class HomeMain extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_main);
+
+        Intent intent = getIntent();
+        userID = intent.getStringExtra("userID");
+
+         reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(userID);
 
         isOngoingTimer = false;
         currentContext = this;
@@ -167,7 +175,6 @@ public class HomeMain extends AppCompatActivity{
         bambooCurrency = findViewById(R.id.bambooNumber);
 
         //Retrieve data from Firebase
-        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -423,7 +430,6 @@ public class HomeMain extends AppCompatActivity{
         totalBambooEarned.setText(String.valueOf(calcEarnedBamboo()));
 
         bambooNum += calcEarnedBamboo();
-        DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin");
         reference.child("User").child("Bamboo").setValue(bambooNum);
 
         //Reset the timer countdown

@@ -22,8 +22,7 @@ import java.util.ArrayList;
 public class TaskView extends AppCompatActivity {
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
-    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child("admin").child("Task");
-    //public static String userName = "admin";
+    final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(HomeMain.userID).child("Task");
 
     private ArrayList<Task> taskArrayList = new ArrayList<>();
 
