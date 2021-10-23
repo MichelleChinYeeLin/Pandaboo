@@ -56,4 +56,8 @@ public class Task extends AppCompatActivity {
 
         subTask.add(newSubTask);
     }
+
+    public int getSubTaskArraySize(){
+        return subTask.size();
+    }
 }

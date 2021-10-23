@@ -9,7 +9,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:background="@color/olivegreen">
 
         <TextView
             android:id="@+id/subTaskTitle"
@@ -21,51 +23,21 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:textColor="@color/black"
-            android:textSize="20sp">
+            android:textSize="15sp">
         </TextView>
 
-        <RelativeLayout
-            android:id="@+id/dueDateArea"
+        <TextView
+            android:id="@+id/dueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/subTaskTitle"
-            android:layout_toEndOf="@+id/subTaskTitle"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp">
-
-            <TextView
-                android:id="@+id/dueDateDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black">
-            </TextView>
-
-            <TextView
-                android:id="@+id/dueDateSeparator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/dueDateDay"
-                android:layout_toEndOf="@+id/dueDateDay"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="@string/due_date_separator"
-                android:textSize="20sp"
-                android:textColor="@color/black">
-            </TextView>
-
-            <TextView
-                android:id="@+id/dueDateMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/dueDateSeparator"
-                android:layout_toEndOf="@+id/dueDateSeparator"
-                android:textSize="20sp"
-                android:textColor="@color/black">
-            </TextView>
-
-        </RelativeLayout>
+            android:layout_below="@+id/subTaskTitle"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:textColor="@color/black"
+            android:textSize="15sp">
+        </TextView>
 
         <CheckBox
             android:id="@+id/taskCheckBox"

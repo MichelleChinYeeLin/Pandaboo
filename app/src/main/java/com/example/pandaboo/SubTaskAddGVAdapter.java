@@ -62,6 +62,14 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         EditText subTaskTitleText = listitemView.findViewById(R.id.subTaskTitle);
         Button saveSubTaskButton = listitemView.findViewById(R.id.saveSubTaskButton);
 
+        saveSubTaskButton.setTag(position + "");
+        subTaskTitleText.setTag("Text" + position);
+        prioritySpinner.setTag("Priority" + position);
+        dueDateText.setTag("DueDate" + position);
+        //subTaskTitleText.setTag(Integer.valueOf(position));
+        //prioritySpinner.setTag(Integer.valueOf(position));
+        //dueDateText.setTag(Integer.valueOf(position));
+
         subTaskTitleText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,19 +129,29 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         saveSubTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSubTask();
+                String pos = (String)saveSubTaskButton.getTag();
+
+                TextView subTaskTitleText = convertView.findViewWithTag("Text" + pos);
+                subTaskTitle = subTaskTitleText.getText().toString();
+
+                Spinner prioritySpinner = convertView.findViewWithTag("Priority" + pos);
+                priority = prioritySpinner.getSelectedItem().toString();
+
+                TextView dueDateText = convertView.findViewWithTag("DueDate" + pos);
+                dueDate = dueDateText.getText().toString();
+
+                SubTask subTask = new SubTask(subTaskTitle, dueDate, priority);
+                subTaskArrayList.add(subTask);
+
+                System.out.println("Saved");
             }
         });
 
         return listitemView;
     }
 
-    public void saveSubTask(){
-        SubTask subTask = new SubTask(subTaskTitle, dueDate, priority);
-        subTaskArrayList.add(subTask);
-    }
-
     public ArrayList<SubTask> getSubTask(){
+        System.out.println("Size: " + subTaskArrayList.size());
         return subTaskArrayList;
     }
 }

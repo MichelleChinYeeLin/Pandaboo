@@ -23,6 +23,17 @@
             android:textSize="25sp">
         </TextView>
 
+        <TextView
+            android:id="@+id/taskDueDate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/taskMainTitle"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
         <CheckBox
             android:id="@+id/taskCheckBox"
             android:layout_width="40dp"
@@ -51,9 +62,9 @@
             android:id="@+id/subTaskGridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/taskMainTitle"
-            android:paddingVertical="20dp"
+            android:layout_below="@+id/taskDueDate"
             android:numColumns="1"
+            android:paddingVertical="20dp"
             android:verticalSpacing="10dp">
         </GridView>
 

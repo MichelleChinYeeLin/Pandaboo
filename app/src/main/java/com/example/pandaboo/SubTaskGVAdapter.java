@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,29 @@ public class SubTaskGVAdapter extends ArrayAdapter<SubTask> {
         View listitemView = convertView;
         if (listitemView == null) {
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.task_subtask_card, parent, false);
+        }
+
+        SubTask subTask = getItem(position);
+        String priority = subTask.getPriority();
+
+        TextView subTaskTitleText = listitemView.findViewById(R.id.subTaskTitle);
+        TextView dueDateText = listitemView.findViewById(R.id.dueDate);
+
+        subTaskTitleText.setText(subTask.getSubTitle());
+        dueDateText.setText("Due Date: " + subTask.getDueDate());
+
+        if (priority.equals("High"))
+        {
+            subTaskTitleText.setBackgroundResource(R.color.ashrose);
+        }
+
+        else if (priority.equals("Medium"))
+        {
+            subTaskTitleText.setBackgroundResource(R.color.pale_yellow);
+        }
+
+        else {
+            subTaskTitleText.setBackgroundResource(R.color.light_blue);
         }
 
         return listitemView;

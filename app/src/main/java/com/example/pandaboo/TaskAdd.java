@@ -38,7 +38,9 @@ public class TaskAdd extends AppCompatActivity {
     private String taskMainTitle = "";
     private String dueDate = "";
     private String priority = "";
-    EditText taskMainTitleText;
+    private EditText taskMainTitleText;
+
+    private int subTaskCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +52,17 @@ public class TaskAdd extends AppCompatActivity {
         taskMainTitleText = findViewById(R.id.taskMainTitle);
         Button deleteButton = findViewById(R.id.deleteButton);
         Button saveButton = findViewById(R.id.saveButton);
+        Button backButton = findViewById(R.id.backButton);
         ImageButton setDueDate = findViewById(R.id.setDueDateButton);
         Spinner prioritySpinner = findViewById(R.id.prioritySpinner);
 
         SubTaskAddGVAdapter adapter = new SubTaskAddGVAdapter(TaskAdd.this, integerArraylist);
+
         addSubTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                subTaskCounter++;
+
                 RelativeLayout area = findViewById(R.id.taskMainInfoArea);
                 TextView setDueDateText = findViewById(R.id.dueDateText);
                 TextView setPriorityText = findViewById(R.id.priorityText);
@@ -70,6 +76,13 @@ public class TaskAdd extends AppCompatActivity {
                 integerArraylist.add(integerArraylist.size() + 1);
 
                 subTaskGridView.setAdapter(adapter);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -112,41 +125,27 @@ public class TaskAdd extends AppCompatActivity {
 
     public void saveTask(SubTaskAddGVAdapter adapter){
 
-        taskMainTitleText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        taskMainTitle = taskMainTitleText.getText().toString();
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                taskMainTitle = taskMainTitleText.getText().toString();
-            }
-        });
-
-        Task task;
         subTaskArrayList = adapter.getSubTask();
 
         if (subTaskArrayList.size() > 0){
-            task = new Task(taskMainTitle);
+            reference.child("Task").child(taskMainTitle).child("TaskName").setValue(taskMainTitle);
+
             for (SubTask subTask : subTaskArrayList){
-                System.out.println(subTask.getSubTitle());
-                System.out.println(subTask.getDueDate());
-                System.out.println(subTask.getPriority());
-                task.addSubTask(subTask.getSubTitle(), subTask.getDueDate(), subTask.getPriority());
+                reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskName").setValue(subTask.getSubTitle());
+                reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskDueDate").setValue(subTask.getDueDate());
+                reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskPriority").setValue(subTask.getPriority());
             }
         }
 
         else {
-            task = new Task(taskMainTitle, dueDate, priority);
+            reference.child("Task").child(taskMainTitle).child("TaskName").setValue(taskMainTitle);
+            reference.child("Task").child(taskMainTitle).child("TaskDueDate").setValue(dueDate);
+            reference.child("Task").child(taskMainTitle).child("TaskPriority").setValue(priority);
         }
-        reference.child("Task").push().setValue(task);
-        System.out.println("Success");
+
+        finish();
     }
 
     public void showCalendar(){
