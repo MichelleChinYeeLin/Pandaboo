@@ -22,8 +22,16 @@
         <activity android:name=".Shop"></activity>
         <activity android:name=".Settings"></activity>
         <activity android:name=".TaskView"></activity>
-        <activity android:name=".Planner"></activity>
         <activity android:name=".TaskAdd"></activity>
+        <activity android:name=".Task"></activity>
+        <activity android:name=".PlannerView"></activity>
+        <activity android:name=".EventAdd"></activity>
+
+        <receiver android:name=".AlarmReceiver"
+            android:exported="true"
+            android:enabled="true">
+
+        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-public class HomeMain extends AppCompatActivity implements View.OnClickListener{
+public class HomeMain extends AppCompatActivity{
 
     private static boolean isOngoingTimer;
     private static boolean isLeavingApp = false;
@@ -101,11 +101,36 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         Button settingsButton = findViewById(R.id.settingsButton);
         ImageButton musicButton = findViewById(R.id.musicButton);
 
-        pandaButton.setOnClickListener(this);
-        shopButton.setOnClickListener(this);
-        plannerButton.setOnClickListener(this);
-        tasksButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
+        pandaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Panda.class));
+            }
+        });
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Shop.class));
+            }
+        });
+        plannerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, PlannerView.class));
+            }
+        });
+        tasksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Task.class));
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeMain.this, Settings.class));
+            }
+        });
 
         mediaPlayer.setVolume(0, 0);
 
@@ -181,36 +206,6 @@ public class HomeMain extends AppCompatActivity implements View.OnClickListener{
         hours = minutes = seconds = 0;
         isCancelled = isPaused = false;
     }
-
-    /**
-     * Changes the activity based on the button clicked
-     * @param view the view of the layout
-     */
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.pandaButton:
-                Intent toPanda = new Intent(this, Panda.class);
-                startActivity(toPanda);
-                break;
-            case R.id.shopButton:
-                Intent toShop = new Intent(this, Shop.class);
-                startActivity(toShop);
-                break;
-            case R.id.plannerButton:
-                Intent toPlanner = new Intent(this, Planner.class);
-                startActivity(toPlanner);
-                break;
-            case R.id.tasksButton:
-                Intent toTasks = new Intent(this, TaskView.class);
-                startActivity(toTasks);
-                break;
-            case R.id.settingsButton:
-                Intent toSettings = new Intent(this, Settings.class);
-                startActivity(toSettings);
-                break;
-        }
-    }
-
     /**
      * Start the ongoingTimer fragment and replace the current fragment
      */
