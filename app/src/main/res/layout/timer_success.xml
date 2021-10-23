@@ -71,7 +71,7 @@
             android:layout_below="@+id/totalStudyMinutesText"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:textColor="@color/black"
+            android:textColor="@color/black">
             android:textSize="20sp"></TextView>
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="@string/pause_minutes_text"
-            android:textColor="@color/black"
+            android:textColor="@color/black">
             android:textSize="20sp"></TextView>
 
         <TextView

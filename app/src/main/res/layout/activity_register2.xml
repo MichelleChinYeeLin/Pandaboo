@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Register"
     android:background="@color/airforceblue">
 
     <ImageView
@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
-        android:text="@string/sign_in_to_your_account_text"
-        android:id="@id/signInText"
+        android:text="@string/register_new_account_text"
+        android:id="@id/registerText"
         android:layout_marginTop="5dp"
         android:textSize="20sp"
         android:layout_below="@id/loginText">
@@ -55,12 +55,12 @@
         android:id="@+id/inputArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signInText"
+        android:layout_below="@+id/registerText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp">
 
         <RelativeLayout
-            android:id="@+id/userNameArea"
+            android:id="@+id/EmailArea"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -68,25 +68,25 @@
             android:paddingRight="5dp">
 
             <ImageView
-                android:id="@+id/userNameIcon"
+                android:id="@+id/EmailIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:contentDescription="@string/username_icon"
+                android:contentDescription="@string/email_text"
                 android:src="@drawable/ic_baseline_email"
                 app:tint="@color/black"/>
 
             <EditText
-                android:id="@+id/loginEmail"
+                android:id="@+id/registerEmail"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
-                android:layout_toEndOf="@+id/userNameIcon"
-                android:layout_toRightOf="@+id/userNameIcon"
+                android:layout_toEndOf="@+id/EmailIcon"
+                android:layout_toRightOf="@+id/EmailIcon"
                 android:autofillHints="username"
                 android:hint="@string/email"
                 android:inputType="text|textEmailAddress"
@@ -96,17 +96,17 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/passwordArea"
+            android:id="@+id/registerpasswordArea"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_below="@+id/userNameArea"
+            android:layout_below="@+id/EmailArea"
             android:layout_marginTop="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
 
             <ImageView
-                android:id="@+id/passwordIcon"
+                android:id="@+id/registerPasswordIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
@@ -117,14 +117,14 @@
                 app:tint="@color/black"/>
 
             <EditText
-                android:id="@+id/loginPassword"
+                android:id="@+id/registerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
-                android:layout_toEndOf="@+id/passwordIcon"
-                android:layout_toRightOf="@+id/passwordIcon"
+                android:layout_toEndOf="@+id/registerPasswordIcon"
+                android:layout_toRightOf="@+id/registerPasswordIcon"
                 android:autofillHints="password"
                 android:hint="@string/password_text"
                 android:inputType="textPassword"
@@ -136,61 +136,151 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/SignupButton"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_below="@id/inputArea"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/login_border"
-        android:text="@string/login_text"
+        android:text="@string/signup_text"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <RelativeLayout
-        android:id="@+id/resetPasswordArea"
+        android:id="@+id/haveAccountArea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginButton"
+        android:layout_below="@+id/SignupButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp">
 
         <TextView
-            android:id="@+id/forgotPasswordText"
+            android:id="@+id/registerForgotPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/i_forgot_my_password_text"
+            android:text="@string/i_have_an_account"
             android:textColor="@color/white"
             android:textSize="15sp"
             tools:ignore="TextContrastCheck" />
 
         <TextView
-            android:id="@+id/clickResetLink"
+            android:id="@+id/clickSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/forgotPasswordText"
-            android:layout_toRightOf="@+id/forgotPasswordText"
-            android:text="@string/click_here_to_reset_text"
+            android:layout_toEndOf="@+id/registerForgotPasswordText"
+            android:layout_toRightOf="@+id/registerForgotPasswordText"
+            android:clickable="true"
+            android:text="@string/click_here_to_sign_in"
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:ignore="TouchTargetSizeCheck" />
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/registerUserBtn"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/resetPasswordArea"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/whiteborder"
-        android:paddingStart="24dp"
-        android:paddingLeft="24dp"
-        android:paddingEnd="24dp"
-        android:text="@string/register_new_account_text"
-        tools:ignore="TextContrastCheck" />
+
 
 </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@
     <string name="password_icon">Password Icon</string>
     <string name="password_text">Password</string>
     <string name="i_forgot_my_password_text">I forgot my password.</string>
-    <string name="click_here_to_reset_text">Click here to reset.</string>
+    <string name="click_here_to_reset_text"> Click here to reset.</string>
     <string name="register_new_account_text">Register New Account</string>
     <string name="start_button">START</string>
     <string name="music_icon">Music Icon(Not Muted)</string>
@@ -93,4 +93,11 @@
     <string name="sun">Sun</string>
     <string name="to_text">to</string>
     <string name="edit_button_text">Edit Button</string>
+    <string name="email">Email</string>
+    <string name="register_text">Register</string>
+    <string name="i_have_an_account">I have an account. </string>
+    <string name="click_here_to_sign_in"> Click here to sign in</string>
+    <string name="signup_text">Sign up</string>
+    <string name="email_text">Email</string>
+    <string name="reset_password">reset password</string>
 </resources>
