@@ -79,4 +79,10 @@
     <string name="music_description">Series of mixes that loops for your study sessions</string>
     <string name="music_equipped_text">(Equipped)</string>
     <string name="shop_skin_owned">Owned</string>
+    <string name="due_date_separator">.</string>
+    <string-array name="priority_text">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
 </resources>
