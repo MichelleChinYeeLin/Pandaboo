@@ -56,8 +56,6 @@ public class TaskView extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
-        taskArrayList.clear();
-
         showTasks();
     }
 
@@ -65,11 +63,11 @@ public class TaskView extends AppCompatActivity {
 
         GridView taskGridView = findViewById(R.id.taskGridView);
 
-        taskArrayList.clear();
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                taskArrayList.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
