@@ -20,21 +20,30 @@
         android:textSize="25sp">
     </TextView>
 
-    <!-- Insert panda image HERE -->
-    <ImageView
-        android:id="@+id/failedTimerImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/failedTimerText"
+    <RelativeLayout
+        android:id="@+id/ImageHolder"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/failedTimerText"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/failed_timer_image_text">
-    </ImageView>
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/pandaCelebrate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/panda_crying_text"
+            android:src="@drawable/panda_crying">
+        </ImageView>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/totalStudyMinutesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/failedTimerImage"
+        android:layout_below="@+id/ImageHolder"
         android:text="@string/study_minutes_text"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"

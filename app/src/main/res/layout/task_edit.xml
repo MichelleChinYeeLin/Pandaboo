@@ -28,8 +28,7 @@
             android:background="@color/pale_yellow"
             android:text="@string/back"
             android:textColor="@color/black"
-            android:textSize="15sp">
-        </Button>
+            android:textSize="15sp"></Button>
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,8 +75,7 @@
                 android:inputType="text"
                 android:paddingVertical="5dp"
                 android:textColor="@color/black"
-                android:textSize="25sp">
-            </EditText>
+                android:textSize="25sp"></EditText>
 
         </RelativeLayout>
 
@@ -125,8 +123,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
                     android:textColor="@color/black"
-                    android:textSize="15sp">
-                </TextView>
+                    android:textSize="15sp"></TextView>
 
             </RelativeLayout>
 
@@ -152,11 +149,10 @@
                     android:id="@+id/prioritySpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/priorityText"
-                    android:layout_toEndOf="@+id/priorityText"
                     android:layout_centerVertical="true"
-                    android:spinnerMode="dropdown">
-                </Spinner>
+                    android:layout_toEndOf="@+id/priorityText"
+                    android:layout_toRightOf="@+id/priorityText"
+                    android:spinnerMode="dropdown"></Spinner>
 
             </RelativeLayout>
 

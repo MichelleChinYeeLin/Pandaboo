@@ -1,8 +1,11 @@
 package com.example.pandaboo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class SubTask {
+public class SubTask implements Parcelable {
 
     private String subTitle;
     private String dueDate;
@@ -22,6 +25,24 @@ public class SubTask {
         this.priority = priority;
     }
 
+    protected SubTask(Parcel in) {
+        subTitle = in.readString();
+        dueDate = in.readString();
+        priority = in.readString();
+    }
+
+    public static final Creator<SubTask> CREATOR = new Creator<SubTask>() {
+        @Override
+        public SubTask createFromParcel(Parcel in) {
+            return new SubTask(in);
+        }
+
+        @Override
+        public SubTask[] newArray(int size) {
+            return new SubTask[size];
+        }
+    };
+
     //Getters
     public String getSubTitle(){return subTitle;}
     public String getDueDate(){return dueDate;}
@@ -31,4 +52,16 @@ public class SubTask {
     public void setSubTitle(String subTitle){this.subTitle = subTitle;}
     public void setDueDate(String dueDate){this.dueDate = dueDate;}
     public void setPriority(String priority){this.priority = priority;}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(subTitle);
+        dest.writeString(dueDate);
+        dest.writeString(priority);
+    }
 }

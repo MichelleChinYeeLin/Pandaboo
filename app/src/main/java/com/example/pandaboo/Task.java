@@ -1,24 +1,20 @@
 package com.example.pandaboo;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task extends AppCompatActivity {
+public class Task implements Parcelable {
 
     private String mainTitle;
     private String dueDate;
     private String priority;
     private ArrayList<SubTask> subTask = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.task);
-    }
 
     //Default Constructor (No subTask added)
     public Task(){
@@ -40,6 +36,24 @@ public class Task extends AppCompatActivity {
         this.mainTitle = mainTitle;
     }
 
+    protected Task(Parcel in) {
+        mainTitle = in.readString();
+        dueDate = in.readString();
+        priority = in.readString();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
     //Getters
     public String getMainTitle(){return mainTitle;}
     public String getDueDate(){return dueDate;}
@@ -59,5 +73,17 @@ public class Task extends AppCompatActivity {
 
     public int getSubTaskArraySize(){
         return subTask.size();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mainTitle);
+        dest.writeString(dueDate);
+        dest.writeString(priority);
     }
 }

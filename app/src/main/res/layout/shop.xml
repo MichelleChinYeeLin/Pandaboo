@@ -74,11 +74,9 @@
                     android:id="@+id/bambooIcon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/bamboo"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:contentDescription="@string/bamboo_icon">
-                </ImageView>
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@string/bamboo_icon"
+                    android:src="@drawable/bamboo"></ImageView>
 
             </RelativeLayout>
 

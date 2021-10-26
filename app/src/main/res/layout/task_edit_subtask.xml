@@ -43,18 +43,6 @@
                 android:background="@color/pale_orange">
             </EditText>
 
-            <ImageButton
-                android:id="@+id/deleteSubTaskButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/task_delete_subtask_icon">
-            </ImageButton>
-
         </RelativeLayout>
 
         <RelativeLayout

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
+public class SubTaskEditGVAdapter extends ArrayAdapter<SubTask> {
 
     final String firebaseURL = "https://pandaboodcs-default-rtdb.asia-southeast1.firebasedatabase.app";
     final DatabaseReference reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(HomeMain.userID).child("SubTask");
@@ -41,7 +41,7 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
     private ArrayList<SubTask> subTaskArrayList = new ArrayList<>();
 
     //Constructor
-    public SubTaskAddGVAdapter(@NonNull Context context, ArrayList<Integer> arrayList){
+    public SubTaskEditGVAdapter(@NonNull Context context, ArrayList<SubTask> arrayList){
         super(context, 0, arrayList);
     }
 
@@ -54,7 +54,7 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.task_edit_subtask, parent, false);
         }
 
-        Integer number = getItem(position);
+        SubTask subTask = getItem(position);
 
         ImageButton dueDateButton = listitemView.findViewById(R.id.setDueDateButton);
         TextView dueDateText = listitemView.findViewById(R.id.dueDate);
@@ -62,13 +62,13 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         EditText subTaskTitleText = listitemView.findViewById(R.id.subTaskTitle);
         Button saveSubTaskButton = listitemView.findViewById(R.id.saveSubTaskButton);
 
+        subTaskTitleText.setText(subTask.getSubTitle());
+        dueDateText.setText(subTask.getDueDate());
+
         saveSubTaskButton.setTag(position + "");
         subTaskTitleText.setTag("Text" + position);
         prioritySpinner.setTag("Priority" + position);
         dueDateText.setTag("DueDate" + position);
-        //subTaskTitleText.setTag(Integer.valueOf(position));
-        //prioritySpinner.setTag(Integer.valueOf(position));
-        //dueDateText.setTag(Integer.valueOf(position));
 
         subTaskTitleText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,6 +114,8 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(getContext(), R.array.priority_text, android.R.layout.simple_spinner_item);
         prioritySpinner.setAdapter(staticAdapter);
 
+        prioritySpinner.setSelection(staticAdapter.getPosition(subTask.getPriority()));
+
         prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -155,3 +157,4 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         return subTaskArrayList;
     }
 }
+

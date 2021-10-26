@@ -100,4 +100,5 @@
     <string name="signup_text">Sign up</string>
     <string name="email_text">Email</string>
     <string name="reset_password">reset password</string>
+    <string name="panda_crying_text">Panda Crying</string>
 </resources>
