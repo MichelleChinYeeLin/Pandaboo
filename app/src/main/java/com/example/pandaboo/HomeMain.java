@@ -74,7 +74,7 @@ public class HomeMain extends AppCompatActivity{
     //Initialization of variables to control the timer (cancel/ pause)
     private boolean isCancelled = false;
     public static boolean isPaused = false;
-    private int pauseCounter = 0;
+    private int pauseCounter;
     private int maxPauseDuration = 0;
     private int pauseDurationRemainder = 0;
 
@@ -95,6 +95,7 @@ public class HomeMain extends AppCompatActivity{
 
         isOngoingTimer = false;
         currentContext = this;
+        pauseCounter = 0;
 
         //Assigning the TextView variables to the TextView in home_main.xml for the timer countdown
         timerCountdownHours = findViewById(R.id.timerCountdownHours);
@@ -207,7 +208,6 @@ public class HomeMain extends AppCompatActivity{
         timerCountdownHours.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_HOURS));
         timerCountdownMinutes.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_MINUTES));
         timerCountdownSeconds.setText(timerCountdownFormat(DEFAULT_COUNTDOWN_SECONDS));
-        pauseCounter = 0;
         hours = minutes = seconds = 0;
         isCancelled = isPaused = false;
     }
@@ -368,9 +368,11 @@ public class HomeMain extends AppCompatActivity{
      */
     public int calcMaxPauseDuration(){
 
+        System.out.println(pauseCounter);
         //If the user paused the timer for the first time
         if (pauseCounter <= 1){
             maxPauseDuration = (int) (totalTimerDuration * PAUSE_TIMER_DURATION_PERCENTAGE);
+
             return maxPauseDuration;
         }
 
@@ -587,6 +589,7 @@ public class HomeMain extends AppCompatActivity{
                     //Cancel and reset timer
                     cancel();
                     resetTimerCountdown();
+                    pauseCounter = 0;
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = new MediaPlayer();
@@ -613,6 +616,7 @@ public class HomeMain extends AppCompatActivity{
                 mediaPlayer = new MediaPlayer();
                 isOngoingTimer = false;
 
+                pauseCounter = 0;
                 //Show success dialog box
                 succeededTimer();
             }
