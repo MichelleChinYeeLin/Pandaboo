@@ -75,6 +75,8 @@ public class Settings extends AppCompatActivity {
      * Logout user and redirect user to login page
      */
     private void logout(){
+        HomeMain.isPlayingMusic = false;
+
         FirebaseAuth.getInstance().signOut();
         Intent toLogin = new Intent(this,MainActivity.class);
         startActivity(toLogin);

@@ -158,7 +158,6 @@
 
     </RelativeLayout>
 
-    <!-- TODO: change the background image (programmatically) -->
     <FrameLayout
         android:id="@+id/homeFrame"
         android:layout_width="match_parent"

@@ -155,8 +155,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
         if(v.getId()==R.id.SignupButton) {
             signUp();
         }else if(v.getId()==R.id.clickSignIn){
-            Intent toLogin = new Intent(this, MainActivity.class);
-            startActivity(toLogin);
+            finish();
         }
     }
 

@@ -68,8 +68,7 @@ public class Reset extends AppCompatActivity implements View.OnClickListener, Te
         if(v instanceof Button && v.getId() == R.id.resetButton){
             resetPassword();
         }else if(v instanceof TextView && v.getId() == R.id.clickSignInLink){
-            Intent toLogin = new Intent(this, MainActivity.class);
-            startActivity(toLogin);
+            finish();
         }
     }
 

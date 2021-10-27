@@ -66,7 +66,7 @@ public class Shop extends AppCompatActivity{
             }
         });
 
-        //
+        //Retrieve data from firebase
         DatabaseReference itemReference = reference.child("Item");
         itemReference.addValueEventListener(new ValueEventListener() {
             @Override

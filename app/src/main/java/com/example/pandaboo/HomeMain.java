@@ -73,15 +73,15 @@ public class HomeMain extends AppCompatActivity{
 
     //Initialization of variables to control the timer (cancel/ pause)
     private boolean isCancelled = false;
-    private boolean isPaused = false;
+    public static boolean isPaused = false;
     private int pauseCounter = 0;
     private int maxPauseDuration = 0;
     private int pauseDurationRemainder = 0;
 
     //Initialization of variables to play music using the media player
-    private boolean isPlayingMusic = false;
+    public static boolean isPlayingMusic = false;
     private String musicAudio = "";
-    MediaPlayer mediaPlayer = new MediaPlayer();
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class HomeMain extends AppCompatActivity{
         Intent intent = getIntent();
         userID = intent.getStringExtra("userID");
 
-         reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(userID);
+        reference = FirebaseDatabase.getInstance(firebaseURL).getReference().child(userID);
 
         isOngoingTimer = false;
         currentContext = this;
@@ -139,8 +139,6 @@ public class HomeMain extends AppCompatActivity{
                 startActivity(new Intent(HomeMain.this, Settings.class));
             }
         });
-
-        mediaPlayer.setVolume(0, 0);
 
         //Mutes or unmutes the media player when clicked
         musicButton.setOnClickListener(v -> {
@@ -654,7 +652,8 @@ public class HomeMain extends AppCompatActivity{
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
 
         if (isOngoingTimer){
             leavingApp();

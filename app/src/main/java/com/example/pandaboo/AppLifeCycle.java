@@ -46,7 +46,7 @@ public class AppLifeCycle extends Application implements Application.ActivityLif
         activityReferences--;
 
 
-        if (activityReferences == 0){
+        if (activityReferences == 0 && HomeMain.isPaused == false){
             int pid = android.os.Process.myPid();
             android.os.Process.killProcess(pid);
         }
