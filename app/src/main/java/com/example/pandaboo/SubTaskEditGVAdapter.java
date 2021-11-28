@@ -145,7 +145,6 @@ public class SubTaskEditGVAdapter extends ArrayAdapter<SubTask> {
 
                 SubTask subTask = new SubTask(subTaskTitle, dueDate, priority);
                 subTaskArrayList.add(subTask);
-                System.out.println(subTask.getSubTitle());
             }
         });
 

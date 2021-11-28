@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -54,10 +56,35 @@ public class TaskGVAdapter extends ArrayAdapter<Task>{
             taskMainTitleText.setText(task.getMainTitle());
             taskDueDateText.setVisibility(View.GONE);
 
-            ArrayList<SubTask> subTaskArrayList = task.getSubTask();
+            LinearLayout subTaskFrame = listitemView.findViewById(R.id.subTaskFrame);
+            subTaskFrame.removeAllViews();
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            ArrayList <SubTask> subTaskArrayList = task.getSubTask();
 
-            SubTaskGVAdapter adapter = new SubTaskGVAdapter(super.getContext(), subTaskArrayList);
-            subTaskGridView.setAdapter(adapter);
+            for (SubTask item: subTaskArrayList) {
+
+                View subTaskView = inflater.inflate(R.layout.task_subtask_card, null);
+                TextView subTaskTitle = subTaskView.findViewById(R.id.subTaskTitle);
+                TextView subTaskDueDate = subTaskView.findViewById(R.id.dueDate);
+
+                subTaskTitle.setText(item.getSubTitle());
+                subTaskDueDate.setText(item.getDueDate());
+
+                if (item.getPriority().equals("High")){
+                    subTaskTitle.setBackgroundResource(R.color.ashrose);
+                }
+
+                else if (item.getPriority().equals("Medium")){
+                    subTaskTitle.setBackgroundResource(R.color.pale_yellow);
+                }
+
+                else {
+                    subTaskTitle.setBackgroundResource(R.color.light_blue);
+                }
+
+                subTaskFrame.addView(subTaskView);
+            }
+
         }
 
         else {

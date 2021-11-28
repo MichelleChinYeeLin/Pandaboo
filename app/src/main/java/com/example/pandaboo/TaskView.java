@@ -63,7 +63,7 @@ public class TaskView extends AppCompatActivity {
 
         GridView taskGridView = findViewById(R.id.taskGridView);
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

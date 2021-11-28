@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,6 +51,7 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View listitemView = convertView;
+
         if (listitemView == null){
             listitemView = LayoutInflater.from(getContext()).inflate(R.layout.task_edit_subtask, parent, false);
         }
@@ -66,6 +68,7 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
         subTaskTitleText.setTag("Text" + position);
         prioritySpinner.setTag("Priority" + position);
         dueDateText.setTag("DueDate" + position);
+        System.out.println(subTaskTitleText.getTag());
         //subTaskTitleText.setTag(Integer.valueOf(position));
         //prioritySpinner.setTag(Integer.valueOf(position));
         //dueDateText.setTag(Integer.valueOf(position));
@@ -143,7 +146,6 @@ public class SubTaskAddGVAdapter extends ArrayAdapter<Integer> {
 
                 SubTask subTask = new SubTask(subTaskTitle, dueDate, priority);
                 subTaskArrayList.add(subTask);
-                System.out.println(subTask.getSubTitle());
             }
         });
 

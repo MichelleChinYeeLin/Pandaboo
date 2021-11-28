@@ -34,14 +34,13 @@
                 android:id="@+id/subTaskTitle"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/subTaskTitleText"
-                android:layout_toEndOf="@+id/subTaskTitleText"
                 android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/subTaskTitleText"
+                android:layout_toRightOf="@+id/subTaskTitleText"
+                android:background="@color/pale_orange"
                 android:paddingVertical="5dp"
-                android:textSize="15sp"
                 android:textColor="@color/black"
-                android:background="@color/pale_orange">
-            </EditText>
+                android:textSize="15sp"></EditText>
 
         </RelativeLayout>
 
@@ -125,15 +124,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/dueDateArea"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
+            android:background="@color/ashrose"
             android:paddingHorizontal="5dp"
-            android:text="Save Subtask"
-            android:background="@color/ashrose">
-        </Button>
+            android:text="Save Subtask"></Button>
 
     </RelativeLayout>
 

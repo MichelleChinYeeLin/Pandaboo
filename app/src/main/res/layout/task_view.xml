@@ -44,8 +44,7 @@
         android:numColumns="1"
         android:paddingHorizontal="10dp"
         android:paddingVertical="20dp"
-        android:verticalSpacing="20dp">
-    </GridView>
+        android:verticalSpacing="20dp"></GridView>
 
     <ImageButton
         android:id="@+id/addButton"

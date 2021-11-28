@@ -23,8 +23,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:textColor="@color/black"
-            android:textSize="15sp">
-        </TextView>
+            android:textSize="15sp"></TextView>
 
         <TextView
             android:id="@+id/dueDate"

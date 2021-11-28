@@ -2,10 +2,12 @@ package com.example.pandaboo;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,6 +52,10 @@ public class TaskAdd extends AppCompatActivity {
     private Task editTask;
     private boolean isEdit;
 
+    private String subTaskTitle = "";
+    private String subTaskDueDate = "";
+    private String subTaskPriority = "";
+
     private int subTaskCounter = 0;
 
     @Override
@@ -77,8 +84,7 @@ public class TaskAdd extends AppCompatActivity {
         TextView setDueDateText = findViewById(R.id.dueDateText);
         TextView setPriorityText = findViewById(R.id.priorityText);
         TextView dueDateText = findViewById(R.id.dueDate);
-
-        SubTaskAddGVAdapter adapter = new SubTaskAddGVAdapter(TaskAdd.this, integerArraylist);
+        LinearLayout subTaskFrame = findViewById(R.id.subTaskFrame);
 
         addSubTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +99,99 @@ public class TaskAdd extends AppCompatActivity {
 
                 integerArraylist.add(integerArraylist.size() + 1);
 
-                subTaskGridView.setAdapter(adapter);
+                //subTaskGridView.setAdapter(adapter);
+                LayoutInflater inflater = (LayoutInflater) (TaskAdd.this).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View subTaskView = inflater.inflate(R.layout.task_edit_subtask, null);
+
+                ImageButton dueDateButton = subTaskView.findViewById(R.id.setDueDateButton);
+                TextView dueDateText = subTaskView.findViewById(R.id.dueDate);
+                Spinner prioritySpinner = subTaskView.findViewById(R.id.prioritySpinner);
+                EditText subTaskTitleText = subTaskView.findViewById(R.id.subTaskTitle);
+                Button saveSubTaskButton = subTaskView.findViewById(R.id.saveSubTaskButton);
+
+                saveSubTaskButton.setTag(integerArraylist.size() + "");
+                subTaskTitleText.setTag("Text" + integerArraylist.size());
+                prioritySpinner.setTag("Priority" + integerArraylist.size());
+                dueDateText.setTag("DueDate" + integerArraylist.size());
+                System.out.println(subTaskTitleText.getTag());
+
+                subTaskTitleText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        subTaskTitle = subTaskTitleText.getText().toString();
+                    }
+                });
+
+                dueDateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), R.style.Theme_AppCompat_DayNight_Dialog, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(Calendar.YEAR, i);
+                                newDate.set(Calendar.MONTH, i1);
+                                newDate.set(Calendar.DAY_OF_MONTH, i2);
+                                SimpleDateFormat d1format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                                String event_Date1 = d1format.format(newDate.getTime());
+                                dueDateText.setText(event_Date1);
+                                dueDate = (dueDateText.getText()).toString();
+                            }
+                        }, year, month, dayOfMonth);
+                        datePickerDialog.show();
+                    }
+                });
+
+                ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(TaskAdd.this, R.array.priority_text, android.R.layout.simple_spinner_item);
+                prioritySpinner.setAdapter(staticAdapter);
+
+                prioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        priority = (parent.getItemAtPosition(position)).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        priority = "High";
+                    }
+                });
+
+                saveSubTaskButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String pos = (String)saveSubTaskButton.getTag();
+
+                        TextView subTaskTitleText = subTaskView.findViewWithTag("Text" + pos);
+                        subTaskTitle = subTaskTitleText.getText().toString();
+
+                        Spinner prioritySpinner = subTaskView.findViewWithTag("Priority" + pos);
+                        priority = prioritySpinner.getSelectedItem().toString();
+
+                        TextView dueDateText = subTaskView.findViewWithTag("DueDate" + pos);
+                        dueDate = dueDateText.getText().toString();
+
+                        SubTask subTask = new SubTask(subTaskTitle, dueDate, priority);
+                        subTaskArrayList.add(subTask);
+                    }
+                });
+
+                subTaskFrame.addView(subTaskView);
             }
         });
 
@@ -116,7 +214,7 @@ public class TaskAdd extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteTask();
-                saveTask(adapter);
+                saveTask();
             }
         });
 
@@ -170,18 +268,14 @@ public class TaskAdd extends AppCompatActivity {
         }
     }
 
-    public void saveTask(SubTaskAddGVAdapter adapter){
+    public void saveTask(){
 
         taskMainTitle = taskMainTitleText.getText().toString();
-
-        subTaskArrayList = adapter.getSubTask();
 
         if (subTaskArrayList.size() > 0){
             reference.child("Task").child(taskMainTitle).child("TaskName").setValue(taskMainTitle);
 
             for (SubTask subTask : subTaskArrayList){
-                System.out.println("entered");
-                System.out.println(subTask.getSubTitle());
                 reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskName").setValue(subTask.getSubTitle());
                 reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskDueDate").setValue(subTask.getDueDate());
                 reference.child("Task").child(taskMainTitle).child("SubTask").child(subTask.getSubTitle()).child("SubTaskPriority").setValue(subTask.getPriority());
